@@ -7,7 +7,7 @@ export function getIndexLayoutHtml(s) {
       title: s.programs[0],
       blurb: 'Warm routines, sensory-rich play, and caring adults who partner closely with families from the very first day.',
       meta0: 'Early years',
-      meta1: '6 mo – 2 yr',
+      meta1: '6 mo – 2 yrs',
       img: '/assets/img/kbis/kbis-02.jpeg',
       alt: 'Creche and youngest learners at KBIS',
     },
@@ -15,7 +15,7 @@ export function getIndexLayoutHtml(s) {
       title: s.programs[1],
       blurb: 'Curiosity-led learning, early literacy and numeracy, and plenty of movement — indoors and out.',
       meta0: 'Nursery',
-      meta1: '2 – 3 yr',
+      meta1: '2 – 3 yrs',
       img: '/assets/img/kbis/kbis-01.jpeg',
       alt: 'Nursery learners at KBIS',
     },
@@ -23,7 +23,7 @@ export function getIndexLayoutHtml(s) {
       title: s.programs[2],
       blurb: 'Structured play, social skills, and gentle preparation for the rhythms of primary.',
       meta0: 'Kindergarten',
-      meta1: '3 – 4 yr',
+      meta1: '3 – 4 yrs',
       img: '/assets/img/kbis/kbis-03.jpeg',
       alt: 'Kindergarten at KBIS',
     },
@@ -31,9 +31,17 @@ export function getIndexLayoutHtml(s) {
       title: s.programs[3],
       blurb: 'A bridge year focused on confidence, independence, and foundational skills across subjects.',
       meta0: 'Reception',
-      meta1: 'Age 4',
+      meta1: '4 yrs',
       img: '/assets/img/kbis/kbis-04.jpeg',
       alt: 'Reception learners at KBIS',
+    },
+    {
+      title: s.programs[4],
+      blurb: 'Project-based learning, literacy depth, and numeracy fluency with strong pastoral support through the primary years.',
+      meta0: 'Primary',
+      meta1: '5 – 10 yrs',
+      img: '/assets/img/kbis/kbis-10.jpeg',
+      alt: 'Primary learners at KBIS',
     },
   ];
 
@@ -119,8 +127,8 @@ export function getIndexLayoutHtml(s) {
         <p>Movement, creativity, and friendship — a full day designed for how young children actually grow.</p>
       </div>
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <div class="row align-items-center g-5 mb-5">
-          <div class="col-lg-5" data-aos="fade-right" data-aos-delay="200">
+        <div class="row align-items-stretch g-5 mb-5 kb-sl-hero-row">
+          <div class="col-lg-5 order-lg-2 kb-sl-media-col" data-aos="fade-left" data-aos-delay="200">
             <div class="hero-image-wrapper">
               <img src="/assets/img/kbis/gallery-02.jpeg" alt="Student life at KBIS" class="img-fluid main-image" loading="lazy">
               <div class="floating-card" data-aos="zoom-in" data-aos-delay="400">
@@ -134,13 +142,13 @@ export function getIndexLayoutHtml(s) {
               </div>
             </div>
           </div>
-          <div class="col-lg-7" data-aos="fade-left" data-aos-delay="300">
+          <div class="col-lg-7 order-lg-1 kb-sl-content-col" data-aos="fade-right" data-aos-delay="300">
             <div class="content-wrapper">
               <div class="section-badge" data-aos="fade-up" data-aos-delay="350">
                 <span>Everyday rhythm</span>
               </div>
-              <h2 data-aos="fade-up" data-aos-delay="400">Play with purpose, learning with joy</h2>
-              <p class="lead-text" data-aos="fade-up" data-aos-delay="450">${s.highlights[0]} Teachers weave language, numeracy, science, and the arts into routines children understand.</p>
+              <h2 data-aos="fade-up" data-aos-delay="400">Play with purpose, learn with joy</h2>
+              <p class="lead-text" data-aos="fade-up" data-aos-delay="450">${s.highlights[0]}. Teachers weave language, numeracy, science, and the arts into routines children understand.</p>
               <div class="info-grid" data-aos="fade-up" data-aos-delay="500">
                 <div class="info-item">
                   <div class="info-icon">

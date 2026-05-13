@@ -25,6 +25,10 @@ export function initTemplateEffects() {
   };
 
   const mobileNavToggle = () => {
+    const headerBottom = header ? Math.round(header.getBoundingClientRect().bottom) : 64;
+    const safeTop = Math.min(headerBottom + 8, Math.max(72, window.innerHeight - 220));
+    document.documentElement.style.setProperty('--kb-mobile-nav-top', `${safeTop}px`);
+
     body.classList.toggle('mobile-nav-active');
     if (mobileNavToggleBtn) {
       mobileNavToggleBtn.classList.toggle('bi-list');
@@ -90,6 +94,11 @@ export function initTemplateEffects() {
   toggleScrollTop();
   window.addEventListener('scroll', toggleScrolled);
   window.addEventListener('scroll', toggleScrollTop);
+  window.addEventListener('resize', () => {
+    const headerBottom = header ? Math.round(header.getBoundingClientRect().bottom) : 64;
+    const safeTop = Math.min(headerBottom + 8, Math.max(72, window.innerHeight - 220));
+    document.documentElement.style.setProperty('--kb-mobile-nav-top', `${safeTop}px`);
+  });
 }
 
 export function initFormHandlers() {

@@ -14,7 +14,7 @@ export const schoolData = {
   principal: 'Ms. Delphina Naa Lomoley Lomotey',
   ages: '6 months – 10 years',
   curriculum: 'Cambridge pathway with English–French bilingual exposure',
-  programs: ['Creche (6 mo – 2 yr)', 'Nursery (2 – 3)', 'Kindergarten (3 – 4)', 'Reception (4)', 'Primary (5 – 10)'],
+  programs: ['Creche (6 mo – 2 yrs)', 'Nursery (2 – 3 yrs)', 'Kindergarten (3 – 4 yrs)', 'Reception (4 yrs)', 'Primary (5 – 10 yrs)'],
   highlights: [
     'Indoor and outdoor play spaces on campus',
     'Rolling admissions throughout the year',

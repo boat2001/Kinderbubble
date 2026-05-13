@@ -74,9 +74,9 @@ function Layout({ children }) {
               width={180}
               height={180}
             />
-            <span className="kb-logo-text ms-2 d-none d-lg-inline-flex flex-column">
+            <span className="kb-logo-text ms-2 d-inline-flex flex-column">
               <span className="sitename">{schoolData.shortName}</span>
-              <small>{schoolData.tagline}</small>
+              <small>International School</small>
             </span>
           </NavLink>
           <nav id="navmenu" className="navmenu">
@@ -133,10 +133,18 @@ function Layout({ children }) {
               </li>
               <li className="kb-nav-cta">
                 <NavLink to="/contact">
-                  <i className="bi bi-chat-heart"></i> Enquire
+                  <i className="bi bi-envelope-paper-heart"></i> Enquire
                 </NavLink>
               </li>
             </ul>
+            <NavLink
+              to="/contact"
+              className="kb-header-enquire-icon d-xl-none"
+              aria-label="Enquire"
+              title="Enquire"
+            >
+              <i className="bi bi-envelope-paper-heart" aria-hidden="true" />
+            </NavLink>
             <i className="mobile-nav-toggle d-xl-none bi bi-list"></i>
           </nav>
         </div>
@@ -231,6 +239,10 @@ function Layout({ children }) {
 
 export default function App() {
   const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [location.pathname]);
 
   useEffect(() => {
     initTemplateEffects();

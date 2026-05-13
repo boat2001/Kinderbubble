@@ -40,6 +40,7 @@ const SLIDES = [
 
 const TYPE_CHAR_MS = 76;
 const HOLD_MS = 3100;
+const HERO_TRANSITIONS = ['fade', 'zoom', 'slide-left', 'slide-up'];
 
 function slideTotal(slide) {
   return slide.prefix.length + slide.highlight.length + slide.suffix.length;
@@ -65,6 +66,7 @@ function visibleParts(typed, slide) {
 export default function HomeHero() {
   const [index, setIndex] = useState(0);
   const [typed, setTyped] = useState(0);
+  const [transition, setTransition] = useState(HERO_TRANSITIONS[0]);
 
   const slide = SLIDES[index];
   const total = slideTotal(slide);
@@ -105,7 +107,7 @@ export default function HomeHero() {
         timeoutId = window.setTimeout(step, TYPE_CHAR_MS);
       } else {
         timeoutId = window.setTimeout(() => {
-          if (!cancelled) setIndex((i) => (i + 1) % SLIDES.length);
+          if (!cancelled) goToSlide((index + 1) % SLIDES.length);
         }, HOLD_MS);
       }
     };
@@ -126,7 +128,7 @@ export default function HomeHero() {
           className={`kb-hero-dot${i === index ? ' is-active' : ''}`}
           aria-label={`Show slide ${i + 1}`}
           aria-current={i === index ? 'true' : undefined}
-          onClick={() => setIndex(i)}
+          onClick={() => goToSlide(i)}
         />
       )),
     [index]
@@ -137,13 +139,46 @@ export default function HomeHero() {
     typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const showCaret = !prefersReducedMotion && typed < total;
 
+  const pickNextTransition = (current) => {
+    const candidates = HERO_TRANSITIONS.filter((item) => item !== current);
+    return candidates[Math.floor(Math.random() * candidates.length)] || HERO_TRANSITIONS[0];
+  };
+
+  const goToSlide = (nextIndex) => {
+    if (!prefersReducedMotion) setTransition((prev) => pickNextTransition(prev));
+    setIndex(nextIndex);
+  };
+
+  const heroMedia = (
+    <div className={`kb-hero-media-frame kb-hero-img-stack kb-transition-${transition}`}>
+      {SLIDES.map((s, i) => (
+        <img
+          key={s.id}
+          src={s.imageSrc}
+          alt={s.imageAlt}
+          className={`img-fluid main-image kb-hero-stack-img${i === index ? ' is-active' : ''}`}
+          width={900}
+          height={720}
+          loading={i === 0 ? 'eager' : 'lazy'}
+          decoding="async"
+        />
+      ))}
+      <div className="kb-hero-badge-wrap" aria-live="polite">
+        <div className="badge-accredited">
+          <i className="bi bi-stars" aria-hidden="true"></i>
+          <span key={slide.badge}>{slide.badge}</span>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <section id="hero" className="hero section kb-hero">
       <div className="hero-wrapper">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6 hero-content" data-aos="fade-right" data-aos-delay="100">
-              <p className="kb-hero-schoolname">{schoolData.legalName}</p>
+              <p className="kb-hero-schoolname">{`${schoolData.legalName} (KBIS)`}</p>
               <h1 className="kb-hero-title" aria-label={fullLine}>
                 <span className="kb-hero-title-static">{p}</span>
                 <span className="kb-hero-title-swap" key={slide.id}>
@@ -152,6 +187,9 @@ export default function HomeHero() {
                 <span className="kb-hero-title-static">{s}</span>
                 {showCaret ? <span className="kb-hero-caret" aria-hidden="true" /> : null}
               </h1>
+              <div className="hero-media d-lg-none" data-aos="zoom-in" data-aos-delay="200">
+                {heroMedia}
+              </div>
               <p className="kb-hero-lead" key={slide.id}>
                 {slide.blurb}
               </p>
@@ -167,27 +205,8 @@ export default function HomeHero() {
                 {dots}
               </div>
             </div>
-            <div className="col-lg-6 hero-media" data-aos="zoom-in" data-aos-delay="200">
-              <div className="kb-hero-media-frame kb-hero-img-stack">
-                {SLIDES.map((s, i) => (
-                  <img
-                    key={s.id}
-                    src={s.imageSrc}
-                    alt={s.imageAlt}
-                    className={`img-fluid main-image kb-hero-stack-img${i === index ? ' is-active' : ''}`}
-                    width={900}
-                    height={720}
-                    loading={i === 0 ? 'eager' : 'lazy'}
-                    decoding="async"
-                  />
-                ))}
-                <div className="kb-hero-badge-wrap" aria-live="polite">
-                  <div className="badge-accredited">
-                    <i className="bi bi-stars" aria-hidden="true"></i>
-                    <span key={slide.badge}>{slide.badge}</span>
-                  </div>
-                </div>
-              </div>
+            <div className="col-lg-6 hero-media d-none d-lg-block" data-aos="zoom-in" data-aos-delay="200">
+              {heroMedia}
             </div>
           </div>
         </div>
