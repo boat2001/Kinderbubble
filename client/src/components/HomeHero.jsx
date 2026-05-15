@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { schoolData } from '../content/schoolData';
 
@@ -8,7 +8,7 @@ const SLIDES = [
     id: 'play',
     prefix: 'Where young minds ',
     highlight: 'bubble',
-    suffix: ' with curiosity, & play with purpose',
+    suffix: ' with curiosity, & play with purpose.',
     blurb:
       'Structured and free play in bright, safe spaces — because joyful children learn best when they feel at home.',
     imageSrc: '/assets/img/kbis/hero-play.jpeg',
@@ -19,7 +19,7 @@ const SLIDES = [
     id: 'learn',
     prefix: '',
     highlight: 'Cambridge-inspired',
-    suffix: ' learning in English and French every day',
+    suffix: ' learning in English and French everyday.',
     blurb: schoolData.curriculum + ', with room for creativity, movement, and everyday discovery.',
     imageSrc: '/assets/img/kbis/hero-learn.jpeg',
     imageAlt: 'Classrooms and discovery at KBIS',
@@ -29,7 +29,7 @@ const SLIDES = [
     id: 'ages',
     prefix: 'Nurturing every stage from ',
     highlight: 'six months to ten years',
-    suffix: ' here',
+    suffix: ' here in Accra.',
     blurb:
       'From creche through primary, one caring team walks with your child as they grow in confidence and character.',
     imageSrc: '/assets/img/kbis/hero-grow.jpeg',
@@ -41,6 +41,11 @@ const SLIDES = [
 const TYPE_CHAR_MS = 76;
 const HOLD_MS = 3100;
 const HERO_TRANSITIONS = ['fade', 'zoom', 'slide-left', 'slide-up'];
+
+const HERO_TITLE_LH = 1.2;
+const HERO_TITLE_MAX_LINES = 3;
+const HERO_TITLE_MIN_PX = 12;
+const HERO_TITLE_MAX_PX = 64;
 
 function slideTotal(slide) {
   return slide.prefix.length + slide.highlight.length + slide.suffix.length;
@@ -63,10 +68,107 @@ function visibleParts(typed, slide) {
   return { p: prefix, h: highlight, s: suffix.slice(0, typed - b) };
 }
 
+/**
+ * Largest font-size (px) so `text` wraps within `maxLines` at `widthPx`, using
+ * typography copied from `sampleTitleEl`.
+ */
+function maxFontPxForLines(measureEl, sampleTitleEl, text, widthPx, maxLines, lineHeightUnitless) {
+  const cs = getComputedStyle(sampleTitleEl);
+  measureEl.style.boxSizing = 'border-box';
+  measureEl.style.width = `${widthPx}px`;
+  measureEl.style.fontFamily = cs.fontFamily;
+  measureEl.style.fontWeight = cs.fontWeight;
+  measureEl.style.fontStyle = cs.fontStyle;
+  measureEl.style.letterSpacing = cs.letterSpacing;
+  measureEl.style.lineHeight = String(lineHeightUnitless);
+  measureEl.style.wordBreak = 'break-word';
+  measureEl.style.overflowWrap = 'anywhere';
+  measureEl.textContent = text;
+
+  const fits = (fontPx) => {
+    measureEl.style.fontSize = `${fontPx}px`;
+    const lhRaw = getComputedStyle(measureEl).lineHeight;
+    let lh = parseFloat(lhRaw);
+    if (Number.isNaN(lh) || lhRaw === 'normal') {
+      lh = fontPx * lineHeightUnitless;
+    }
+    return measureEl.scrollHeight <= lh * maxLines + 1.5;
+  };
+
+  if (!fits(HERO_TITLE_MIN_PX)) return HERO_TITLE_MIN_PX;
+  if (fits(HERO_TITLE_MAX_PX)) return HERO_TITLE_MAX_PX;
+
+  let lo = HERO_TITLE_MIN_PX;
+  let hi = HERO_TITLE_MAX_PX;
+  for (let i = 0; i < 30; i++) {
+    const mid = (lo + hi) / 2;
+    if (fits(mid)) lo = mid;
+    else hi = mid;
+  }
+  return lo;
+}
+
+function useHeroTitleThreeLineFit(titleRef, measureRef) {
+  useLayoutEffect(() => {
+    const titleEl = titleRef.current;
+    const measureEl = measureRef.current;
+    if (!titleEl || !measureEl) return;
+
+    let cancelled = false;
+
+    const run = () => {
+      if (cancelled) return;
+      const cs = getComputedStyle(titleEl);
+      const padX = (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
+      const w = Math.max(0, titleEl.clientWidth - padX);
+      if (w < 48) return;
+
+      const lines = SLIDES.map((s) => slideFullLine(s));
+      let minPx = HERO_TITLE_MAX_PX;
+      for (const line of lines) {
+        minPx = Math.min(
+          minPx,
+          maxFontPxForLines(measureEl, titleEl, line, w, HERO_TITLE_MAX_LINES, HERO_TITLE_LH)
+        );
+      }
+
+      titleEl.style.setProperty('--kb-hero-title-fs', `${minPx}px`);
+      titleEl.style.lineHeight = String(HERO_TITLE_LH);
+    };
+
+    const schedule = () => {
+      requestAnimationFrame(() => {
+        if (!cancelled) run();
+      });
+    };
+
+    schedule();
+    const fontsP = typeof document !== 'undefined' && document.fonts?.ready ? document.fonts.ready : null;
+    if (fontsP && typeof fontsP.then === 'function') {
+      void fontsP.then(() => {
+        if (!cancelled) schedule();
+      });
+    }
+
+    const ro = new ResizeObserver(() => schedule());
+    ro.observe(titleEl);
+    window.addEventListener('resize', schedule);
+    return () => {
+      cancelled = true;
+      ro.disconnect();
+      window.removeEventListener('resize', schedule);
+    };
+  }, []);
+}
+
 export default function HomeHero() {
+  const titleRef = useRef(null);
+  const titleMeasureRef = useRef(null);
   const [index, setIndex] = useState(0);
   const [typed, setTyped] = useState(0);
   const [transition, setTransition] = useState(HERO_TRANSITIONS[0]);
+
+  useHeroTitleThreeLineFit(titleRef, titleMeasureRef);
 
   const slide = SLIDES[index];
   const total = slideTotal(slide);
@@ -177,9 +279,10 @@ export default function HomeHero() {
       <div className="hero-wrapper">
         <div className="container">
           <div className="row align-items-center">
-            <div className="col-lg-6 hero-content" data-aos="fade-right" data-aos-delay="100">
+            <div className="col-lg-6 hero-content position-relative" data-aos="fade-right" data-aos-delay="100">
               <p className="kb-hero-schoolname">{`${schoolData.legalName} (KBIS)`}</p>
-              <h1 className="kb-hero-title" aria-label={fullLine}>
+              <div ref={titleMeasureRef} className="kb-hero-title-measure" aria-hidden="true" />
+              <h1 ref={titleRef} className="kb-hero-title" aria-label={fullLine}>
                 <span className="kb-hero-title-static">{p}</span>
                 <span className="kb-hero-title-swap" key={slide.id}>
                   {h}

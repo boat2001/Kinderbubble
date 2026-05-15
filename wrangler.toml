@@ -1,0 +1,5 @@
+# Cloudflare Pages — static build output (Vite → client/dist).
+# Set `name` to match your Pages project in the dashboard, or pass --project-name on deploy.
+name = "kinderbubble"
+pages_build_output_dir = "client/dist"
+compatibility_date = "2025-05-01"

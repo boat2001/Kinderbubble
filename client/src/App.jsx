@@ -57,10 +57,22 @@ const footerHiddenPaths = new Set(['/404', '/news-details', '/event-details']);
 
 const footerLegalPaths = new Set(['/privacy', '/terms-of-service']);
 
+/** Footer nav: left column "Explore", right column "Check out" */
+const FOOTER_EXPLORE_COLUMN_ORDER = ['/', '/academics', '/faculty-staff', '/students-life', '/events'];
+const FOOTER_CHECKOUT_COLUMN_ORDER = ['/about', '/admissions', '/campus-facilities', '/news', '/contact'];
+
 function Layout({ children }) {
-  const footerLinks = routeMap.filter((item) => !footerHiddenPaths.has(item.path));
-  const footerExploreLinks = footerLinks.filter((item) => !footerLegalPaths.has(item.path));
   const footerYear = new Date().getFullYear();
+
+  const { footerExploreColumnLinks, footerCheckoutColumnLinks } = useMemo(() => {
+    const links = routeMap.filter((item) => !footerHiddenPaths.has(item.path));
+    const navLinks = links.filter((item) => !footerLegalPaths.has(item.path));
+    const byPath = Object.fromEntries(navLinks.map((item) => [item.path, item]));
+    return {
+      footerExploreColumnLinks: FOOTER_EXPLORE_COLUMN_ORDER.map((p) => byPath[p]).filter(Boolean),
+      footerCheckoutColumnLinks: FOOTER_CHECKOUT_COLUMN_ORDER.map((p) => byPath[p]).filter(Boolean),
+    };
+  }, []);
 
   return (
     <>
@@ -155,8 +167,8 @@ function Layout({ children }) {
       <footer id="footer" className="footer kb-footer light-background position-relative">
         <div className="kb-footer-glow" aria-hidden="true" />
         <div className="container footer-top kb-footer-top">
-          <div className="row g-4 g-lg-5 align-items-start">
-            <div className="col-lg-4 col-md-6 kb-footer-brand">
+          <div className="row kb-footer-top-row gy-4 gx-3 gx-lg-4 align-items-start">
+            <div className="col-12 col-lg-4 kb-footer-brand">
               <NavLink to="/" className="kb-footer-brand-lockup d-inline-flex align-items-center text-decoration-none">
                 <img
                   src={schoolData.logoSrc}
@@ -165,12 +177,14 @@ function Layout({ children }) {
                   width={120}
                   height={120}
                 />
-                <span className="kb-footer-wordmark ms-2 d-none d-sm-flex flex-column">
+                <span className="kb-footer-wordmark ms-2 d-flex flex-column text-start">
                   <span className="kb-footer-name">{schoolData.shortName}</span>
                   <span className="kb-footer-tag">{schoolData.tagline}</span>
                 </span>
               </NavLink>
-              <p className="kb-footer-legal-name mt-3 mb-0">{schoolData.legalName}</p>
+              <p className="kb-footer-brand-tagline mt-3 mb-0">
+                Where every child is known, nurtured, and challenged to grow.
+              </p>
               <ul className="kb-footer-contact list-unstyled mt-3 mb-0 small">
                 <li className="d-flex gap-2 mb-2">
                   <i className="bi bi-geo-alt flex-shrink-0 mt-1" aria-hidden="true" />
@@ -188,32 +202,50 @@ function Layout({ children }) {
                 </li>
               </ul>
             </div>
-            <div className="col-lg-5 col-md-6 kb-footer-explore">
-              <h4 className="kb-footer-heading">Explore</h4>
-              <ul className="kb-footer-nav-columns list-unstyled mb-0">
-                {footerExploreLinks.map((link) => (
-                  <li key={link.path}>
-                    <NavLink to={link.path} end={link.path === '/'} className="kb-footer-nav-link">
-                      {link.label}
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
+            <div className="col-12 col-lg-3 kb-footer-cta">
+              <div className="kb-footer-visit-panel">
+                <h4 className="kb-footer-heading">Visit</h4>
+                <p className="kb-footer-hours small mb-3">{schoolData.hours}</p>
+                <NavLink to="/admissions" className="kb-footer-btn-primary w-100 mb-2 d-inline-block text-center text-decoration-none">
+                  Admissions
+                </NavLink>
+                <NavLink to="/contact" className="kb-footer-btn-outline w-100 d-inline-block text-center text-decoration-none">
+                  Contact us
+                </NavLink>
+              </div>
             </div>
-            <div className="col-lg-3 col-md-12 kb-footer-cta">
-              <h4 className="kb-footer-heading">Visit</h4>
-              <p className="kb-footer-hours small mb-3">{schoolData.hours}</p>
-              <NavLink to="/admissions" className="kb-footer-btn-primary w-100 mb-2 d-inline-block text-center text-decoration-none">
-                Admissions
-              </NavLink>
-              <NavLink to="/contact" className="kb-footer-btn-outline w-100 d-inline-block text-center text-decoration-none">
-                Contact us
-              </NavLink>
+            <div className="col-12 col-lg-5 kb-footer-explore">
+              <div className="row kb-footer-explore-inner gx-2 gx-md-3 gx-lg-3 gy-0">
+                <div className="col-6 kb-footer-explore-col">
+                  <h4 className="kb-footer-heading">Explore</h4>
+                  <ul className="kb-footer-nav-stack list-unstyled mb-0">
+                    {footerExploreColumnLinks.map((link) => (
+                      <li key={link.path}>
+                        <NavLink to={link.path} end={link.path === '/'} className="kb-footer-nav-link">
+                          {link.label}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="col-6 kb-footer-checkout-col">
+                  <h4 className="kb-footer-heading">Check out</h4>
+                  <ul className="kb-footer-nav-stack list-unstyled mb-0">
+                    {footerCheckoutColumnLinks.map((link) => (
+                      <li key={link.path}>
+                        <NavLink to={link.path} end={link.path === '/'} className="kb-footer-nav-link">
+                          {link.label}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div className="kb-footer-bottom">
-          <div className="container py-3 d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+          <div className="container py-3 d-flex flex-column flex-md-row flex-wrap align-items-center justify-content-md-between gap-2 kb-footer-bottom-inner">
             <p className="mb-0 small kb-footer-copy">
               © {footerYear} {schoolData.legalName}. All rights reserved.
             </p>
