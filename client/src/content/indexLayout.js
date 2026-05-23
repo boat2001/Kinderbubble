@@ -8,7 +8,7 @@ export function getIndexLayoutHtml(s) {
       blurb: 'Warm routines, sensory-rich play, and caring adults who partner closely with families from the very first day.',
       meta0: 'Early years',
       meta1: '6 mo – 2 yrs',
-      img: '/assets/img/kbis/kbis-02.jpeg',
+      img: '/assets/images/students/smiling-girl-orange-uniform-kbis-02.jpeg',
       alt: 'Creche and youngest learners at KBIS',
     },
     {
@@ -16,7 +16,7 @@ export function getIndexLayoutHtml(s) {
       blurb: 'Curiosity-led learning, early literacy and numeracy, and plenty of movement — indoors and out.',
       meta0: 'Nursery',
       meta1: '2 – 3 yrs',
-      img: '/assets/img/kbis/kbis-01.jpeg',
+      img: '/assets/images/students/formal-uniform-students-kbis-01.jpeg',
       alt: 'Nursery learners at KBIS',
     },
     {
@@ -24,7 +24,7 @@ export function getIndexLayoutHtml(s) {
       blurb: 'Structured play, social skills, and gentle preparation for the rhythms of primary.',
       meta0: 'Kindergarten',
       meta1: '3 – 4 yrs',
-      img: '/assets/img/kbis/kbis-03.jpeg',
+      img: '/assets/images/students/girl-in-orange-uniform-kbis-03.jpeg',
       alt: 'Kindergarten at KBIS',
     },
     {
@@ -32,7 +32,7 @@ export function getIndexLayoutHtml(s) {
       blurb: 'A bridge year focused on confidence, independence, and foundational skills across subjects.',
       meta0: 'Reception',
       meta1: '4 yrs',
-      img: '/assets/img/kbis/kbis-04.jpeg',
+      img: '/assets/images/students/smiling-child-on-turf-kbis-04.jpeg',
       alt: 'Reception learners at KBIS',
     },
     {
@@ -40,7 +40,7 @@ export function getIndexLayoutHtml(s) {
       blurb: 'Project-based learning, literacy depth, and numeracy fluency with strong pastoral support through the primary years.',
       meta0: 'Primary',
       meta1: '5 – 10 yrs',
-      img: '/assets/img/kbis/kbis-10.jpeg',
+      img: '/assets/images/facilities/blue-stairwell-kbis-10.jpeg',
       alt: 'Primary learners at KBIS',
     },
   ];
@@ -82,7 +82,7 @@ export function getIndexLayoutHtml(s) {
           <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
             <div class="program-banner">
               <div class="banner-image">
-                <img src="/assets/img/kbis/kbis-09.jpeg" alt="Children and families on the KBIS campus" class="img-fluid" loading="lazy">
+                <img src="/assets/images/learning/girl-presenting-in-class-kbis-09.jpeg" alt="Children and families on the KBIS campus" class="img-fluid" loading="lazy">
                 <div class="banner-badge">
                   <span class="badge-text">${s.ages}</span>
                 </div>
@@ -130,7 +130,7 @@ export function getIndexLayoutHtml(s) {
         <div class="row align-items-stretch g-5 mb-5 kb-sl-hero-row">
           <div class="col-lg-5 order-lg-2 kb-sl-media-col" data-aos="fade-left" data-aos-delay="200">
             <div class="hero-image-wrapper">
-              <img src="/assets/img/kbis/gallery-02.jpeg" alt="Student life at KBIS" class="img-fluid main-image" loading="lazy">
+              <img src="/assets/images/learning/girl-presenting-in-class-gallery.jpeg" alt="Student life at KBIS" class="img-fluid main-image" loading="lazy">
               <div class="floating-card" data-aos="zoom-in" data-aos-delay="400">
                 <div class="card-icon">
                   <i class="bi bi-balloon-heart-fill"></i>
@@ -182,9 +182,9 @@ export function getIndexLayoutHtml(s) {
         <div class="activities-showcase">
           <div class="row g-4">
             <div class="col-lg-8" data-aos="fade-right" data-aos-delay="200">
-              <div class="featured-activity">
+              <div class="featured-activity" data-href="/campus-facilities">
                 <div class="activity-media">
-                  <img src="/assets/img/kbis/hero-play.jpeg" alt="Play and discovery" class="img-fluid" loading="lazy">
+                  <img src="/assets/images/facilities/blue-stairwell-hero.jpeg" alt="Play and discovery" class="img-fluid" loading="lazy">
                   <div class="activity-overlay">
                     <div class="overlay-content">
                       <h4>Indoor &amp; outdoor play</h4>
@@ -199,27 +199,27 @@ export function getIndexLayoutHtml(s) {
             </div>
             <div class="col-lg-4" data-aos="fade-left" data-aos-delay="300">
               <div class="activities-list">
-                <div class="activity-item" data-aos="slide-up" data-aos-delay="350">
+                <div class="activity-item" data-href="/student-life/extra-curricular" data-aos="slide-up" data-aos-delay="350">
                   <div class="activity-thumb">
-                    <img src="/assets/img/kbis/kbis-05.jpeg" alt="" class="img-fluid" loading="lazy">
+                    <img src="/assets/images/extra-curricular/power-rangers-performance-kbis-05.jpeg" alt="" class="img-fluid" loading="lazy">
                   </div>
                   <div class="activity-info">
                     <h6>Movement &amp; motor skills</h6>
                     <p>Daily opportunities to run, climb, and build strong bodies.</p>
                   </div>
                 </div>
-                <div class="activity-item" data-aos="slide-up" data-aos-delay="400">
+                <div class="activity-item" data-href="/academics/languages" data-aos="slide-up" data-aos-delay="400">
                   <div class="activity-thumb">
-                    <img src="/assets/img/kbis/kbis-06.jpeg" alt="" class="img-fluid" loading="lazy">
+                    <img src="/assets/images/extra-curricular/birthday-party-classroom-kbis-06.jpeg" alt="" class="img-fluid" loading="lazy">
                   </div>
                   <div class="activity-info">
                     <h6>Bilingual exposure</h6>
                     <p>Songs, stories, and classroom language in English and French.</p>
                   </div>
                 </div>
-                <div class="activity-item" data-aos="slide-up" data-aos-delay="450">
+                <div class="activity-item" data-href="/parents/plan-a-visit" data-aos="slide-up" data-aos-delay="450">
                   <div class="activity-thumb">
-                    <img src="/assets/img/kbis/kbis-07.jpeg" alt="" class="img-fluid" loading="lazy">
+                    <img src="/assets/images/students/smiling-boy-in-class-kbis-07.jpeg" alt="" class="img-fluid" loading="lazy">
                   </div>
                   <div class="activity-info">
                     <h6>Family partnership</h6>
@@ -245,7 +245,7 @@ export function getIndexLayoutHtml(s) {
         </div>
         <div class="row g-4 mt-4">
           <div class="col-xl-3 col-lg-6 col-md-6">
-            <div class="metric-card" data-aos="flip-left" data-aos-delay="300">
+            <div class="metric-card" data-href="/academics/programmes" data-aos="flip-left" data-aos-delay="300">
               <div class="metric-header">
                 <div class="metric-icon-wrapper"><i class="bi bi-grid-1x2-fill"></i></div>
                 <div class="metric-value"><span>5</span></div>
@@ -257,7 +257,7 @@ export function getIndexLayoutHtml(s) {
             </div>
           </div>
           <div class="col-xl-3 col-lg-6 col-md-6">
-            <div class="metric-card" data-aos="flip-left" data-aos-delay="400">
+            <div class="metric-card" data-href="/academics/languages" data-aos="flip-left" data-aos-delay="400">
               <div class="metric-header">
                 <div class="metric-icon-wrapper"><i class="bi bi-translate"></i></div>
                 <div class="metric-value"><span>2</span></div>
@@ -269,7 +269,7 @@ export function getIndexLayoutHtml(s) {
             </div>
           </div>
           <div class="col-xl-3 col-lg-6 col-md-6">
-            <div class="metric-card" data-aos="flip-left" data-aos-delay="500">
+            <div class="metric-card" data-href="/parents/plan-a-visit" data-aos="flip-left" data-aos-delay="500">
               <div class="metric-header">
                 <div class="metric-icon-wrapper"><i class="bi bi-sunrise-fill"></i></div>
                 <div class="metric-value"><span>12h</span></div>
@@ -281,7 +281,7 @@ export function getIndexLayoutHtml(s) {
             </div>
           </div>
           <div class="col-xl-3 col-lg-6 col-md-6">
-            <div class="metric-card" data-aos="flip-left" data-aos-delay="600">
+            <div class="metric-card" data-href="/campus-facilities" data-aos="flip-left" data-aos-delay="600">
               <div class="metric-header">
                 <div class="metric-icon-wrapper"><i class="bi bi-heart-pulse-fill"></i></div>
                 <div class="metric-value"><span>1</span></div>
@@ -304,9 +304,9 @@ export function getIndexLayoutHtml(s) {
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="row gy-4">
           <div class="col-xl-6" data-aos="fade-up" data-aos-delay="100">
-            <article class="post-item d-flex">
+            <article class="post-item d-flex" data-href="/admissions">
               <div class="post-img">
-                <img src="/assets/img/kbis/kbis-03.jpeg" alt="" class="img-fluid" loading="lazy">
+                <img src="/assets/images/students/girl-in-orange-uniform-kbis-03.jpeg" alt="" class="img-fluid" loading="lazy">
               </div>
               <div class="post-content flex-grow-1">
                 <a href="/news" class="category">Admissions</a>
@@ -314,7 +314,7 @@ export function getIndexLayoutHtml(s) {
                 <p class="post-description">${s.highlights[1]} Reach out to plan a walk-through of classrooms and play spaces.</p>
                 <div class="post-meta">
                   <div class="post-author">
-                    <img src="/assets/img/kbis/logo.png" alt="" class="img-fluid">
+                    <img src="/assets/images/others/school-logo.png" alt="" class="img-fluid">
                     <span class="author-name">KBIS office</span>
                   </div>
                   <span class="post-date">Accra</span>
@@ -323,9 +323,9 @@ export function getIndexLayoutHtml(s) {
             </article>
           </div>
           <div class="col-xl-6" data-aos="fade-up" data-aos-delay="200">
-            <article class="post-item d-flex">
+            <article class="post-item d-flex" data-href="/academics">
               <div class="post-img">
-                <img src="/assets/img/kbis/kbis-10.jpeg" alt="" class="img-fluid" loading="lazy">
+                <img src="/assets/images/facilities/blue-stairwell-kbis-10.jpeg" alt="" class="img-fluid" loading="lazy">
               </div>
               <div class="post-content flex-grow-1">
                 <a href="/news" class="category">Learning</a>
@@ -333,7 +333,7 @@ export function getIndexLayoutHtml(s) {
                 <p class="post-description">${s.curriculum}</p>
                 <div class="post-meta">
                   <div class="post-author">
-                    <img src="/assets/img/kbis/logo.png" alt="" class="img-fluid">
+                    <img src="/assets/images/others/school-logo.png" alt="" class="img-fluid">
                     <span class="author-name">Academics team</span>
                   </div>
                   <span class="post-date">KBIS</span>

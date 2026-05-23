@@ -20,6 +20,8 @@ const validate = [
   body('email').trim().isEmail().withMessage('A valid email is required.').normalizeEmail(),
   body('phone').optional().trim().isLength({ max: 30 }),
   body('program').optional().trim().isLength({ max: 100 }),
+  body('source').optional().trim().isLength({ max: 80 }),
+  body('pagePath').optional().trim().isLength({ max: 300 }),
   body('message').trim().notEmpty().withMessage('Message is required.').isLength({ min: 10, max: 2000 }),
 ];
 
@@ -30,7 +32,7 @@ router.post('/', contactLimiter, validate, async (req, res, next) => {
     return res.status(422).json({ success: false, message: errors.array()[0].msg });
   }
 
-  const { firstName, lastName, email, phone, program, message } = req.body;
+  const { firstName, lastName, email, phone, program, message, source, pagePath } = req.body;
 
   try {
     const db = getDb();
@@ -43,19 +45,38 @@ router.post('/', contactLimiter, validate, async (req, res, next) => {
         phone: phone || null,
         program: program || null,
         message,
+        source: source || 'contact',
+        page_path: pagePath || null,
       })
       .select('id')
       .single();
 
     if (error) throw error;
 
-    /* Fire-and-forget email notification (won't block response) */
-    mailer.sendContactNotification({ firstName, lastName, email, phone, program, message }).catch(() => {});
+    let emailStatus = 'sent';
+    let emailError = null;
+
+    try {
+      await mailer.sendContactNotification({ firstName, lastName, email, phone, program, message, source, pagePath });
+    } catch (mailError) {
+      emailStatus = 'failed';
+      emailError = mailError.message || 'Email delivery failed.';
+      console.error('[Mailer] Contact notification failed:', emailError);
+    }
+
+    const { error: updateError } = await db
+      .from('contacts')
+      .update({ email_status: emailStatus, email_error: emailError })
+      .eq('id', data.id);
+    if (updateError) console.error('[DB] Unable to update contact email status:', updateError.message);
 
     res.status(201).json({
       success: true,
-      message: 'Thank you! Your message has been received. We\'ll get back to you within 24 hours.',
+      message: emailStatus === 'sent'
+        ? 'Thank you! Your message has been received. We will get back to you shortly.'
+        : 'Thank you! Your message has been saved. Email notification is temporarily unavailable, but the office can still review it.',
       id: data.id,
+      emailStatus,
     });
   } catch (err) {
     next(err);

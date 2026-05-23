@@ -1,93 +1,136 @@
 'use strict';
 
-const nodemailer = require('nodemailer');
+const FROM = process.env.MAIL_FROM || '"Kinder Bubble International School" <onboarding@resend.dev>';
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'info@kbubble.edu.gh';
+const SCHOOL_PHONE = process.env.SCHOOL_PHONE_DISPLAY || '+233 24 493 8605';
+const SCHOOL_EMAIL = process.env.SCHOOL_OFFICE_EMAIL || 'info@kbubble.edu.gh';
 
-/* Build transporter lazily so startup isn't blocked when SMTP not configured */
-let transporter;
+function escapeHtml(value = '') {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
 
-function getTransporter() {
-  if (transporter) return transporter;
+function nl2br(value = '') {
+  return escapeHtml(value).replace(/\r?\n/g, '<br>');
+}
 
-  if (!process.env.SMTP_HOST) {
-    /* Dev/test fallback — logs to console instead of sending */
-    transporter = {
-      sendMail: async (opts) => {
-        console.log('[Mailer] SMTP not configured. Email would have been sent:');
-        console.log('  To:', opts.to);
-        console.log('  Subject:', opts.subject);
-        return { messageId: 'dev-noop' };
-      },
-    };
-    return transporter;
+async function sendEmail({ to, subject, html, replyTo }) {
+  if (!process.env.RESEND_API_KEY) {
+    console.log('[Mailer] RESEND_API_KEY not configured. Email would have been sent:');
+    console.log('  To:', to);
+    console.log('  Subject:', subject);
+    return { id: 'dev-noop' };
   }
 
-  transporter = nodemailer.createTransport({
-    host:   process.env.SMTP_HOST,
-    port:   parseInt(process.env.SMTP_PORT || '587', 10),
-    secure: process.env.SMTP_SECURE === 'true',
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+      'Content-Type': 'application/json',
     },
+    body: JSON.stringify({
+      from: FROM,
+      to: Array.isArray(to) ? to : [to],
+      subject,
+      html,
+      reply_to: replyTo,
+    }),
   });
 
-  return transporter;
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const err = new Error(result.message || result.error || 'Resend email failed.');
+    err.details = result;
+    throw err;
+  }
+
+  return result;
 }
 
-const FROM = process.env.MAIL_FROM || '"KinderBubble College" <noreply@kinderbubble.edu>';
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@kinderbubble.edu';
+function contactNotificationHtml({ firstName, lastName, email, phone, program, message, source, pagePath }) {
+  return `
+    <h2>New website form submission</h2>
+    <table cellpadding="6" cellspacing="0" style="border-collapse:collapse">
+      <tr><td><strong>Name</strong></td><td>${escapeHtml(firstName)} ${escapeHtml(lastName)}</td></tr>
+      <tr><td><strong>Email</strong></td><td><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></td></tr>
+      <tr><td><strong>Phone</strong></td><td>${escapeHtml(phone || '-')}</td></tr>
+      <tr><td><strong>Subject</strong></td><td>${escapeHtml(program || '-')}</td></tr>
+      <tr><td><strong>Source</strong></td><td>${escapeHtml(source || 'website')}</td></tr>
+      <tr><td><strong>Page</strong></td><td>${escapeHtml(pagePath || '-')}</td></tr>
+    </table>
+    <h3>Message</h3>
+    <p>${nl2br(message)}</p>
+  `;
+}
 
-async function sendContactNotification({ firstName, lastName, email, phone, program, message }) {
-  const transport = getTransporter();
+function contactAutoReplyHtml({ firstName }) {
+  return `
+    <h2>Thank you, ${escapeHtml(firstName)}.</h2>
+    <p>We have received your message and the Kinder Bubble International School team will respond as soon as possible.</p>
+    <p>For urgent enquiries, please call <strong>${escapeHtml(SCHOOL_PHONE)}</strong> or email <a href="mailto:${escapeHtml(SCHOOL_EMAIL)}">${escapeHtml(SCHOOL_EMAIL)}</a>.</p>
+    <p>Warm regards,<br><strong>Kinder Bubble International School</strong></p>
+  `;
+}
 
-  await transport.sendMail({
-    from:    FROM,
-    to:      ADMIN_EMAIL,
-    subject: `New Contact Form Submission — ${firstName} ${lastName}`,
-    html: `
-      <h2>New Contact Form Submission</h2>
-      <table>
-        <tr><td><strong>Name:</strong></td><td>${firstName} ${lastName}</td></tr>
-        <tr><td><strong>Email:</strong></td><td>${email}</td></tr>
-        <tr><td><strong>Phone:</strong></td><td>${phone || '—'}</td></tr>
-        <tr><td><strong>Program:</strong></td><td>${program || '—'}</td></tr>
-      </table>
-      <h3>Message</h3>
-      <p>${message.replace(/\n/g, '<br>')}</p>
-    `,
+async function sendContactNotification(payload) {
+  const fullName = `${payload.firstName} ${payload.lastName}`.trim();
+  await sendEmail({
+    to: ADMIN_EMAIL,
+    subject: `New website enquiry - ${fullName}`,
+    html: contactNotificationHtml(payload),
+    replyTo: payload.email,
   });
 
-  /* Send auto-reply to sender */
-  await transport.sendMail({
-    from:    FROM,
-    to:      email,
-    subject: 'We received your message — KinderBubble College',
+  await sendEmail({
+    to: payload.email,
+    subject: 'We received your message - Kinder Bubble International School',
+    html: contactAutoReplyHtml(payload),
+  });
+}
+
+async function sendApplicationConfirmation({ firstName, lastName, email, reference, programName }) {
+  const fullName = `${firstName} ${lastName}`.trim();
+
+  await sendEmail({
+    to: ADMIN_EMAIL,
+    subject: `New admission application - ${fullName}`,
     html: `
-      <h2>Thank you, ${firstName}!</h2>
-      <p>We have received your message and will get back to you within 24 business hours.</p>
-      <p>If your enquiry is urgent, please call us at <strong>+1 (555) 234-5678</strong>.</p>
-      <br>
-      <p>Warm regards,<br><strong>KinderBubble College Admissions Team</strong></p>
+      <h2>New admission application</h2>
+      <p><strong>Name:</strong> ${escapeHtml(fullName)}</p>
+      <p><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></p>
+      <p><strong>Reference:</strong> ${escapeHtml(reference || '-')}</p>
+      <p><strong>Programme:</strong> ${escapeHtml(programName || 'Not specified')}</p>
+    `,
+    replyTo: email,
+  });
+
+  await sendEmail({
+    to: email,
+    subject: 'Application received - Kinder Bubble International School',
+    html: `
+      <h2>Application received, ${escapeHtml(firstName)}.</h2>
+      <p>Your application has been submitted successfully${reference ? ` with reference <strong>${escapeHtml(reference)}</strong>` : ''}.</p>
+      <p>Admissions will review it and contact you about the next step.</p>
+      <p>Warm regards,<br><strong>Kinder Bubble International School Admissions</strong></p>
     `,
   });
 }
 
-async function sendApplicationConfirmation({ firstName, lastName, email, programId }) {
-  const transport = getTransporter();
-
-  await transport.sendMail({
-    from:    FROM,
-    to:      email,
-    subject: 'Application Received — KinderBubble College',
-    html: `
-      <h2>Application Received, ${firstName}!</h2>
-      <p>Your application to KinderBubble College has been successfully submitted.</p>
-      <p>Our admissions team will review your application and contact you within <strong>5–10 business days</strong>.</p>
-      <p>In the meantime, if you have any questions, please email <a href="mailto:admissions@kinderbubble.edu">admissions@kinderbubble.edu</a> or call <strong>+1 (555) 234-5678</strong>.</p>
-      <br>
-      <p>Warm regards,<br><strong>KinderBubble College Admissions Office</strong></p>
-    `,
+async function sendNewsletterNotification({ email }) {
+  await sendEmail({
+    to: ADMIN_EMAIL,
+    subject: 'New newsletter signup',
+    html: `<h2>New newsletter signup</h2><p><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></p>`,
+    replyTo: email,
   });
 }
 
-module.exports = { sendContactNotification, sendApplicationConfirmation };
+module.exports = {
+  sendContactNotification,
+  sendApplicationConfirmation,
+  sendNewsletterNotification,
+};

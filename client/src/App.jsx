@@ -4,12 +4,14 @@ import { pageContent } from './content/pageContent';
 import { schoolData } from './content/schoolData';
 import { initFormHandlers, initTemplateEffects } from './lib/templateEffects';
 import HomeHero from './components/HomeHero';
+import NavMenu from './components/NavMenu';
+import { extraRoutes } from './content/extraRoutes';
 
 const routeMap = [
   { path: '/', key: 'index', label: 'Home' },
-  { path: '/about', key: 'about', label: 'About' },
+  { path: '/about', key: 'about', label: 'About us' },
   { path: '/academics', key: 'academics', label: 'Academics' },
-  { path: '/admissions', key: 'admissions', label: 'Admissions' },
+  { path: '/admissions', key: 'admissions', label: 'Admission' },
   { path: '/faculty-staff', key: 'faculty-staff', label: 'Our team' },
   { path: '/campus-facilities', key: 'campus-facilities', label: 'Campus & facilities' },
   { path: '/students-life', key: 'students-life', label: 'Student life' },
@@ -21,6 +23,7 @@ const routeMap = [
   { path: '/privacy', key: 'privacy', label: 'Privacy' },
   { path: '/terms-of-service', key: 'terms-of-service', label: 'Terms of service' },
   { path: '/404', key: '404', label: '404' },
+  ...extraRoutes,
 ];
 
 const contentByKey = Object.fromEntries(pageContent.map((item) => [item.name, item]));
@@ -58,8 +61,20 @@ const footerHiddenPaths = new Set(['/404', '/news-details', '/event-details']);
 const footerLegalPaths = new Set(['/privacy', '/terms-of-service']);
 
 /** Footer nav: left column "Explore", right column "Check out" */
-const FOOTER_EXPLORE_COLUMN_ORDER = ['/', '/academics', '/faculty-staff', '/students-life', '/events'];
-const FOOTER_CHECKOUT_COLUMN_ORDER = ['/about', '/admissions', '/campus-facilities', '/news', '/contact'];
+const FOOTER_EXPLORE_COLUMN_ORDER = [
+  '/',
+  '/about',
+  '/academics/curriculum',
+  '/academics/programmes',
+  '/student-life/extra-curricular',
+];
+const FOOTER_CHECKOUT_COLUMN_ORDER = [
+  '/parents/plan-a-visit',
+  '/resources/gallery',
+  '/resources/policies',
+  '/events',
+  '/contact',
+];
 
 function Layout({ children }) {
   const footerYear = new Date().getFullYear();
@@ -91,74 +106,7 @@ function Layout({ children }) {
               <small>International School</small>
             </span>
           </NavLink>
-          <nav id="navmenu" className="navmenu">
-            <ul>
-              <li>
-                <NavLink to="/" end>
-                  Home
-                </NavLink>
-              </li>
-              <li className="dropdown">
-                <a href="#">
-                  <span>About</span> <i className="bi bi-chevron-down toggle-dropdown"></i>
-                </a>
-                <ul>
-                  <li>
-                    <NavLink to="/about">Our story</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/faculty-staff">Our team</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/campus-facilities">Campus &amp; facilities</NavLink>
-                  </li>
-                </ul>
-              </li>
-              <li className="dropdown">
-                <a href="#">
-                  <span>Learning</span> <i className="bi bi-chevron-down toggle-dropdown"></i>
-                </a>
-                <ul>
-                  <li>
-                    <NavLink to="/academics">Academics &amp; curriculum</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/students-life">Student life</NavLink>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <NavLink to="/admissions">Admissions</NavLink>
-              </li>
-              <li className="dropdown">
-                <a href="#">
-                  <span>News &amp; events</span> <i className="bi bi-chevron-down toggle-dropdown"></i>
-                </a>
-                <ul>
-                  <li>
-                    <NavLink to="/news">News</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/events">Events</NavLink>
-                  </li>
-                </ul>
-              </li>
-              <li className="kb-nav-cta">
-                <NavLink to="/contact">
-                  <i className="bi bi-envelope-paper-heart"></i> Enquire
-                </NavLink>
-              </li>
-            </ul>
-            <NavLink
-              to="/contact"
-              className="kb-header-enquire-icon d-xl-none"
-              aria-label="Enquire"
-              title="Enquire"
-            >
-              <i className="bi bi-envelope-paper-heart" aria-hidden="true" />
-            </NavLink>
-            <i className="mobile-nav-toggle d-xl-none bi bi-list"></i>
-          </nav>
+          <NavMenu />
         </div>
       </header>
 

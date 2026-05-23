@@ -15,6 +15,13 @@ import {
   getNewsDetailsHtml,
   getEventDetailsHtml,
 } from './slimSiteHtml.js';
+import { extraPageBuilders } from './extraPages.js';
+import { extraRoutes } from './extraRoutes.js';
+
+const extraPages = extraRoutes.map(({ key }) => {
+  const built = extraPageBuilders[key]();
+  return { name: key, ...built };
+});
 
 export const pageContent = [
   {
@@ -42,4 +49,5 @@ export const pageContent = [
     bodyClass: 'page-404',
     mainHtml: notFoundHtml,
   },
+  ...extraPages,
 ];

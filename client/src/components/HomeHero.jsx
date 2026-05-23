@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { schoolData } from '../content/schoolData';
 
 /** Headlines are similar total length for even rhythm when typing */
-const SLIDES = [
+const HERO_SLIDES = [
   {
     id: 'play',
     prefix: 'Where young minds ',
@@ -11,7 +11,7 @@ const SLIDES = [
     suffix: ' with curiosity, & play with purpose.',
     blurb:
       'Structured and free play in bright, safe spaces — because joyful children learn best when they feel at home.',
-    imageSrc: '/assets/img/kbis/hero-play.jpeg',
+    imageSrc: '/assets/images/extra-curricular/children-playing-with-ball.jpeg',
     imageAlt: 'Children learning and playing at KBIS',
     badge: 'Play with purpose',
   },
@@ -21,7 +21,7 @@ const SLIDES = [
     highlight: 'Cambridge-inspired',
     suffix: ' learning in English and French everyday.',
     blurb: schoolData.curriculum + ', with room for creativity, movement, and everyday discovery.',
-    imageSrc: '/assets/img/kbis/hero-learn.jpeg',
+    imageSrc: '/assets/images/learning/students-smiling-at-computers.jpeg',
     imageAlt: 'Classrooms and discovery at KBIS',
     badge: 'Bilingual exposure',
   },
@@ -32,11 +32,90 @@ const SLIDES = [
     suffix: ' here in Accra.',
     blurb:
       'From creche through primary, one caring team walks with your child as they grow in confidence and character.',
-    imageSrc: '/assets/img/kbis/hero-grow.jpeg',
+    imageSrc: '/assets/images/students/smiling-boy-in-class-hero.jpeg',
     imageAlt: 'Primary learners building confidence at KBIS',
     badge: 'One campus family',
   },
+  {
+    id: 'confidence',
+    prefix: 'Small classes where every child is ',
+    highlight: 'seen',
+    suffix: ', supported, and known.',
+    blurb:
+      'Teachers know children by name, notice their next step, and build confidence through steady routines.',
+    imageSrc: '/assets/images/students/three-children-smiling-uniforms.jpeg',
+    imageAlt: 'Three KBIS learners smiling in uniform',
+    badge: 'Known by name',
+  },
+  {
+    id: 'technology',
+    prefix: 'Hands-on discovery from books, ',
+    highlight: 'technology',
+    suffix: ', and daily projects.',
+    blurb:
+      'Learning studios include practical materials, computer time, music, and age-right inquiry work.',
+    imageSrc: '/assets/images/learning/boy-at-computer-lab.jpeg',
+    imageAlt: 'KBIS learner using a computer',
+    badge: 'Modern learning',
+  },
+  {
+    id: 'languages',
+    prefix: 'English and French help children grow as ',
+    highlight: 'global',
+    suffix: ' communicators.',
+    blurb:
+      'Bilingual exposure is woven through stories, songs, classroom phrases, and daily conversation.',
+    imageSrc: '/assets/images/learning/teacher-guided-table-activity.jpeg',
+    imageAlt: 'Teacher guiding a group learning activity',
+    badge: 'English + French',
+  },
+  {
+    id: 'care',
+    prefix: 'Daily care routines help every family feel ',
+    highlight: 'secure',
+    suffix: ' every day.',
+    blurb:
+      'Health, safety, authorised pick-up, and clear family communication are part of the school day.',
+    imageSrc: '/assets/images/students/children-seated-blue-classroom.jpeg',
+    imageAlt: 'Children seated safely in a classroom',
+    badge: 'Safety first',
+  },
+  {
+    id: 'arts',
+    prefix: 'Creative moments help every learner find their ',
+    highlight: 'voice',
+    suffix: ' with joy.',
+    blurb:
+      'Music, role play, presentation, and celebration build expression without putting pressure on children.',
+    imageSrc: '/assets/images/extra-curricular/career-day-children-in-costumes.jpeg',
+    imageAlt: 'Children dressed for career day',
+    badge: 'Creative confidence',
+  },
+  {
+    id: 'trips',
+    prefix: 'Educational trips turn curiosity into ',
+    highlight: 'experience',
+    suffix: ' beyond campus.',
+    blurb:
+      'Themed excursions help children connect classroom ideas with the wider world around them.',
+    imageSrc: '/assets/images/extra-curricular/students-with-ghana-flags-at-monument.jpeg',
+    imageAlt: 'KBIS learners on an educational trip',
+    badge: 'Learning journeys',
+  },
+  {
+    id: 'community',
+    prefix: 'A school community built around ',
+    highlight: 'one family',
+    suffix: ' at a time with care.',
+    blurb:
+      'Parents, teachers, and leadership work together so each child has a steady circle of support.',
+    imageSrc: '/assets/images/extra-curricular/parents-and-children-at-event.jpeg',
+    imageAlt: 'Parents and children together at a school event',
+    badge: 'Family partnership',
+  },
 ];
+
+const SLIDES = HERO_SLIDES;
 
 const TYPE_CHAR_MS = 76;
 const HOLD_MS = 3100;
@@ -83,6 +162,7 @@ function maxFontPxForLines(measureEl, sampleTitleEl, text, widthPx, maxLines, li
   measureEl.style.lineHeight = String(lineHeightUnitless);
   measureEl.style.wordBreak = 'break-word';
   measureEl.style.overflowWrap = 'anywhere';
+  measureEl.style.whiteSpace = maxLines === 1 ? 'nowrap' : 'normal';
   measureEl.textContent = text;
 
   const fits = (fontPx) => {
@@ -92,7 +172,9 @@ function maxFontPxForLines(measureEl, sampleTitleEl, text, widthPx, maxLines, li
     if (Number.isNaN(lh) || lhRaw === 'normal') {
       lh = fontPx * lineHeightUnitless;
     }
-    return measureEl.scrollHeight <= lh * maxLines + 1.5;
+    const fitsHeight = measureEl.scrollHeight <= lh * maxLines + 1.5;
+    const fitsWidth = maxLines > 1 || measureEl.scrollWidth <= widthPx + 1.5;
+    return fitsHeight && fitsWidth;
   };
 
   if (!fits(HERO_TITLE_MIN_PX)) return HERO_TITLE_MIN_PX;
@@ -319,7 +401,7 @@ export default function HomeHero() {
         <div className="container">
           <div className="row gy-4">
             <div className="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-              <div className="feature-card">
+              <NavLink to="/academics/programmes" className="feature-card d-flex text-decoration-none">
                 <div className="feature-icon">
                   <i className="bi bi-balloon-heart-fill"></i>
                 </div>
@@ -332,11 +414,11 @@ export default function HomeHero() {
                     </NavLink>
                   </p>
                 </div>
-              </div>
+              </NavLink>
             </div>
 
             <div className="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-              <div className="feature-card">
+              <NavLink to="/student-life/extra-curricular" className="feature-card d-flex text-decoration-none">
                 <div className="feature-icon">
                   <i className="bi bi-tree-fill"></i>
                 </div>
@@ -344,11 +426,11 @@ export default function HomeHero() {
                   <h3>Indoor &amp; outdoor play</h3>
                   <p>{schoolData.highlights[0]} — ideal for growing bodies and imaginations.</p>
                 </div>
-              </div>
+              </NavLink>
             </div>
 
             <div className="col-lg-4" data-aos="fade-up" data-aos-delay="300">
-              <div className="feature-card">
+              <NavLink to="/resources/policies" className="feature-card d-flex text-decoration-none">
                 <div className="feature-icon">
                   <i className="bi bi-shield-check"></i>
                 </div>
@@ -356,7 +438,7 @@ export default function HomeHero() {
                   <h3>Safety first</h3>
                   <p>{schoolData.highlights[2]} so families can focus on learning milestones.</p>
                 </div>
-              </div>
+              </NavLink>
             </div>
           </div>
         </div>

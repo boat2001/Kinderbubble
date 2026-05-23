@@ -5,6 +5,7 @@ const { body, validationResult } = require('express-validator');
 const rateLimit  = require('express-rate-limit');
 const router     = express.Router();
 const { getDb }  = require('../db/database');
+const mailer     = require('../services/mailer');
 
 const nlLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
@@ -47,9 +48,30 @@ router.post('/',
         return res.json({ success: true, message: 'Welcome back! You have been re-subscribed.' });
       }
 
-      const { error } = await db.from('newsletter_subscribers').insert({ email });
+      const { data, error } = await db
+        .from('newsletter_subscribers')
+        .insert({ email })
+        .select('id')
+        .single();
       if (error) throw error;
-      res.status(201).json({ success: true, message: 'Thank you for subscribing to the KinderBubble College newsletter!' });
+
+      let emailStatus = 'sent';
+      let emailError = null;
+      try {
+        await mailer.sendNewsletterNotification({ email });
+      } catch (mailError) {
+        emailStatus = 'failed';
+        emailError = mailError.message || 'Email delivery failed.';
+        console.error('[Mailer] Newsletter notification failed:', emailError);
+      }
+
+      const { error: updateError } = await db
+        .from('newsletter_subscribers')
+        .update({ email_status: emailStatus, email_error: emailError })
+        .eq('id', data.id);
+      if (updateError) console.error('[DB] Unable to update newsletter email status:', updateError.message);
+
+      res.status(201).json({ success: true, message: 'Thank you for subscribing to the Kinder Bubble newsletter!', emailStatus });
     } catch (err) {
       next(err);
     }

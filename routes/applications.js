@@ -69,14 +69,30 @@ router.post('/', appLimiter, validate, async (req, res, next) => {
 
     if (error) throw error;
 
-    /* Send confirmation email (fire-and-forget) */
-    mailer.sendApplicationConfirmation({ firstName, lastName, email, programId }).catch(() => {});
+    const reference = `KB-${String(data.id).padStart(6, '0')}`;
+    let emailStatus = 'sent';
+    let emailError = null;
+
+    try {
+      await mailer.sendApplicationConfirmation({ firstName, lastName, email, reference, programName: programId ? `Program #${programId}` : null });
+    } catch (mailError) {
+      emailStatus = 'failed';
+      emailError = mailError.message || 'Email delivery failed.';
+      console.error('[Mailer] Application email failed:', emailError);
+    }
+
+    const { error: updateError } = await db
+      .from('applications')
+      .update({ email_status: emailStatus, email_error: emailError })
+      .eq('id', data.id);
+    if (updateError) console.error('[DB] Unable to update application email status:', updateError.message);
 
     res.status(201).json({
       success: true,
-      message: `Application submitted successfully! Your reference number is KB-${String(data.id).padStart(6, '0')}. You will receive a confirmation email shortly.`,
+      message: `Application submitted successfully! Your reference number is ${reference}.`,
       applicationId: data.id,
-      reference: `KB-${String(data.id).padStart(6, '0')}`,
+      reference,
+      emailStatus,
     });
   } catch (err) {
     next(err);

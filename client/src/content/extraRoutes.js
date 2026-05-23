@@ -1,0 +1,23 @@
+/** Route metadata for pages defined in extraPages.js */
+export const extraRoutes = [
+  { path: '/about/mission-vision', key: 'about-mission-vision', label: 'Mission & vision' },
+  { path: '/about/board-of-directors', key: 'about-board-of-directors', label: 'Board of directors' },
+  { path: '/about/management', key: 'about-management', label: 'Management' },
+  { path: '/about/principal', key: 'about-principal', label: 'Principal' },
+  { path: '/about/staff/teaching', key: 'about-staff-teaching', label: 'Teaching staff' },
+  { path: '/about/staff/support', key: 'about-staff-support', label: 'Support staff' },
+  { path: '/academics/curriculum', key: 'academics-curriculum', label: 'Curriculum' },
+  { path: '/academics/programmes', key: 'academics-programmes', label: 'Programmes' },
+  { path: '/academics/languages', key: 'academics-languages', label: 'Languages' },
+  { path: '/academics/academic-calendar', key: 'academics-academic-calendar', label: 'Academic calendar' },
+  { path: '/student-life/src', key: 'student-life-src', label: 'SRC' },
+  { path: '/student-life/houses', key: 'student-life-houses', label: 'Houses' },
+  { path: '/student-life/extra-curricular', key: 'student-life-extra-curricular', label: 'Extra curricula' },
+  { path: '/parents/admission-form', key: 'parents-admission-form', label: 'Admission form' },
+  { path: '/parents/plan-a-visit', key: 'parents-plan-a-visit', label: 'Plan a visit' },
+  { path: '/parents/make-payment', key: 'parents-make-payment', label: 'Make payment' },
+  { path: '/parents/student-handbook', key: 'parents-student-handbook', label: 'Student handbook' },
+  { path: '/resources/gallery', key: 'resources-gallery', label: 'Gallery' },
+  { path: '/resources/policies', key: 'resources-policies', label: 'Policies' },
+  { path: '/news/partnerships', key: 'news-partnerships', label: 'Partnerships' },
+];
