@@ -24,6 +24,12 @@ export function initTemplateEffects() {
     else scrollTop.classList.remove('active');
   };
 
+  const syncHeaderStack = () => {
+    if (!header) return;
+    const height = Math.round(header.getBoundingClientRect().height);
+    document.documentElement.style.setProperty('--kb-header-stack', `${height}px`);
+  };
+
   const mobileNavToggle = () => {
     const headerBottom = header ? Math.round(header.getBoundingClientRect().bottom) : 64;
     const safeTop = Math.min(headerBottom + 8, Math.max(72, window.innerHeight - 220));
@@ -161,13 +167,18 @@ export function initTemplateEffects() {
 
   toggleScrolled();
   toggleScrollTop();
+  syncHeaderStack();
   window.addEventListener('scroll', toggleScrolled);
   window.addEventListener('scroll', toggleScrollTop);
   window.addEventListener('resize', () => {
+    syncHeaderStack();
     const headerBottom = header ? Math.round(header.getBoundingClientRect().bottom) : 64;
     const safeTop = Math.min(headerBottom + 8, Math.max(72, window.innerHeight - 220));
     document.documentElement.style.setProperty('--kb-mobile-nav-top', `${safeTop}px`);
   });
+  if (document.fonts?.ready) {
+    document.fonts.ready.then(syncHeaderStack).catch(() => {});
+  }
 }
 
 export function initFormHandlers() {

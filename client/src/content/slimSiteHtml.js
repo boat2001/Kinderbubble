@@ -1,4 +1,5 @@
 import { schoolData as s } from './schoolData.js';
+import { kbIcon } from './kbIcons.js';
 import { getIndexLayoutHtml } from './indexLayout.js';
 
 export function getIndexHtml() {
@@ -224,21 +225,21 @@ export function getCampusHtml() {
                 <p class="lead-text">${s.addressLine1}, ${s.addressLine2}. Our campus pairs bright classrooms with safe outdoor play — all designed around how children ${s.ages} actually learn and move.</p>
                 <div class="feature-highlights">
                   <div class="highlight-item">
-                    <i class="bi bi-grid-1x2-fill"></i>
+                    <i class="bi ${kbIcon.programmeBands}"></i>
                     <div>
                       <span class="number">5</span>
                       <span class="label">Programme bands</span>
                     </div>
                   </div>
                   <div class="highlight-item">
-                    <i class="bi bi-sunrise-fill"></i>
+                    <i class="bi ${kbIcon.fullDay}"></i>
                     <div>
                       <span class="number">12h</span>
                       <span class="label">Care window</span>
                     </div>
                   </div>
                   <div class="highlight-item">
-                    <i class="bi bi-shield-check"></i>
+                    <i class="bi ${kbIcon.singleCampus}"></i>
                     <div>
                       <span class="number">1</span>
                       <span class="label">Caring campus</span>
@@ -264,7 +265,7 @@ export function getCampusHtml() {
         <div class="facilities-grid" data-aos="fade-up" data-aos-delay="200">
           <div class="category-card academic" data-aos="zoom-in" data-aos-delay="100">
             <div class="card-header">
-              <div class="icon-wrapper"><i class="bi bi-book"></i></div>
+              <div class="icon-wrapper"><i class="bi ${kbIcon.learningStudios}"></i></div>
               <h3>Learning studios</h3>
             </div>
             <div class="card-content">
@@ -283,7 +284,7 @@ export function getCampusHtml() {
           </div>
           <div class="category-card sports" data-aos="zoom-in" data-aos-delay="200">
             <div class="card-header">
-              <div class="icon-wrapper"><i class="bi bi-trophy"></i></div>
+              <div class="icon-wrapper"><i class="bi ${kbIcon.playMovement}"></i></div>
               <h3>Play &amp; movement</h3>
             </div>
             <div class="card-content">
@@ -302,7 +303,7 @@ export function getCampusHtml() {
           </div>
           <div class="category-card residence" data-aos="zoom-in" data-aos-delay="300">
             <div class="card-header">
-              <div class="icon-wrapper"><i class="bi bi-house-heart"></i></div>
+              <div class="icon-wrapper"><i class="bi ${kbIcon.wellbeingCommunity}"></i></div>
               <h3>Wellbeing &amp; community</h3>
             </div>
             <div class="card-content">
@@ -665,7 +666,7 @@ export function getStudentsLifeHtml() {
             </div>
             <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
               <div class="organization-card">
-                <div class="icon-box"><i class="bi bi-globe-americas"></i></div>
+                <div class="icon-box"><i class="bi ${kbIcon.languageCulture}"></i></div>
                 <h5>Language &amp; culture</h5>
                 <p>English and French exposure through stories, routines, and classroom language that matches how young minds learn.</p>
                 <span class="badge">Daily rhythm</span>
@@ -673,7 +674,7 @@ export function getStudentsLifeHtml() {
             </div>
             <div class="col-md-4" data-aos="zoom-in" data-aos-delay="400">
               <div class="organization-card">
-                <div class="icon-box"><i class="bi bi-book"></i></div>
+                <div class="icon-box"><i class="bi ${kbIcon.inquiryDiscovery}"></i></div>
                 <h5>Discovery &amp; inquiry</h5>
                 <p>Hands-on science, numeracy games, and literacy corners that invite curiosity at every stage.</p>
                 <span class="badge">Creche – primary</span>

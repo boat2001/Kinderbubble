@@ -3,6 +3,7 @@ import { useEffect, useMemo } from 'react';
 import { pageContent } from './content/pageContent';
 import { schoolData } from './content/schoolData';
 import { initFormHandlers, initTemplateEffects } from './lib/templateEffects';
+import AmbientDecor, { getAmbientVariant } from './components/AmbientDecor';
 import HomeHero from './components/HomeHero';
 import NavMenu from './components/NavMenu';
 import { extraRoutes } from './content/extraRoutes';
@@ -51,7 +52,10 @@ function PageRenderer({ pageKey }) {
   return (
     <main className="main">
       {pageKey === 'index' ? <HomeHero /> : null}
-      <div dangerouslySetInnerHTML={{ __html: mainHtml }} />
+      <div className="kb-page-canvas">
+        <AmbientDecor variant={getAmbientVariant(pageKey)} mode="page" />
+        <div className="kb-page-canvas-inner" dangerouslySetInnerHTML={{ __html: mainHtml }} />
+      </div>
     </main>
   );
 }
@@ -148,11 +152,17 @@ function Layout({ children }) {
                     {schoolData.phoneDisplay}
                   </a>
                 </li>
+                <li className="d-flex gap-2 align-items-center">
+                  <i className="bi bi-envelope" aria-hidden="true" />
+                  <a href={`mailto:${schoolData.officeEmail}`} className="kb-footer-link">
+                    {schoolData.officeEmail}
+                  </a>
+                </li>
               </ul>
             </div>
             <div className="col-12 col-lg-3 kb-footer-cta">
               <div className="kb-footer-visit-panel">
-                <h4 className="kb-footer-heading">Visit</h4>
+                <h4 className="kb-footer-heading">Visit our campus</h4>
                 <p className="kb-footer-hours small mb-3">{schoolData.hours}</p>
                 <NavLink to="/admissions" className="kb-footer-btn-primary w-100 mb-2 d-inline-block text-center text-decoration-none">
                   Admissions

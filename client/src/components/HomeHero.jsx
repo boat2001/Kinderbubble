@@ -1,6 +1,8 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import AmbientDecor from './AmbientDecor';
 import { schoolData } from '../content/schoolData';
+import { kbIcon } from '../content/kbIcons';
 
 /** Headlines are similar total length for even rhythm when typing */
 const HERO_SLIDES = [
@@ -349,7 +351,7 @@ export default function HomeHero() {
       ))}
       <div className="kb-hero-badge-wrap" aria-live="polite">
         <div className="badge-accredited">
-          <i className="bi bi-stars" aria-hidden="true"></i>
+          <i className={`bi ${kbIcon.accredited}`} aria-hidden="true"></i>
           <span key={slide.badge}>{slide.badge}</span>
         </div>
       </div>
@@ -358,6 +360,7 @@ export default function HomeHero() {
 
   return (
     <section id="hero" className="hero section kb-hero">
+      <AmbientDecor variant="hero" mode="hero" />
       <div className="hero-wrapper">
         <div className="container">
           <div className="row align-items-center">
@@ -403,15 +406,15 @@ export default function HomeHero() {
             <div className="col-lg-4" data-aos="fade-up" data-aos-delay="100">
               <NavLink to="/academics/programmes" className="feature-card d-flex text-decoration-none">
                 <div className="feature-icon">
-                  <i className="bi bi-balloon-heart-fill"></i>
+                  <i className={`bi ${kbIcon.programsByAge}`} aria-hidden="true"></i>
                 </div>
                 <div className="feature-content">
                   <h3>Programs by age</h3>
                   <p>
                     <strong>{schoolData.ages}</strong> — creche, nursery, kindergarten, reception, and primary.
-                    <NavLink to="/admissions" className="kb-feature-more">
+                    {/* <NavLink to="/admissions" className="kb-feature-more">
                       View admissions
-                    </NavLink>
+                    </NavLink> */}
                   </p>
                 </div>
               </NavLink>
@@ -420,7 +423,7 @@ export default function HomeHero() {
             <div className="col-lg-4" data-aos="fade-up" data-aos-delay="200">
               <NavLink to="/student-life/extra-curricular" className="feature-card d-flex text-decoration-none">
                 <div className="feature-icon">
-                  <i className="bi bi-tree-fill"></i>
+                  <i className={`bi ${kbIcon.indoorOutdoorPlay}`} aria-hidden="true"></i>
                 </div>
                 <div className="feature-content">
                   <h3>Indoor &amp; outdoor play</h3>
@@ -432,7 +435,7 @@ export default function HomeHero() {
             <div className="col-lg-4" data-aos="fade-up" data-aos-delay="300">
               <NavLink to="/resources/policies" className="feature-card d-flex text-decoration-none">
                 <div className="feature-icon">
-                  <i className="bi bi-shield-check"></i>
+                  <i className={`bi ${kbIcon.safety}`} aria-hidden="true"></i>
                 </div>
                 <div className="feature-content">
                   <h3>Safety first</h3>

@@ -1,4 +1,5 @@
 import { schoolData as s } from './schoolData.js';
+import { kbIcon } from './kbIcons.js';
 
 /**
  * Lightweight inner page shell (page title + one content section).
@@ -101,7 +102,7 @@ export function getPoliciesPageHtml() {
           </div>
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="260">
             <article class="kb-policy-card h-100">
-              <div class="kb-policy-icon"><i class="bi bi-heart-pulse"></i></div>
+              <div class="kb-policy-icon"><i class="bi ${kbIcon.healthPolicy}"></i></div>
               <h3>Health, medical conditions, and allergies</h3>
               <p>Health details must be documented so teachers, kitchen staff, and substitute staff can protect each child.</p>
               <ul>
@@ -161,37 +162,37 @@ export function getPoliciesPageHtml() {
           <div class="row g-3">
             <div class="col-md-6 col-xl-4">
               <a href="/assets/docs/KBIS-Application-form.docx" class="kb-resource-card d-flex gap-3 text-decoration-none">
-                <span class="kb-resource-icon"><i class="bi bi-file-earmark-text"></i></span>
+                <span class="kb-resource-icon"><i class="bi ${kbIcon.applicationForm}"></i></span>
                 <span><strong>Application form</strong><small>Child details, guardian contacts, prior school details, language, religion, and admission criteria.</small></span>
               </a>
             </div>
             <div class="col-md-6 col-xl-4">
               <a href="/assets/docs/Kinder-Bubble-Medical.docx" class="kb-resource-card d-flex gap-3 text-decoration-none">
-                <span class="kb-resource-icon"><i class="bi bi-heart-pulse"></i></span>
+                <span class="kb-resource-icon"><i class="bi ${kbIcon.medicalForm}"></i></span>
                 <span><strong>Medical and allergy form</strong><small>Medical condition, allergy, diet, emergency care plan, and parent agreement.</small></span>
               </a>
             </div>
             <div class="col-md-6 col-xl-4">
               <a href="/assets/docs/After-School-Pick-up-Authorisation-Forms.docx" class="kb-resource-card d-flex gap-3 text-decoration-none">
-                <span class="kb-resource-icon"><i class="bi bi-person-check"></i></span>
+                <span class="kb-resource-icon"><i class="bi ${kbIcon.pickUpAuth}"></i></span>
                 <span><strong>Pick-up authorisation</strong><small>Authorised collection names, phone numbers, valid ID reminder, and parent confirmation.</small></span>
               </a>
             </div>
             <div class="col-md-6 col-xl-4">
               <a href="/assets/docs/mini-brochure.pdf" class="kb-resource-card d-flex gap-3 text-decoration-none">
-                <span class="kb-resource-icon"><i class="bi bi-journal-richtext"></i></span>
+                <span class="kb-resource-icon"><i class="bi ${kbIcon.brochure}"></i></span>
                 <span><strong>Mini brochure</strong><small>Mission, vision, bilingual studies, extra-curricular activities, feeding, trips, fees, and payment guide.</small></span>
               </a>
             </div>
             <div class="col-md-6 col-xl-4">
               <a href="/privacy" class="kb-resource-card d-flex gap-3 text-decoration-none">
-                <span class="kb-resource-icon"><i class="bi bi-shield-check"></i></span>
+                <span class="kb-resource-icon"><i class="bi ${kbIcon.privacy}"></i></span>
                 <span><strong>Privacy policy</strong><small>Website enquiries, submitted information, and data handling.</small></span>
               </a>
             </div>
             <div class="col-md-6 col-xl-4">
               <a href="/terms-of-service" class="kb-resource-card d-flex gap-3 text-decoration-none">
-                <span class="kb-resource-icon"><i class="bi bi-file-text"></i></span>
+                <span class="kb-resource-icon"><i class="bi ${kbIcon.terms}"></i></span>
                 <span><strong>Terms of service</strong><small>Website use and general service information.</small></span>
               </a>
             </div>

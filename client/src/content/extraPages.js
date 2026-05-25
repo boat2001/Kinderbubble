@@ -1,4 +1,5 @@
 import { schoolData as s } from './schoolData.js';
+import { kbIcon } from './kbIcons.js';
 import { getPoliciesPageHtml } from './simplePageHtml.js';
 
 const img = {
@@ -28,25 +29,25 @@ const docs = [
     title: 'Application form',
     href: '/assets/docs/KBIS-Application-form.docx',
     text: 'Child details, guardian contacts, previous childcare information, language, religion, and admission criteria.',
-    icon: 'bi-file-earmark-text',
+    icon: kbIcon.applicationForm,
   },
   {
     title: 'Medical and allergy form',
     href: '/assets/docs/Kinder-Bubble-Medical.docx',
     text: 'Medical conditions, allergies, dietary restrictions, emergency care plan, and parent agreement.',
-    icon: 'bi-heart-pulse',
+    icon: kbIcon.medicalForm,
   },
   {
     title: 'After-school pick-up authorisation',
     href: '/assets/docs/After-School-Pick-up-Authorisation-Forms.docx',
     text: 'Authorised pick-up names, phone numbers, ID reminder, and parent confirmation process.',
-    icon: 'bi-person-check',
+    icon: kbIcon.pickUpAuth,
   },
   {
     title: 'Mini brochure',
     href: '/assets/docs/mini-brochure.pdf',
     text: 'Mission, vision, bilingual studies, extra-curricular activities, feeding, trips, fees, and payment guide.',
-    icon: 'bi-journal-richtext',
+    icon: kbIcon.brochure,
   },
 ];
 

@@ -1,6 +1,8 @@
 /**
  * Home page sections below <HomeHero /> — College template layout with KBIS copy & images.
  */
+import { kbIcon } from './kbIcons.js';
+
 export function getIndexLayoutHtml(s) {
   const programRows = [
     {
@@ -91,8 +93,8 @@ export function getIndexLayoutHtml(s) {
                 <div class="program-header">
                   <h3>One campus, every stage</h3>
                   <div class="program-stats">
-                    <span><i class="bi bi-sunrise-fill"></i> ${s.hours.split('·')[0].trim()}</span>
-                    <span><i class="bi bi-translate"></i> English &amp; French exposure</span>
+                    <span><i class="bi ${kbIcon.fullDay}"></i> ${s.hours.split('·')[0].trim()}</span>
+                    <span><i class="bi ${kbIcon.languages}"></i> English &amp; French exposure</span>
                   </div>
                 </div>
                 <p>${s.highlights.join(' ')}</p>
@@ -133,7 +135,7 @@ export function getIndexLayoutHtml(s) {
               <img src="/assets/images/learning/girl-presenting-in-class-gallery.jpeg" alt="Student life at KBIS" class="img-fluid main-image" loading="lazy">
               <div class="floating-card" data-aos="zoom-in" data-aos-delay="400">
                 <div class="card-icon">
-                  <i class="bi bi-balloon-heart-fill"></i>
+                  <i class="bi ${kbIcon.singleCampus}"></i>
                 </div>
                 <div class="card-content">
                   <span class="card-number">${s.ages}</span>
@@ -239,7 +241,7 @@ export function getIndexLayoutHtml(s) {
           <div class="col-lg-8 text-center">
             <div class="intro-content" data-aos="fade-up" data-aos-delay="200">
               <h2 class="section-heading">Numbers that reflect our focus</h2>
-              <p class="section-description">${s.legalName} serves young learners with intentional ratios, long hours for working families, and a bilingual thread across the programme.</p>
+              <p class="section-description">One campus, bilingual learning, and a full day for working families.</p>
             </div>
           </div>
         </div>
@@ -247,7 +249,7 @@ export function getIndexLayoutHtml(s) {
           <div class="col-xl-3 col-lg-6 col-md-6">
             <div class="metric-card" data-href="/academics/programmes" data-aos="flip-left" data-aos-delay="300">
               <div class="metric-header">
-                <div class="metric-icon-wrapper"><i class="bi bi-grid-1x2-fill"></i></div>
+                <div class="metric-icon-wrapper"><i class="bi ${kbIcon.programmeBands}"></i></div>
                 <div class="metric-value"><span>5</span></div>
               </div>
               <div class="metric-info">
@@ -259,7 +261,7 @@ export function getIndexLayoutHtml(s) {
           <div class="col-xl-3 col-lg-6 col-md-6">
             <div class="metric-card" data-href="/academics/languages" data-aos="flip-left" data-aos-delay="400">
               <div class="metric-header">
-                <div class="metric-icon-wrapper"><i class="bi bi-translate"></i></div>
+                <div class="metric-icon-wrapper"><i class="bi ${kbIcon.languages}"></i></div>
                 <div class="metric-value"><span>2</span></div>
               </div>
               <div class="metric-info">
@@ -271,7 +273,7 @@ export function getIndexLayoutHtml(s) {
           <div class="col-xl-3 col-lg-6 col-md-6">
             <div class="metric-card" data-href="/parents/plan-a-visit" data-aos="flip-left" data-aos-delay="500">
               <div class="metric-header">
-                <div class="metric-icon-wrapper"><i class="bi bi-sunrise-fill"></i></div>
+                <div class="metric-icon-wrapper"><i class="bi ${kbIcon.fullDay}"></i></div>
                 <div class="metric-value"><span>12h</span></div>
               </div>
               <div class="metric-info">
@@ -283,7 +285,7 @@ export function getIndexLayoutHtml(s) {
           <div class="col-xl-3 col-lg-6 col-md-6">
             <div class="metric-card" data-href="/campus-facilities" data-aos="flip-left" data-aos-delay="600">
               <div class="metric-header">
-                <div class="metric-icon-wrapper"><i class="bi bi-heart-pulse-fill"></i></div>
+                <div class="metric-icon-wrapper"><i class="bi ${kbIcon.campusLocation}"></i></div>
                 <div class="metric-value"><span>1</span></div>
               </div>
               <div class="metric-info">
