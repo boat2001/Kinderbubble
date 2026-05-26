@@ -2,6 +2,23 @@ function safeCall(check, callback) {
   if (check()) callback();
 }
 
+const PDF_HREF = /\.pdf(\?|#|$)/i;
+const GALLERY_EFFECTS_CONTROLLER_KEY = '__kbGalleryEffectsController__';
+
+function wirePdfLinks(root = document) {
+  root.querySelectorAll('a[href]').forEach((link) => {
+    const href = link.getAttribute('href') || '';
+    if (!PDF_HREF.test(href)) return;
+    link.setAttribute('target', '_blank');
+    link.setAttribute('rel', 'noopener noreferrer');
+  });
+}
+
+function clearGalleryOpenState() {
+  document.body?.classList.remove('kb-gallery-open');
+  document.documentElement?.classList.remove('kb-gallery-open');
+}
+
 export function initTemplateEffects() {
   const body = document.body;
   const header = document.querySelector('#header');
@@ -98,6 +115,8 @@ export function initTemplateEffects() {
 
   if (preloader) preloader.remove();
 
+  wirePdfLinks();
+
   document
     .querySelectorAll(
       '.feature-card, .program-item, .facility-card, .organization-card, .athletics-card, .faculty-card, .secondary-post, .tab-post, .event-item, .contact-card, .post-item, .metric-card, .activity-item, .kb-rich-card, .kb-profile-card, .kb-update-card, .kb-album-card'
@@ -128,41 +147,139 @@ export function initTemplateEffects() {
     };
   });
 
-  document.querySelectorAll('.kb-gallery-mosaic').forEach((gallery) => {
+  clearGalleryOpenState();
+  if (window[GALLERY_EFFECTS_CONTROLLER_KEY]) {
+    window[GALLERY_EFFECTS_CONTROLLER_KEY].abort();
+  }
+  window[GALLERY_EFFECTS_CONTROLLER_KEY] = new AbortController();
+  const gallerySignal = window[GALLERY_EFFECTS_CONTROLLER_KEY].signal;
+
+  document.querySelectorAll('body > .kb-gallery-viewer').forEach((node) => node.remove());
+
+  document.querySelectorAll('.kb-gallery-albums').forEach((gallery) => {
     const viewer = gallery.parentElement?.querySelector('.kb-gallery-viewer');
-    const panelImg = viewer?.querySelector('img');
-    const title = viewer?.querySelector('h3');
-    const caption = viewer?.querySelector('p');
-    const back = viewer?.querySelector('.kb-gallery-back');
-    if (!viewer || !panelImg || !title || !caption || !back) return;
+    if (!viewer) return;
+
+    document.body.appendChild(viewer);
+
+    const panel = viewer.querySelector('.kb-gallery-viewer-panel');
+    panel?.addEventListener('click', (event) => event.stopPropagation(), { signal: gallerySignal });
+
+    const panelImg = viewer.querySelector('.kb-gallery-stage img');
+    const title = viewer.querySelector('.kb-gallery-caption h3');
+    const caption = viewer.querySelector('.kb-gallery-caption p');
+    const back = viewer.querySelector('.kb-gallery-back');
+    const prev = viewer.querySelector('.kb-gallery-prev');
+    const next = viewer.querySelector('.kb-gallery-next');
+    const rail = viewer.querySelector('.kb-gallery-thumbrail');
+    const toolbarTitle = viewer.querySelector('.kb-gallery-toolbar strong');
+    const toolbarCount = viewer.querySelector('.kb-gallery-toolbar span');
+    if (!panelImg || !title || !caption || !back || !prev || !next || !rail || !toolbarTitle || !toolbarCount) return;
+
+    let slides = [];
+    let activeIndex = 0;
+    let lastOpenButton = null;
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    const render = () => {
+      const slide = slides[activeIndex];
+      if (!slide?.src) return false;
+      panelImg.src = slide.src;
+      panelImg.alt = slide.title;
+      title.textContent = slide.title;
+      caption.textContent = slide.caption;
+      toolbarCount.textContent = `${activeIndex + 1} / ${slides.length}`;
+      rail.querySelectorAll('button').forEach((button, index) => {
+        button.classList.toggle('is-active', index === activeIndex);
+        button.setAttribute('aria-current', index === activeIndex ? 'true' : 'false');
+      });
+      return true;
+    };
+
+    const goTo = (index) => {
+      if (!slides.length) return;
+      activeIndex = (index + slides.length) % slides.length;
+      render();
+    };
 
     const close = () => {
       viewer.classList.remove('is-open');
       viewer.setAttribute('aria-hidden', 'true');
       panelImg.removeAttribute('src');
-      document.body.classList.remove('kb-gallery-open');
+      rail.replaceChildren();
+      slides = [];
+      clearGalleryOpenState();
+      if (lastOpenButton) lastOpenButton.focus();
     };
 
-    gallery.querySelectorAll('.kb-gallery-photo').forEach((button) => {
-      button.onclick = () => {
-        panelImg.src = button.dataset.gallerySrc || '';
-        panelImg.alt = button.dataset.galleryTitle || '';
-        title.textContent = button.dataset.galleryTitle || '';
-        caption.textContent = button.dataset.galleryCaption || '';
-        viewer.classList.add('is-open');
-        viewer.setAttribute('aria-hidden', 'false');
-        document.body.classList.add('kb-gallery-open');
-        back.focus();
-      };
+    const openAlbum = (button) => {
+      slides = Array.from(button.querySelectorAll('[data-gallery-src]')).map((item) => ({
+        src: item.dataset.gallerySrc || '',
+        title: item.dataset.galleryTitle || '',
+        caption: item.dataset.galleryCaption || '',
+      })).filter((slide) => slide.src);
+      if (!slides.length) {
+        close();
+        return;
+      }
+
+      activeIndex = 0;
+      lastOpenButton = button;
+      const albumTitle = button.querySelector('.kb-gallery-album-copy strong')?.textContent || 'Gallery album';
+      toolbarTitle.textContent = albumTitle;
+      toolbarTitle.id = 'kb-gallery-dialog-title';
+      panel?.setAttribute('aria-labelledby', 'kb-gallery-dialog-title');
+      rail.replaceChildren(
+        ...slides.map((slide, index) => {
+          const thumb = document.createElement('button');
+          thumb.type = 'button';
+          thumb.setAttribute('aria-label', `Show photo ${index + 1}: ${slide.title}`);
+          thumb.innerHTML = `<img src="${slide.src}" alt="">`;
+          thumb.onclick = () => goTo(index);
+          return thumb;
+        })
+      );
+
+      if (!render()) {
+        close();
+        return;
+      }
+      viewer.classList.add('is-open');
+      viewer.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('kb-gallery-open');
+      document.documentElement.classList.add('kb-gallery-open');
+      back.focus();
+    };
+
+    gallery.querySelectorAll('.kb-gallery-album').forEach((button) => {
+      button.onclick = () => openAlbum(button);
     });
 
     back.onclick = close;
+    prev.onclick = () => goTo(activeIndex - 1);
+    next.onclick = () => goTo(activeIndex + 1);
     viewer.onclick = (event) => {
       if (event.target === viewer) close();
     };
+    viewer.ontouchstart = (event) => {
+      const touch = event.changedTouches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+    };
+    viewer.ontouchend = (event) => {
+      const touch = event.changedTouches[0];
+      const dx = touch.clientX - touchStartX;
+      const dy = touch.clientY - touchStartY;
+      if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy) * 1.25) return;
+      goTo(activeIndex + (dx < 0 ? 1 : -1));
+    };
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && viewer.classList.contains('is-open')) close();
-    });
+      if (!viewer.classList.contains('is-open')) return;
+      if (event.key === 'Escape') close();
+      if (event.key === 'ArrowLeft') goTo(activeIndex - 1);
+      if (event.key === 'ArrowRight') goTo(activeIndex + 1);
+    }, { signal: gallerySignal });
   });
 
   toggleScrolled();

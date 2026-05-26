@@ -60,38 +60,29 @@ function PageRenderer({ pageKey }) {
   );
 }
 
-const footerHiddenPaths = new Set(['/404', '/news-details', '/event-details']);
-
-const footerLegalPaths = new Set(['/privacy', '/terms-of-service']);
-
-/** Footer nav: left column "Explore", right column "Check out" */
-const FOOTER_EXPLORE_COLUMN_ORDER = [
-  '/',
-  '/about',
-  '/academics/curriculum',
-  '/academics/programmes',
-  '/student-life/extra-curricular',
+const FOOTER_QUICK_LINKS = [
+  { path: '/about', label: 'About Us' },
+  { path: '/admissions', label: 'Admissions' },
+  { path: '/academics/programmes', label: 'Academic Programmes' },
+  { path: '/resources/gallery', label: 'Gallery' },
+  { path: '/contact', label: 'Contact Us' },
 ];
-const FOOTER_CHECKOUT_COLUMN_ORDER = [
-  '/parents/plan-a-visit',
-  '/resources/gallery',
-  '/resources/policies',
-  '/events',
-  '/contact',
+
+const FOOTER_LATEST_NEWS = [
+  {
+    title: 'Global School Alliance partnership',
+    path: '/news/partnerships',
+    image: '/assets/images/others/global-school-alliance-certificate.png',
+  },
+  {
+    title: 'Educational trips by term theme',
+    path: '/events',
+    image: '/assets/images/extra-curricular/students-with-ghana-flags-at-monument.jpeg',
+  },
 ];
 
 function Layout({ children }) {
   const footerYear = new Date().getFullYear();
-
-  const { footerExploreColumnLinks, footerCheckoutColumnLinks } = useMemo(() => {
-    const links = routeMap.filter((item) => !footerHiddenPaths.has(item.path));
-    const navLinks = links.filter((item) => !footerLegalPaths.has(item.path));
-    const byPath = Object.fromEntries(navLinks.map((item) => [item.path, item]));
-    return {
-      footerExploreColumnLinks: FOOTER_EXPLORE_COLUMN_ORDER.map((p) => byPath[p]).filter(Boolean),
-      footerCheckoutColumnLinks: FOOTER_CHECKOUT_COLUMN_ORDER.map((p) => byPath[p]).filter(Boolean),
-    };
-  }, []);
 
   return (
     <>
@@ -119,8 +110,8 @@ function Layout({ children }) {
       <footer id="footer" className="footer kb-footer light-background position-relative">
         <div className="kb-footer-glow" aria-hidden="true" />
         <div className="container footer-top kb-footer-top">
-          <div className="row kb-footer-top-row gy-4 gx-3 gx-lg-4 align-items-start">
-            <div className="col-12 col-lg-4 kb-footer-brand">
+          <div className="kb-footer-top-row">
+            <section className="kb-footer-brand" aria-label="School summary">
               <NavLink to="/" className="kb-footer-brand-lockup d-inline-flex align-items-center text-decoration-none">
                 <img
                   src={schoolData.logoSrc}
@@ -134,72 +125,72 @@ function Layout({ children }) {
                   <span className="kb-footer-tag">{schoolData.tagline}</span>
                 </span>
               </NavLink>
-              <p className="kb-footer-brand-tagline mt-3 mb-0">
-                Where every child is known, nurtured, and challenged to grow.
+              <p className="kb-footer-brand-tagline">
+                KBIS nurtures children from creche through primary with character, confidence, and bilingual learning.
               </p>
-              <ul className="kb-footer-contact list-unstyled mt-3 mb-0 small">
-                <li className="d-flex gap-2 mb-2">
-                  <i className="bi bi-geo-alt flex-shrink-0 mt-1" aria-hidden="true" />
+              <div className="kb-footer-social" aria-label="School contact shortcuts">
+                <a href={`tel:${schoolData.phoneTel}`} aria-label="Call KBIS">
+                  <i className="bi bi-telephone-fill" aria-hidden="true" />
+                </a>
+                <a href={`mailto:${schoolData.officeEmail}`} aria-label="Email KBIS">
+                  <i className="bi bi-envelope-fill" aria-hidden="true" />
+                </a>
+                <NavLink to="/contact" aria-label="Visit contact page">
+                  <i className="bi bi-geo-alt-fill" aria-hidden="true" />
+                </NavLink>
+              </div>
+            </section>
+
+            <section className="kb-footer-contact-col" aria-label="Contacts">
+              <h4 className="kb-footer-heading">Contacts</h4>
+              <ul className="kb-footer-contact list-unstyled">
+                <li>
+                  <i className="bi bi-geo-alt-fill" aria-hidden="true" />
                   <span>
                     {schoolData.addressLine1}
                     <br />
                     {schoolData.addressLine2}
                   </span>
                 </li>
-                <li className="d-flex gap-2 align-items-center">
-                  <i className="bi bi-telephone" aria-hidden="true" />
-                  <a href={`tel:${schoolData.phoneTel}`} className="kb-footer-link">
-                    {schoolData.phoneDisplay}
-                  </a>
-                </li>
-                <li className="d-flex gap-2 align-items-center">
-                  <i className="bi bi-envelope" aria-hidden="true" />
+                <li>
+                  <i className="bi bi-send-fill" aria-hidden="true" />
                   <a href={`mailto:${schoolData.officeEmail}`} className="kb-footer-link">
                     {schoolData.officeEmail}
                   </a>
                 </li>
+                <li>
+                  <i className="bi bi-telephone-fill" aria-hidden="true" />
+                  <a href={`tel:${schoolData.phoneTel}`} className="kb-footer-link">
+                    {schoolData.phoneDisplay}
+                  </a>
+                </li>
               </ul>
-            </div>
-            <div className="col-12 col-lg-3 kb-footer-cta">
-              <div className="kb-footer-visit-panel">
-                <h4 className="kb-footer-heading">Visit our campus</h4>
-                <p className="kb-footer-hours small mb-3">{schoolData.hours}</p>
-                <NavLink to="/admissions" className="kb-footer-btn-primary w-100 mb-2 d-inline-block text-center text-decoration-none">
-                  Admissions
-                </NavLink>
-                <NavLink to="/contact" className="kb-footer-btn-outline w-100 d-inline-block text-center text-decoration-none">
-                  Contact us
-                </NavLink>
+            </section>
+
+            <section className="kb-footer-quick-col" aria-label="Quick links">
+              <h4 className="kb-footer-heading">Quick Links</h4>
+              <ul className="kb-footer-nav-stack list-unstyled">
+                {FOOTER_QUICK_LINKS.map((link) => (
+                  <li key={link.path}>
+                    <NavLink to={link.path} className="kb-footer-nav-link">
+                      {link.label}
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="kb-footer-news-col" aria-label="Latest news">
+              <h4 className="kb-footer-heading">Latest News</h4>
+              <div className="kb-footer-news-list">
+                {FOOTER_LATEST_NEWS.map((item) => (
+                  <NavLink to={item.path} className="kb-footer-news-item" key={item.title}>
+                    <img src={item.image} alt="" loading="lazy" />
+                    <span>{item.title}</span>
+                  </NavLink>
+                ))}
               </div>
-            </div>
-            <div className="col-12 col-lg-5 kb-footer-explore">
-              <div className="row kb-footer-explore-inner gx-2 gx-md-3 gx-lg-3 gy-0">
-                <div className="col-6 kb-footer-explore-col">
-                  <h4 className="kb-footer-heading">Explore</h4>
-                  <ul className="kb-footer-nav-stack list-unstyled mb-0">
-                    {footerExploreColumnLinks.map((link) => (
-                      <li key={link.path}>
-                        <NavLink to={link.path} end={link.path === '/'} className="kb-footer-nav-link">
-                          {link.label}
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="col-6 kb-footer-checkout-col">
-                  <h4 className="kb-footer-heading">Check out</h4>
-                  <ul className="kb-footer-nav-stack list-unstyled mb-0">
-                    {footerCheckoutColumnLinks.map((link) => (
-                      <li key={link.path}>
-                        <NavLink to={link.path} end={link.path === '/'} className="kb-footer-nav-link">
-                          {link.label}
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
+            </section>
           </div>
         </div>
         <div className="kb-footer-bottom">

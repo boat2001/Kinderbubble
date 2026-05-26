@@ -24,6 +24,8 @@ const img = {
   partnership: '/assets/images/others/global-school-alliance-certificate.png',
 };
 
+const pdfLinkAttrs = (href) => (/\.pdf(\?|#|$)/i.test(href) ? ' target="_blank" rel="noopener noreferrer"' : '');
+
 const docs = [
   {
     title: 'Application form',
@@ -52,14 +54,220 @@ const docs = [
 ];
 
 const boardMembers = [
-  ['Nana Asamoah Boadu', 'Sole shareholder and board member; experienced finance and enterprise leader.', '/assets/images/others/nana-asamoah-boadu.jpg'],
-  ['Dr. Ernest Ofori Sarpong', 'Industrialist, entrepreneur, and board leader with broad business experience.', '/assets/images/others/dr-ernest-ofori-sarpong.jpeg'],
-  ['Prof. Joseph Osafo', 'Clinical and health psychology professor, consultant, and child development advocate.', '/assets/images/others/prof-joseph-osafo.jpeg'],
-  ['Rev. Alexander Asirifi', 'Minister, finance graduate, and education-supporting community leader.', '/assets/images/others/rev-alexander-asirifi.jpeg'],
-  ['Ms. Yvonne Asamoah Boadu', 'Administrative manager and secretary to the board.', '/assets/images/others/ms-yvonne-asamoah-boadu.jpeg'],
+  [
+    'Nana Asamoah Boadu',
+    'Sole shareholder and board member; experienced finance and enterprise leader. He supports the school with disciplined stewardship, long-term planning, and a clear commitment to building an institution that serves families with consistency and care. His guidance helps keep the school focused on responsible growth, sound investment in facilities, and dependable systems behind the classroom experience. Through his oversight, KBIS continues to strengthen the foundations that allow teachers, families, and children to thrive together.',
+    '/assets/images/others/nana-asamoah-boadu.jpg',
+  ],
+  [
+    'Dr. Ernest Ofori Sarpong',
+    'Industrialist, entrepreneur, and board leader with broad business experience. His perspective strengthens governance, strategic growth, and practical decision-making as KBIS continues to expand its learning environment and community impact. He brings an enterprise-minded approach to planning, accountability, and institutional excellence. His contribution supports a school culture that values ambition, service, and the confidence to prepare young learners for a wider world.',
+    '/assets/images/others/dr-ernest-ofori-sarpong.jpeg',
+  ],
+  [
+    'Prof. Joseph Osafo',
+    'Clinical and health psychology professor, consultant, and child development advocate. He brings insight into wellbeing, family support, and the emotional foundations children need to feel safe, confident, and ready to learn. His experience helps the board consider the whole child, from classroom confidence and peer relationships to resilience, care, and healthy routines. This perspective strengthens KBIS as a nurturing environment where academic progress is supported by emotional security and thoughtful pastoral care.',
+    '/assets/images/others/prof-joseph-osafo.jpeg',
+  ],
+  [
+    'Rev. Alexander Asirifi',
+    'Minister, finance graduate, and education-supporting community leader. His contribution reinforces character formation, ethical leadership, and the school\'s desire to nurture children with both academic strength and sound values. He supports the board with a steady focus on service, integrity, and the kind of community life that helps children feel known and guided. His leadership encourages KBIS to keep values, responsibility, and care at the centre of every decision made for learners and families.',
+    '/assets/images/others/rev-alexander-asirifi.jpeg',
+  ],
+  // ['Ms. Yvonne Asamoah Boadu', 'Administrative manager and secretary to the board.', '/assets/images/others/ms-yvonne-asamoah-boadu.jpeg'],
 ];
 
-const teachers = ['Mr. Lamine', 'Ms. Clemence', 'Ms. Sheila', 'Mr. Enoch', 'Ms. Hannah', 'Ms. Lizzy', 'Ms. Mabel', 'Ms. Yvette', 'Ms. Priscilla', 'Ms. Mercy', 'Ms. Beatrice'];
+const teachers = [
+  ['Mr. Lamine', 'Classroom lead', '/assets/images/learning/teacher-with-small-class.jpeg'],
+  ['Ms. Clemence', 'Early years teacher', '/assets/images/learning/teacher-guided-table-activity.jpeg'],
+  ['Ms. Sheila', 'Foundation support', '/assets/images/learning/teacher-helping-children-at-table.jpg'],
+  ['Mr. Enoch', 'Primary support', '/assets/images/extra-curricular/school-excursion-students-with-teacher.jpeg'],
+  ['Ms. Hannah', 'Nursery teacher', '/assets/images/extra-curricular/teacher-assisting-playground-children.jpeg'],
+  ['Ms. Lizzy', 'Learning assistant', '/assets/images/others/staff-member-at-desk.jpg'],
+  ['Ms. Mabel', 'Classroom support', '/assets/images/extra-curricular/teacher-with-costumed-child.jpeg'],
+  ['Ms. Yvette', 'Bilingual learning', '/assets/images/learning/teacher-guided-table-activity.jpeg'],
+  ['Ms. Priscilla', 'Early years support', '/assets/images/learning/teacher-helping-children-at-table.jpg'],
+  ['Ms. Mercy', 'Care and routines', '/assets/images/extra-curricular/teacher-serving-career-day-food.jpeg'],
+  ['Ms. Beatrice', 'Classroom assistant', '/assets/images/learning/teacher-with-small-class.jpeg'],
+];
+
+const academicTerms = [
+  {
+    title: 'Term one',
+    period: 'September - December',
+    items: [
+      ['September', 'Opening routines, settling-in, baseline learning checks, and Kwame Nkrumah Memorial Day.'],
+      ['October', 'Class routines, family communication, project work, and early term progress reviews.'],
+      ['November', 'Core learning consolidation, themed activities, and preparation for end-of-term sharing.'],
+      ['December', 'Farmers Day, end-of-term activities, Christmas break, and Boxing Day.'],
+    ],
+  },
+  {
+    title: 'Term two',
+    period: 'January - April',
+    items: [
+      ['January', 'New Year, Constitution Day, term restart, and refreshed learning targets.'],
+      ['February', 'Class projects, bilingual learning rhythm, and parent check-ins where needed.'],
+      ['March', 'Independence Day, cultural learning moments, and mid-term assessment routines.'],
+      ['April', 'Easter break, end-of-term review, and family updates before the next term.'],
+    ],
+  },
+  {
+    title: 'Term three',
+    period: 'May - August',
+    items: [
+      ['May', 'Workers Day, final term planning, educational trips, and practical learning themes.'],
+      ['June', 'Portfolio work, classroom showcases, sports and creative activities.'],
+      ['July', 'Graduation preparation, moving-up conversations, and end-of-year celebrations.'],
+      ['August', 'Founders Day, school break, admissions conversations, and preparation for September.'],
+    ],
+  },
+];
+
+const srcExecutives = [
+  {
+    role: 'SRC President',
+    focus: 'Student voice',
+    image: '/assets/images/students/girl-in-formal-uniform-under-tent.jpeg',
+    text: 'Helps classmates practise speaking clearly, listening respectfully, and sharing age-appropriate ideas with teachers during school activities.',
+  },
+  {
+    role: 'Vice President',
+    focus: 'Team support',
+    image: '/assets/images/students/three-children-smiling-uniforms.jpeg',
+    text: 'Supports the president during class moments, group routines, and simple leadership duties that build confidence and responsibility.',
+  },
+  {
+    role: 'Secretary',
+    focus: 'Class reminders',
+    image: '/assets/images/learning/girl-presenting-in-class-gallery.jpeg',
+    text: 'Encourages careful communication, helps remember classroom responsibilities, and models organised habits for younger learners.',
+  },
+  {
+    role: 'Organising Lead',
+    focus: 'Activities',
+    image: '/assets/images/extra-curricular/children-with-balloons-on-turf.jpeg',
+    text: 'Helps children participate positively in games, celebrations, assemblies, and guided school-life activities.',
+  },
+];
+
+const schoolHouses = [
+  {
+    name: 'Red House',
+    value: 'Courage',
+    image: '/assets/images/extra-curricular/students-with-ghana-flags-under-tent.jpeg',
+    text: 'Learners practise confidence, healthy effort, and the courage to try again during friendly house activities.',
+    accent: 'coral',
+  },
+  {
+    name: 'Blue House',
+    value: 'Wisdom',
+    image: '/assets/images/students/students-in-blue-uniforms-outdoor.jpg',
+    text: 'Learners build focus, curiosity, and thoughtful participation through classroom and school-wide challenges.',
+    accent: 'teal',
+  },
+  {
+    name: 'Green House',
+    value: 'Service',
+    image: '/assets/images/learning/children-holding-green-apple.jpeg',
+    text: 'Learners are encouraged to help, share, take turns, and notice the needs of others in daily routines.',
+    accent: 'green',
+  },
+  {
+    name: 'Gold House',
+    value: 'Excellence',
+    image: '/assets/images/extra-curricular/students-under-event-tent.jpeg',
+    text: 'Learners celebrate steady progress, good effort, and pride in doing small things well every day.',
+    accent: 'gold',
+  },
+];
+
+const galleryAlbums = [
+  {
+    title: 'Classroom Learning',
+    topic: 'Daily academics',
+    description: 'Children reading, presenting, writing, using computers, and learning through guided classroom routines.',
+    cover: '/assets/images/learning/girl-presenting-in-class-gallery.jpeg',
+    images: [
+      ['/assets/images/learning/girl-presenting-in-class-gallery.jpeg', 'Student presentation', 'A learner building confidence through class presentation.'],
+      ['/assets/images/learning/students-in-computer-lab.jpeg', 'Computer lab learning', 'Students exploring technology as part of everyday learning.'],
+      ['/assets/images/learning/student-writing-in-notebook.jpeg', 'Writing practice', 'Focused handwriting and classwork routines.'],
+      ['/assets/images/learning/children-reading-together.jpeg', 'Reading together', 'Group reading moments that support language and confidence.'],
+      ['/assets/images/learning/teacher-guided-table-activity.jpeg', 'Guided table activity', 'Teacher-led small group learning.'],
+      ['/assets/images/learning/child-presenting-poster.jpeg', 'Poster presentation', 'Practical work shared with classmates.'],
+    ],
+  },
+  {
+    title: 'Student Life',
+    topic: 'Portraits and school day',
+    description: 'Smiles, uniforms, friendships, play, and everyday moments that show the children at the heart of KBIS.',
+    cover: '/assets/images/students/three-children-smiling-uniforms.jpeg',
+    images: [
+      ['/assets/images/students/three-children-smiling-uniforms.jpeg', 'Smiling learners', 'Children in uniform enjoying the school day.'],
+      ['/assets/images/students/formal-uniform-students-kbis-01.jpeg', 'Formal uniform students', 'Learners dressed neatly for school activities.'],
+      ['/assets/images/students/children-seated-in-class-gallery.jpeg', 'Classroom collaboration', 'Children seated together during a learning moment.'],
+      ['/assets/images/students/smiling-child-on-turf.jpeg', 'Outdoor smile', 'A joyful moment on the school turf.'],
+      ['/assets/images/students/girl-in-orange-uniform-portrait.jpeg', 'Student portrait', 'A warm portrait from daily school life.'],
+      ['/assets/images/students/boy-smiling-under-tent-closeup.jpeg', 'Smiling under tent', 'A close-up school event portrait.'],
+    ],
+  },
+  {
+    title: 'Trips and National Moments',
+    topic: 'Excursions',
+    description: 'Educational trips, Independence Square visits, bus moments, and national learning experiences beyond campus.',
+    cover: '/assets/images/extra-curricular/students-with-ghana-flags-at-monument.jpeg',
+    images: [
+      ['/assets/images/extra-curricular/students-with-ghana-flags-at-monument.jpeg', 'Ghana flags at monument', 'Learners celebrating national identity during an excursion.'],
+      ['/assets/images/extra-curricular/students-group-at-independence-square.jpeg', 'Independence Square group', 'Students learning through a national landmark visit.'],
+      ['/assets/images/extra-curricular/students-line-at-independence-square.jpeg', 'Excursion lineup', 'Learners lined up during an educational trip.'],
+      ['/assets/images/extra-curricular/school-excursion-group-photo.jpeg', 'Excursion group photo', 'A group memory from a school trip.'],
+      ['/assets/images/extra-curricular/students-on-bus-smiling.jpeg', 'Bus smiles', 'Children enjoying the journey together.'],
+      ['/assets/images/extra-curricular/students-with-officer-on-excursion.jpeg', 'Learning from officers', 'Students meeting community helpers during a trip.'],
+    ],
+  },
+  {
+    title: 'Celebrations and Events',
+    topic: 'School programmes',
+    description: 'Birthdays, performances, career day, family gatherings, and the celebrations that make school memorable.',
+    cover: '/assets/images/extra-curricular/parents-and-children-at-event.jpeg',
+    images: [
+      ['/assets/images/extra-curricular/parents-and-children-at-event.jpeg', 'Parents and children', 'Families joining school celebrations.'],
+      ['/assets/images/extra-curricular/students-on-stage-at-event.jpeg', 'Students on stage', 'Learners performing during a school programme.'],
+      ['/assets/images/extra-curricular/birthday-party-students.jpeg', 'Birthday party', 'Classroom celebration with friends.'],
+      ['/assets/images/extra-curricular/career-day-children-in-costumes.jpeg', 'Career day costumes', 'Children exploring future roles through dress-up and play.'],
+      ['/assets/images/extra-curricular/power-rangers-performance-kbis-05.jpeg', 'Costume performance', 'A lively performance moment during school events.'],
+      ['/assets/images/extra-curricular/career-day-costume-group-certificates.jpeg', 'Career day certificates', 'A group moment from career day activities.'],
+    ],
+  },
+  {
+    title: 'Play and Extra Curricular',
+    topic: 'Movement and confidence',
+    description: 'Outdoor play, karate, bicycles, playground discovery, and energetic moments that support whole-child growth.',
+    cover: '/assets/images/extra-curricular/children-playing-with-ball.jpeg',
+    images: [
+      ['/assets/images/extra-curricular/children-playing-with-ball.jpeg', 'Ball play', 'Children enjoying outdoor movement and teamwork.'],
+      ['/assets/images/extra-curricular/karate-class-on-lawn.jpeg', 'Karate class', 'Discipline, movement, and focus through karate.'],
+      ['/assets/images/extra-curricular/children-with-bicycles-on-playground.jpeg', 'Bicycle play', 'Active play on the school playground.'],
+      ['/assets/images/extra-curricular/child-riding-bike-on-playground.jpeg', 'Riding on playground', 'A child enjoying supervised outdoor play.'],
+      ['/assets/images/extra-curricular/girl-in-karate-uniform.jpeg', 'Karate uniform', 'Confidence-building extra-curricular activity.'],
+      ['/assets/images/extra-curricular/playground-child-on-swing.jpg', 'Playground swing', 'Free play in a safe outdoor space.'],
+    ],
+  },
+  {
+    title: 'Campus Spaces',
+    topic: 'Facilities',
+    description: 'Classrooms, corridors, playrooms, computer spaces, and the colourful environment children use every day.',
+    cover: '/assets/images/facilities/purple-classroom-panorama.jpg',
+    images: [
+      ['/assets/images/facilities/purple-classroom-panorama.jpg', 'Purple classroom panorama', 'A broad view of one of the colourful classrooms.'],
+      ['/assets/images/facilities/purple-classroom.jpeg', 'Purple classroom', 'A bright classroom arranged for young learners.'],
+      ['/assets/images/facilities/empty-pink-classroom.jpeg', 'Pink classroom', 'A clean and welcoming classroom space.'],
+      ['/assets/images/facilities/computer-room-tables.jpg', 'Computer room', 'Technology space for guided digital learning.'],
+      ['/assets/images/facilities/colorful-school-corridor.jpg', 'Colourful corridor', 'A bright movement space within the school.'],
+      ['/assets/images/facilities/blue-stairwell.jpeg', 'Blue stairwell', 'Safe, colourful circulation around campus.'],
+    ],
+  },
+];
 
 const pageTitle = (title, parent, href = '/') => `
   <div class="page-title light-background">
@@ -75,7 +283,7 @@ const docCards = () => `
       .map(
         (doc) => `
         <div class="col-md-6">
-          <a class="kb-resource-card d-flex gap-3 text-decoration-none" href="${doc.href}">
+          <a class="kb-resource-card d-flex gap-3 text-decoration-none" href="${doc.href}"${pdfLinkAttrs(doc.href)}>
             <span class="kb-resource-icon"><i class="bi ${doc.icon}"></i></span>
             <span>
               <strong>${doc.title}</strong>
@@ -107,11 +315,11 @@ const featureCards = (items) => `
       .join('')}
   </div>`;
 
-const shell = ({ title, parent, parentHref, heroImage, kicker, heading, lead, body }) => `
+const shell = ({ title, parent, parentHref, heroImage, kicker, heading, lead, body, heroClass = '' }) => `
   ${pageTitle(title, parent, parentHref)}
   <section class="section kb-designed-page">
     <div class="container" data-aos="fade-up">
-      <div class="kb-page-hero row g-4 align-items-stretch">
+      <div class="kb-page-hero ${heroClass} row g-4 align-items-stretch">
         <div class="col-lg-7">
           <div class="kb-page-hero-copy">
             <p class="kb-kicker">${kicker}</p>
@@ -142,9 +350,15 @@ export const extraPageBuilders = {
       heading: 'A caring school shaped by character, academics, and confidence.',
       lead: 'KBIS exists to prepare future innovators through a balanced blend of character formation, academic habits, bilingual learning, and joyful early childhood care.',
       body: `
-        <div class="row g-4 mt-4">
-          <div class="col-md-6"><div class="kb-statement-card h-100"><h3>Mission</h3><p>To offer holistic, all-rounded early childhood education and lay the foundation for knowledge seekers, independent thinkers, self-confident, well-rounded, and God-fearing character.</p></div></div>
-          <div class="col-md-6"><div class="kb-statement-card h-100"><h3>Vision</h3><p>To establish a school focused on producing future innovators whose education blends character and academics for life-long outcomes.</p></div></div>
+        <div class="kb-mv-focus kb-mv-pair">
+          <article class="kb-mv-card kb-mv-card--mission">
+            <p class="kb-mv-label">Mission</p>
+            <p class="kb-mv-text">To offer holistic, all-rounded early childhood education and lay the foundation for knowledge seekers, independent thinkers, self-confident, well-rounded, and God-fearing character.</p>
+          </article>
+          <article class="kb-mv-card kb-mv-card--vision">
+            <p class="kb-mv-label">Vision</p>
+            <p class="kb-mv-text">To establish a school focused on producing future innovators whose education blends character and academics for life-long outcomes.</p>
+          </article>
         </div>
         ${featureCards([
           { kicker: 'Culture', title: s.slogan, text: 'A school identity rooted in heritage, leadership, and high expectations for young learners.', image: '/assets/images/students/students-in-blue-uniforms-outdoor.jpg', href: '/about' },
@@ -165,12 +379,13 @@ export const extraPageBuilders = {
       kicker: 'Governance',
       heading: 'Experienced leaders supporting the school mission.',
       lead: 'The board provides oversight, enterprise experience, and community leadership so KBIS can grow with discipline and care.',
+      heroClass: 'kb-board-hero',
       body: `
         <div class="row g-4 mt-4 kb-board-grid">
           ${boardMembers
             .map(
               (member) => `
-              <div class="col-md-6 col-xl-4">
+              <div class="col-12">
                 <article class="kb-profile-card h-100" data-href="/about/board-of-directors">
                   <img src="${member[2]}" alt="${member[0]}" loading="lazy">
                   <div><h3>${member[0]}</h3><p>${member[1]}</p></div>
@@ -204,25 +419,34 @@ export const extraPageBuilders = {
   'about-principal': () => ({
     title: 'Principal - Kinder Bubble International School',
     bodyClass: 'about-principal-page',
-    mainHtml: shell({
-      title: 'Principal',
-      parent: 'About',
-      parentHref: '/about',
-      heroImage: img.principal,
-      kicker: 'Principal',
-      heading: s.principal,
-      lead: 'A visionary educator with more than 26 years of experience in education, home management, personal development, counselling, and support for children with special educational needs.',
-      body: `
-        <div class="kb-quote-panel mt-4">
-          <p>Welcome to Kinder Bubble International School. We are a vibrant community dedicated to providing a nurturing and stimulating learning environment for our students.</p>
-          <strong>${s.principal}</strong>
+    mainHtml: `
+      ${pageTitle('Principal', 'About', '/about')}
+      <section class="section kb-principal-profile">
+        <div class="container" data-aos="fade-up">
+          <div class="kb-principal-profile-shell">
+            <div class="kb-principal-photo-wrap">
+              <img src="${img.principal}" alt="${s.principal}" loading="lazy">
+              <span><i class="bi bi-circle-fill"></i>${s.principal}</span>
+            </div>
+            <article class="kb-principal-panel" aria-labelledby="principal-profile-heading">
+              <p class="kb-principal-badge"><i class="bi bi-circle-fill"></i> Principal's profile</p>
+              <h2 id="principal-profile-heading">Ms. Delphina Naa Lomoley <span>Lomotey</span></h2>
+              <p class="kb-principal-intro">A visionary educator with more than 26 years of experience in education, home management, personal development, counselling, and support for children with special educational needs.</p>
+              <div class="kb-principal-credentials">
+                <p><i class="bi bi-check-lg"></i><strong>Child-centred school leadership</strong></p>
+                <p><i class="bi bi-check-lg"></i><strong>Parent partnership and learner confidence</strong></p>
+                <p><i class="bi bi-check-lg"></i><strong>Special educational needs support</strong></p>
+              </div>
+              <p class="kb-principal-signature">Ms. Delphina Naa Lomoley Lomotey</p>
+            </article>
+          </div>
+          <article class="kb-principal-detail-card" data-aos="fade-up" data-aos-delay="120">
+            <span class="kb-principal-dropcap">A</span>
+            <p>s Principal of Kinder Bubble International School, <strong>${s.principal}</strong> brings a gentle, steady presence to the daily life of the school. She helps children feel known, safe, and confident while guiding teachers to make learning active, caring, and purposeful. Families value her warm communication, her attention to each child&apos;s progress, and her commitment to a school culture where kindness, discipline, creativity, and strong foundations grow together.</p>
+            <span class="kb-principal-detail-icon"><i class="bi bi-mortarboard-fill"></i></span>
+          </article>
         </div>
-        ${featureCards([
-          { kicker: 'Priority', title: 'Respect and kindness', text: 'A school culture where children practise courtesy, patience, and confidence every day.', image: '/assets/images/students/girl-seated-at-class-table.jpeg', href: '/about/mission-vision' },
-          { kicker: 'Learning', title: 'Academic excellence', text: 'The principal supports teachers to make foundational learning clear, active, and encouraging.', image: '/assets/images/learning/student-writing-in-notebook.jpeg', href: '/academics' },
-          { kicker: 'Next step', title: 'Visit the school', text: 'Meet leadership and see classroom routines in person.', image: '/assets/images/facilities/purple-classroom.jpeg', href: '/parents/plan-a-visit' },
-        ])}`,
-    }),
+      </section>`,
   }),
 
   'about-staff-teaching': () => ({
@@ -237,7 +461,21 @@ export const extraPageBuilders = {
       heading: 'Professional teachers who love teaching children daily.',
       lead: 'Our classroom team supports bilingual learning, early literacy, numeracy, inquiry, creativity, and calm transitions through the day.',
       body: `
-        <div class="kb-name-cloud mt-4">${teachers.map((name) => `<span>${name}</span>`).join('')}</div>
+        <div class="kb-teacher-grid mt-4">
+          ${teachers
+            .map(
+              ([name, role, image], index) => `
+              <article class="kb-teacher-card" data-aos="fade-up" data-aos-delay="${80 + index * 35}">
+                <img src="${image}" alt="${name}" loading="lazy">
+                <div>
+                  <span>${role}</span>
+                  <h3>${name}</h3>
+                  <p>Part of the KBIS classroom team supporting steady routines, active learning, and warm care for children each day.</p>
+                </div>
+              </article>`
+            )
+            .join('')}
+        </div>
         ${featureCards([
           { kicker: 'Classroom', title: 'Small group teaching', text: 'Whole class, ability groups, mixed ability groups, and paired work are used during the week.', image: '/assets/images/learning/teacher-with-small-class.jpeg', href: '/academics/curriculum' },
           { kicker: 'Languages', title: 'English and French', text: 'Daily lessons and language exposure are tailored to each child according to age and ability.', image: '/assets/images/learning/children-reading-together.jpeg', href: '/academics/languages' },
@@ -276,11 +514,24 @@ export const extraPageBuilders = {
       kicker: 'Cambridge + bilingual',
       heading: 'Structured learning with equal respect for language, character, and creativity.',
       lead: 'KBIS follows the Cambridge International Curriculum and bilingual English-French studies, with teaching planned for children from early years through primary.',
-      body: featureCards([
-        { kicker: 'Core', title: 'Literacy and numeracy', text: 'Children build phonics, handwriting, everyday maths, and confidence through multi-sensory strategies.', image: '/assets/images/learning/student-writing-in-notebook.jpeg', href: '/academics/programmes' },
-        { kicker: 'Inquiry', title: 'Science and discovery', text: 'Learning is practical, visual, and active so children can test ideas with their hands.', image: '/assets/images/learning/child-presenting-poster.jpeg', href: '/academics/programmes' },
-        { kicker: 'Character', title: 'Confidence and kindness', text: 'The timetable supports independence, turn-taking, communication, and self-control.', image: '/assets/images/students/smiling-boy-at-desk.jpeg', href: '/students-life' },
-      ]),
+      body: `
+        <section class="kb-learning-detail kb-learning-detail--curriculum" data-aos="fade-up" data-aos-delay="120">
+          <div>
+            <p class="kb-kicker">Curriculum details</p>
+            <h3>What learning looks like at KBIS</h3>
+            <p>Children learn through a balanced rhythm of direct teaching, guided practice, discovery, play, and reflection. The Cambridge-aligned approach gives teachers a clear structure, while classroom routines keep learning warm, practical, and age-right.</p>
+          </div>
+          <div class="kb-learning-detail-grid">
+            <article><i class="bi bi-pencil-square"></i><strong>Foundational skills</strong><span>Phonics, handwriting, reading, early writing, everyday maths, and problem solving are practised in small, manageable steps.</span></article>
+            <article><i class="bi bi-lightbulb"></i><strong>Active discovery</strong><span>Science, creativity, technology, projects, and outdoor learning help children test ideas and explain what they notice.</span></article>
+            <article><i class="bi bi-heart"></i><strong>Character habits</strong><span>Confidence, kindness, independence, courtesy, and responsibility are built into the school day, not treated as extras.</span></article>
+          </div>
+        </section>
+        ${featureCards([
+          { kicker: 'Core', title: 'Literacy and numeracy', text: 'Children build phonics, handwriting, everyday maths, and confidence through multi-sensory strategies.', image: '/assets/images/learning/student-writing-in-notebook.jpeg', href: '/academics/programmes' },
+          { kicker: 'Inquiry', title: 'Science and discovery', text: 'Learning is practical, visual, and active so children can test ideas with their hands.', image: '/assets/images/learning/child-presenting-poster.jpeg', href: '/academics/programmes' },
+          { kicker: 'Character', title: 'Confidence and kindness', text: 'The timetable supports independence, turn-taking, communication, and self-control.', image: '/assets/images/students/smiling-boy-at-desk.jpeg', href: '/students-life' },
+        ])}`,
     }),
   }),
 
@@ -328,11 +579,24 @@ export const extraPageBuilders = {
       kicker: 'English + French',
       heading: 'Bilingual education starts naturally when children are young.',
       lead: 'French is introduced as a second language because early childhood and primary years are powerful windows for language acquisition.',
-      body: featureCards([
-        { kicker: 'Balance', title: 'English-French rhythm', text: 'The brochure describes a balanced bilingual model with Anglophone and Francophone teaching support.', image: '/assets/images/learning/teacher-guided-table-activity.jpeg', href: '/academics/curriculum' },
-        { kicker: 'Culture', title: 'Global readiness', text: 'French opens doors to wider international communication and cultural understanding.', image: '/assets/images/extra-curricular/students-with-ghana-flags-at-monument.jpeg', href: '/news/partnerships' },
-        { kicker: 'Everyday', title: 'Songs, stories, routines', text: 'Language exposure is built into activities children already enjoy.', image: '/assets/images/learning/girl-presenting-in-class.jpeg', href: '/students-life' },
-      ]),
+      body: `
+        <section class="kb-learning-detail kb-learning-detail--languages" data-aos="fade-up" data-aos-delay="120">
+          <div>
+            <p class="kb-kicker">Language details</p>
+            <h3>How English and French become part of the day</h3>
+            <p>Language learning is kept natural and confidence-building. Children hear, repeat, sing, respond, label objects, tell simple stories, and use new words during familiar classroom routines before moving into more structured reading and writing.</p>
+          </div>
+          <div class="kb-learning-detail-grid">
+            <article><i class="bi bi-chat-dots"></i><strong>Everyday speaking</strong><span>Greetings, classroom instructions, songs, stories, and short conversations help children use language without fear.</span></article>
+            <article><i class="bi bi-book"></i><strong>Reading readiness</strong><span>Sounds, vocabulary, picture books, rhymes, and early comprehension support both English confidence and French exposure.</span></article>
+            <article><i class="bi bi-globe2"></i><strong>Wider world</strong><span>Bilingual exposure helps learners appreciate culture, communicate broadly, and prepare for future international opportunities.</span></article>
+          </div>
+        </section>
+        ${featureCards([
+          { kicker: 'Balance', title: 'English-French rhythm', text: 'The brochure describes a balanced bilingual model with Anglophone and Francophone teaching support.', image: '/assets/images/learning/teacher-guided-table-activity.jpeg', href: '/academics/curriculum' },
+          { kicker: 'Culture', title: 'Global readiness', text: 'French opens doors to wider international communication and cultural understanding.', image: '/assets/images/extra-curricular/students-with-ghana-flags-at-monument.jpeg', href: '/news/partnerships' },
+          { kicker: 'Everyday', title: 'Songs, stories, routines', text: 'Language exposure is built into activities children already enjoy.', image: '/assets/images/learning/girl-presenting-in-class.jpeg', href: '/students-life' },
+        ])}`,
     }),
   }),
 
@@ -348,9 +612,31 @@ export const extraPageBuilders = {
       heading: 'Term rhythm, public holidays, school events, and family updates.',
       lead: 'The school calendar includes term work, public holidays, educational trips, parent meetings, celebrations of learning, and open campus moments.',
       body: `
-        <div class="kb-calendar-grid mt-4">
-          ${['Sep - Kwame Nkrumah Memorial Day', 'Dec - Farmers Day, Christmas and Boxing Day', 'Jan - New Year and Constitution Day', 'Mar - Independence Day', 'Apr - Easter break', 'May - Workers Day', 'Aug - Founders Day']
-            .map((item) => `<div class="kb-calendar-item">${item}</div>`)
+        <div class="kb-term-timeline mt-4">
+          ${academicTerms
+            .map(
+              (term, termIndex) => `
+              <section class="kb-term-panel" data-aos="fade-up" data-aos-delay="${100 + termIndex * 80}">
+                <div class="kb-term-head">
+                  <span>0${termIndex + 1}</span>
+                  <div>
+                    <h3>${term.title}</h3>
+                    <p>${term.period}</p>
+                  </div>
+                </div>
+                <div class="kb-term-items">
+                  ${term.items
+                    .map(
+                      ([month, text]) => `
+                      <article class="kb-term-item">
+                        <strong>${month}</strong>
+                        <p>${text}</p>
+                      </article>`
+                    )
+                    .join('')}
+                </div>
+              </section>`
+            )
             .join('')}
         </div>
         ${featureCards([
@@ -372,11 +658,42 @@ export const extraPageBuilders = {
       kicker: 'Student voice',
       heading: 'Age-appropriate leadership, responsibility, and confidence.',
       lead: 'For young learners, leadership starts with small habits: helping, listening, speaking kindly, and taking turns.',
-      body: featureCards([
-        { kicker: 'Voice', title: 'Classroom feedback', text: 'Children learn to share ideas, ask questions, and listen to classmates.', image: '/assets/images/learning/girl-presenting-in-class-gallery.jpeg', href: '/students-life' },
-        { kicker: 'Service', title: 'Helping routines', text: 'Class jobs and shared responsibilities build ownership.', image: '/assets/images/students/children-sitting-on-floor.jpeg', href: '/student-life/houses' },
-        { kicker: 'Confidence', title: 'Presentation moments', text: 'Show-and-tell and class sharing help children practise speaking.', image: '/assets/images/learning/child-presenting-poster.jpeg', href: '/events' },
-      ]),
+      body: `
+        <section class="kb-src-executives mt-4" aria-label="SRC executive profiles">
+          ${srcExecutives
+            .map(
+              (leader, index) => `
+              <article class="kb-src-card" data-aos="fade-up" data-aos-delay="${80 + index * 45}">
+                <div class="kb-src-photo">
+                  <img src="${leader.image}" alt="${leader.role}" loading="lazy">
+                </div>
+                <div class="kb-src-copy">
+                  <span>${leader.focus}</span>
+                  <h3>${leader.role}</h3>
+                  <p>${leader.text}</p>
+                </div>
+              </article>`
+            )
+            .join('')}
+        </section>
+        <section class="kb-src-detail-panel" data-aos="fade-up">
+          <div class="kb-src-detail-copy">
+            <p class="kb-kicker">What the SRC does</p>
+            <h3>Small leadership roles that build confidence, service, and school pride.</h3>
+            <p>The SRC gives children a guided way to practise responsibility in everyday school life. At KBIS, student leadership is age-appropriate: learners help share ideas, support class routines, welcome participation, and model respectful behaviour during assemblies, events, and classroom activities.</p>
+            <p>These roles benefit the school by strengthening communication between learners and teachers, encouraging positive habits, and making children feel that their voices matter. They also benefit students by building confidence, empathy, teamwork, public speaking, and the habit of serving others with kindness.</p>
+          </div>
+          <div class="kb-src-detail-points">
+            <div><span>01</span><strong>Voice</strong><small>Children practise sharing ideas respectfully.</small></div>
+            <div><span>02</span><strong>Service</strong><small>Leaders help with routines, events, and class support.</small></div>
+            <div><span>03</span><strong>Confidence</strong><small>Simple responsibilities help learners speak and participate.</small></div>
+          </div>
+        </section>
+        ${featureCards([
+          { kicker: 'Voice', title: 'Classroom feedback', text: 'Children learn to share ideas, ask questions, and listen to classmates.', image: '/assets/images/learning/girl-presenting-in-class-gallery.jpeg', href: '/students-life' },
+          { kicker: 'Service', title: 'Helping routines', text: 'Class jobs and shared responsibilities build ownership.', image: '/assets/images/students/children-sitting-on-floor.jpeg', href: '/student-life/houses' },
+          { kicker: 'Confidence', title: 'Presentation moments', text: 'Show-and-tell and class sharing help children practise speaking.', image: '/assets/images/learning/child-presenting-poster.jpeg', href: '/events' },
+        ])}`,
     }),
   }),
 
@@ -391,11 +708,27 @@ export const extraPageBuilders = {
       kicker: 'Belonging',
       heading: 'Friendly house spirit that builds teamwork and pride.',
       lead: 'House activities give children a sense of identity, encouragement, and shared celebration without overwhelming them.',
-      body: featureCards([
-        { kicker: 'Teamwork', title: 'Games and challenges', text: 'Children practise cooperation and turn-taking through guided activities.', image: '/assets/images/extra-curricular/children-with-balloons-on-turf.jpeg', href: '/student-life/extra-curricular' },
-        { kicker: 'Pride', title: 'Culture and identity', text: 'School spirit connects children to Ghanaian heritage and global citizenship.', image: '/assets/images/extra-curricular/students-with-ghana-flags-under-tent.jpeg', href: '/news/partnerships' },
-        { kicker: 'Events', title: 'Celebration days', text: 'House spirit becomes visible during major school programmes and showcases.', image: '/assets/images/extra-curricular/students-under-event-tent.jpeg', href: '/events' },
-      ]),
+      body: `
+        <section class="kb-house-board mt-4" aria-label="School houses">
+          ${schoolHouses
+            .map(
+              (house, index) => `
+              <article class="kb-house-card kb-house-card--${house.accent}" data-aos="fade-up" data-aos-delay="${80 + index * 45}">
+                <img src="${house.image}" alt="${house.name}" loading="lazy">
+                <div class="kb-house-band">
+                  <span>${house.value}</span>
+                  <h3>${house.name}</h3>
+                  <p>${house.text}</p>
+                </div>
+              </article>`
+            )
+            .join('')}
+        </section>
+        ${featureCards([
+          { kicker: 'Teamwork', title: 'Games and challenges', text: 'Children practise cooperation and turn-taking through guided activities.', image: '/assets/images/extra-curricular/children-with-balloons-on-turf.jpeg', href: '/student-life/extra-curricular' },
+          { kicker: 'Pride', title: 'Culture and identity', text: 'School spirit connects children to Ghanaian heritage and global citizenship.', image: '/assets/images/extra-curricular/students-with-ghana-flags-under-tent.jpeg', href: '/news/partnerships' },
+          { kicker: 'Events', title: 'Celebration days', text: 'House spirit becomes visible during major school programmes and showcases.', image: '/assets/images/extra-curricular/students-under-event-tent.jpeg', href: '/events' },
+        ])}`,
     }),
   }),
 
@@ -427,10 +760,10 @@ export const extraPageBuilders = {
       parentHref: '/admissions',
       heroImage: img.form,
       kicker: 'Apply',
-      heading: 'Everything families need to start an application.',
+      heading: 'Everything parents need to start an application.',
       lead: 'The application pack asks for child details, guardian contacts, proof of address, proof of age, previous school information, language spoken at home, religion, and health notes.',
       body: `
-        <div class="kb-doc-panel mt-4"><h3>Family forms</h3>${docCards()}</div>
+        <div class="kb-doc-panel mt-4"><h3>Academic forms</h3>${docCards()}</div>
         ${featureCards([
           { kicker: 'Step 1', title: 'Book a tour', text: 'Prospective parents meet admissions and walk the school before completing the process.', image: '/assets/images/facilities/purple-classroom.jpeg', href: '/parents/plan-a-visit' },
           { kicker: 'Step 2', title: 'Submit documents', text: 'Proof of address, birth certificate or passport, medical information, and emergency contacts help us prepare.', image: '/assets/images/learning/student-writing-in-notebook.jpeg', href: '/admissions' },
@@ -507,38 +840,56 @@ export const extraPageBuilders = {
         <div class="container" data-aos="fade-up">
           <div class="kb-gallery-head">
             <p class="kb-kicker">Albums</p>
-            <h2>Life at KBIS, grouped by real school moments.</h2>
-            <p>Click any photo to view it larger. Use Back to return to the album grid.</p>
+            <h2>Life at KBIS, grouped by themes and school moments.</h2>
           </div>
-          <div class="kb-gallery-mosaic">
-            ${[
-              ['Classroom learning', 'Children learning through practical classroom routines.', '/assets/images/learning/students-in-computer-lab.jpeg'],
-              ['Teacher support', 'Small groups, guided work, and patient instruction.', '/assets/images/learning/teacher-guided-table-activity.jpeg'],
-              ['Student smiles', 'Portraits from everyday school life.', '/assets/images/students/three-children-smiling-uniforms.jpeg'],
-              ['Outdoor play', 'Movement, friendship, and active discovery.', '/assets/images/extra-curricular/children-playing-with-ball.jpeg'],
-              ['Career day', 'Creative role play and confidence-building presentations.', '/assets/images/extra-curricular/career-day-children-in-costumes.jpeg'],
-              ['Educational trip', 'Learning beyond the classroom.', '/assets/images/extra-curricular/school-excursion-group-photo.jpeg'],
-              ['Campus spaces', 'Bright classrooms and child-friendly facilities.', '/assets/images/facilities/purple-classroom-panorama.jpg'],
-              ['School community', 'Parents, children, and teachers sharing school moments.', '/assets/images/extra-curricular/parents-and-children-at-event.jpeg'],
-              ['Bilingual rhythm', 'Language, reading, songs, and guided class routines.', '/assets/images/learning/children-reading-together.jpeg'],
-              ['Celebrations', 'Birthdays, showcases, and joyful classroom events.', '/assets/images/extra-curricular/birthday-party-students.jpeg'],
-              ['Sports and discipline', 'Karate, movement, and controlled physical activity.', '/assets/images/extra-curricular/karate-class-on-lawn.jpeg'],
-              ['Facilities', 'Safe, colorful spaces children use every day.', '/assets/images/facilities/blue-stairwell.jpeg'],
-            ]
+          <div class="kb-gallery-albums">
+            ${galleryAlbums
               .map(
-                ([title, caption, src], index) => `
-                <button class="kb-gallery-photo kb-gallery-photo-${(index % 5) + 1}" type="button" data-gallery-src="${src}" data-gallery-title="${title}" data-gallery-caption="${caption}" data-aos="zoom-in" data-aos-delay="${80 + index * 35}">
-                  <img src="${src}" alt="${title}" loading="lazy">
-                  <span><strong>${title}</strong><small>${caption}</small></span>
+                (album, index) => `
+                <button class="kb-gallery-album" type="button" data-album-index="${index}" data-aos="zoom-in" data-aos-delay="${80 + index * 35}">
+                  <span class="kb-gallery-album-cover">
+                    <span class="kb-gallery-album-stack" aria-hidden="true">
+                      <img src="${album.images[1]?.[0] || album.cover}" alt="" loading="lazy">
+                      <img src="${album.images[2]?.[0] || album.cover}" alt="" loading="lazy">
+                    </span>
+                    <img src="${album.cover}" alt="${album.title}" loading="lazy">
+                    <small>${album.images.length} photos</small>
+                  </span>
+                  <span class="kb-gallery-album-copy">
+                    <small>${album.topic}</small>
+                    <strong>${album.title}</strong>
+                    <em>${album.description}</em>
+                  </span>
+                  <span class="kb-gallery-album-slides" aria-hidden="true">
+                    ${album.images
+                      .map(
+                        ([src, title, caption]) => `
+                        <span data-gallery-src="${src}" data-gallery-title="${title}" data-gallery-caption="${caption}"></span>`
+                      )
+                      .join('')}
+                  </span>
                 </button>`
               )
               .join('')}
           </div>
           <div class="kb-gallery-viewer" aria-hidden="true">
-            <div class="kb-gallery-viewer-panel" role="dialog" aria-modal="true" aria-label="Gallery image preview">
-              <button type="button" class="kb-gallery-back"><i class="bi bi-arrow-left"></i> Back to gallery</button>
-              <img src="" alt="">
-              <div class="kb-gallery-viewer-copy"><h3></h3><p></p></div>
+            <div class="kb-gallery-viewer-panel" role="dialog" aria-modal="true" aria-label="Gallery album viewer">
+              <div class="kb-gallery-toolbar">
+                <button type="button" class="kb-gallery-back" aria-label="Close gallery"><i class="bi bi-x-lg"></i></button>
+                <div>
+                  <strong></strong>
+                  <span></span>
+                </div>
+              </div>
+              <button type="button" class="kb-gallery-nav kb-gallery-prev" aria-label="Previous photo"><i class="bi bi-chevron-left"></i></button>
+              <figure class="kb-gallery-stage">
+                <div class="kb-gallery-frame">
+                  <img src="" alt="">
+                  <figcaption class="kb-gallery-caption"><h3></h3><p></p></figcaption>
+                </div>
+              </figure>
+              <button type="button" class="kb-gallery-nav kb-gallery-next" aria-label="Next photo"><i class="bi bi-chevron-right"></i></button>
+              <div class="kb-gallery-thumbrail" aria-label="Album photos"></div>
             </div>
           </div>
         </div>
@@ -562,11 +913,25 @@ export const extraPageBuilders = {
       kicker: 'Global School Alliance',
       heading: 'International connections that widen children\'s view of the world.',
       lead: 'Through the Global School Alliance, KBIS has established a sister-school partnership with Skidby Church of England Primary School in Yorkshire, England.',
-      body: featureCards([
-        { kicker: 'Global', title: 'Global School Alliance', text: 'A network helping educators connect, collaborate on projects, and develop transformational international partnerships.', image: '/assets/images/others/global-school-alliance-certificate.png', href: '/news/partnerships' },
-        { kicker: 'Sister school', title: 'Skidby Church of England Primary School', text: 'The partnership creates opportunities for cultural exchange, student interaction, and teacher collaboration.', image: '/assets/images/extra-curricular/students-with-ghana-flags-at-monument.jpeg', href: '/news' },
-        { kicker: 'Next', title: 'Upcoming partnership updates', text: 'Families will receive details as exchange activities and collaborative projects are scheduled.', image: '/assets/images/extra-curricular/students-group-at-independence-square.jpeg', href: '/events' },
-      ]),
+      body: `
+        <section class="kb-partnership-detail" data-aos="fade-up" data-aos-delay="120">
+          <div class="kb-partnership-detail-copy">
+            <p class="kb-kicker">Partnership details</p>
+            <h3>A bridge between classrooms in Ghana and the United Kingdom.</h3>
+            <p>The Global School Alliance partnership gives KBIS a meaningful way to connect pupils and teachers with another school community beyond Ghana. Through Skidby Church of England Primary School in Yorkshire, children can begin to see that learning, friendship, culture, and curiosity reach far beyond their own classroom.</p>
+            <p>For teachers, the partnership creates room for professional exchange, shared classroom ideas, project inspiration, and conversations about how children learn in different settings. For pupils, it supports confidence, global awareness, communication, and respect for other cultures.</p>
+          </div>
+          <div class="kb-partnership-points">
+            <article><i class="bi bi-globe2"></i><strong>Global awareness</strong><span>Children learn that their ideas, stories, and school experiences can connect with learners in another country.</span></article>
+            <article><i class="bi bi-people"></i><strong>Teacher collaboration</strong><span>Educators can share classroom practice, project themes, and professional reflections across the sister-school link.</span></article>
+            <article><i class="bi bi-chat-heart"></i><strong>Cultural exchange</strong><span>Activities can include shared messages, learning showcases, celebrations, and age-appropriate collaborative projects.</span></article>
+          </div>
+        </section>
+        ${featureCards([
+          { kicker: 'Global', title: 'Global School Alliance', text: 'A network helping educators connect, collaborate on projects, and develop transformational international partnerships.', image: '/assets/images/others/global-school-alliance-certificate.png', href: '/news/partnerships' },
+          { kicker: 'Sister school', title: 'Skidby Church of England Primary School', text: 'The partnership creates opportunities for cultural exchange, student interaction, and teacher collaboration.', image: '/assets/images/extra-curricular/students-with-ghana-flags-at-monument.jpeg', href: '/news' },
+          { kicker: 'Next', title: 'Upcoming partnership updates', text: 'Families will receive details as exchange activities and collaborative projects are scheduled.', image: '/assets/images/extra-curricular/students-group-at-independence-square.jpeg', href: '/events' },
+        ])}`,
     }),
   }),
 };

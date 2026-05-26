@@ -4,16 +4,16 @@ export const mainNav = [
   {
     label: 'About',
     children: [
-      { label: 'About us', path: '/about' },
-      { label: 'Mission & vision', path: '/about/mission-vision' },
-      { label: 'Board of directors', path: '/about/board-of-directors' },
+      { label: 'About Us', path: '/about' },
+      { label: 'Mission & Vision', path: '/about/mission-vision' },
+      { label: 'Board of Directors', path: '/about/board-of-directors' },
       { label: 'Management', path: '/about/management' },
       { label: 'Principal', path: '/about/principal' },
       {
         label: 'Staff',
         children: [
-          { label: 'Teaching staff', path: '/about/staff/teaching' },
-          { label: 'Support staff', path: '/about/staff/support' },
+          { label: 'Teaching Staff', path: '/about/staff/teaching' },
+          { label: 'Support Staff', path: '/about/staff/support' },
         ],
       },
     ],
@@ -25,24 +25,24 @@ export const mainNav = [
       { label: 'Curriculum', path: '/academics/curriculum' },
       { label: 'Programmes', path: '/academics/programmes' },
       { label: 'Languages', path: '/academics/languages' },
-      { label: 'Academic calendar', path: '/academics/academic-calendar' },
+      { label: 'Academic Calendar', path: '/academics/academic-calendar' },
     ],
   },
   {
-    label: 'Student life',
+    label: 'Student Life',
     children: [
       { label: 'SRC', path: '/student-life/src' },
       { label: 'Houses', path: '/student-life/houses' },
-      { label: 'Extra curricula', path: '/student-life/extra-curricular' },
+      { label: 'Extra-Curricular', path: '/student-life/extra-curricular' },
     ],
   },
   {
     label: 'Parents',
     children: [
-      { label: 'Admission form', path: '/parents/admission-form' },
-      { label: 'Plan a visit', path: '/parents/plan-a-visit' },
-      { label: 'Make payment', path: '/parents/make-payment' },
-      { label: 'Student handbook', path: '/parents/student-handbook' },
+      { label: 'Admission Form', path: '/parents/admission-form' },
+      { label: 'Plan a Visit', path: '/parents/plan-a-visit' },
+      { label: 'Make Payment', path: '/parents/make-payment' },
+      { label: 'Student Handbook', path: '/parents/student-handbook' },
     ],
   },
   {

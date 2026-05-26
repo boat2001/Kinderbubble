@@ -179,7 +179,7 @@ export function getPoliciesPageHtml() {
               </a>
             </div>
             <div class="col-md-6 col-xl-4">
-              <a href="/assets/docs/mini-brochure.pdf" class="kb-resource-card d-flex gap-3 text-decoration-none">
+              <a href="/assets/docs/mini-brochure.pdf" class="kb-resource-card d-flex gap-3 text-decoration-none" target="_blank" rel="noopener noreferrer">
                 <span class="kb-resource-icon"><i class="bi ${kbIcon.brochure}"></i></span>
                 <span><strong>Mini brochure</strong><small>Mission, vision, bilingual studies, extra-curricular activities, feeding, trips, fees, and payment guide.</small></span>
               </a>

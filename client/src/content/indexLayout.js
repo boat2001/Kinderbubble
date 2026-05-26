@@ -265,7 +265,7 @@ export function getIndexLayoutHtml(s) {
                 <div class="metric-value"><span>2</span></div>
               </div>
               <div class="metric-info">
-                <h4>Languages in rhythm</h4>
+                <h4>Languages</h4>
                 <p>English and French woven through the day</p>
               </div>
             </div>

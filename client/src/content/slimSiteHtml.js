@@ -22,6 +22,37 @@ export function getAdmissionsHtml() {
     </div>
     <section id="admissions" class="admissions section">
       <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="kb-admissions-links" data-aos="fade-up" data-aos-delay="120">
+          <a href="/parents/admission-form">
+            <i class="bi bi-file-earmark-text"></i>
+            <span>
+              <strong>Application form</strong>
+              <small>Start with the application pack</small>
+            </span>
+          </a>
+          <a href="/parents/make-payment">
+            <i class="bi bi-credit-card"></i>
+            <span>
+              <strong>Make payment</strong>
+              <small>Review fee and payment guidance</small>
+            </span>
+          </a>
+          <a href="/academics/programmes">
+            <i class="bi bi-grid-3x3-gap"></i>
+            <span>
+              <strong>Programmes</strong>
+              <small>See age bands and placement options</small>
+            </span>
+          </a>
+          <a href="/academics/curriculum">
+            <i class="bi bi-book"></i>
+            <span>
+              <strong>Curriculum</strong>
+              <small>Explore the learning approach</small>
+            </span>
+          </a>
+        </div>
+
         <div class="row gy-4">
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
             <div class="application-steps">
@@ -433,11 +464,11 @@ export function getContactHtml() {
 
 export function getEventsHtml() {
   const events = [
-    ['Anniversary celebration', 'Annual', 'Grand school programme celebrating KBIS growth, culture, performances, and family partnership.', '/assets/images/extra-curricular/students-on-stage-at-event.jpeg'],
-    ['Graduation and moving-up ceremony', 'End term', 'A milestone celebration for learners transitioning into the next stage with confidence and pride.', '/assets/images/extra-curricular/career-day-costume-group-certificates.jpeg'],
-    ['Open campus mornings', 'Book', 'Families tour learning spaces, meet admissions, and understand placement for their child.', '/assets/images/facilities/purple-classroom.jpeg'],
-    ['Educational trips', 'Termly', 'Theme-based trips to places like museums, farms, zoos, and cultural sites, planned with safety meetings.', '/assets/images/extra-curricular/school-excursion-group-photo.jpeg'],
-    ['Career and culture day', 'School life', 'Children dress, present, and explore real-world roles through guided play and family engagement.', '/assets/images/extra-curricular/career-day-children-in-costumes.jpeg'],
+    ['Anniversary celebration', 'Annual', 'A grand school programme celebrating KBIS growth, culture, performances, family participation, and the school community.', '/assets/images/extra-curricular/students-on-stage-at-event.jpeg'],
+    ['Graduation and moving-up ceremony', 'End term', 'A milestone celebration where learners were recognised for growth, confidence, and readiness for the next stage.', '/assets/images/extra-curricular/career-day-costume-group-certificates.jpeg'],
+    ['Educational trips', 'Trips', 'Theme-based outings connected classroom learning to real places, with learners exploring, asking questions, and returning with stories to share.', '/assets/images/extra-curricular/school-excursion-group-photo.jpeg'],
+    ['Career and culture day', 'School life', 'Children dressed, presented, and explored real-world roles through guided play, family support, and joyful classroom activities.', '/assets/images/extra-curricular/career-day-children-in-costumes.jpeg'],
+    ['Independence and national moments', 'Culture', 'Learners celebrated Ghanaian identity through flags, presentations, group moments, and guided conversations about citizenship.', '/assets/images/extra-curricular/students-with-ghana-flags-under-tent.jpeg'],
   ];
 
   return `
@@ -453,8 +484,8 @@ export function getEventsHtml() {
           <div class="col-lg-7">
             <div class="kb-page-hero-copy h-100">
               <p class="kb-kicker">Grand programmes</p>
-              <h2>Events that families remember, not just dates on a calendar.</h2>
-              <p>Events at KBIS include anniversaries, graduations, educational trips, open mornings, culture days, parent evenings, and celebrations of learning.</p>
+              <h2>Events we have lived, captured, and remembered as a school.</h2>
+              <p>Events at KBIS are records of grand activities the school community has gone through: anniversaries, graduations, educational trips, culture days, career days, and celebrations of learning.</p>
             </div>
           </div>
           <div class="col-lg-5"><div class="kb-page-hero-image"><img src="/assets/images/extra-curricular/parents-and-children-at-event.jpeg" alt="" loading="lazy"></div></div>
@@ -468,9 +499,9 @@ export function getEventsHtml() {
                   <div class="event-date"><span class="day">${label.split(' ')[0]}</span><span class="month">${label.split(' ').slice(1).join(' ') || 'KBIS'}</span></div>
                   <div class="event-content">
                     <h3 class="event-title">${title}</h3>
-                    <div class="event-meta"><span><i class="bi bi-geo-alt"></i> ${s.addressLine2}</span><span><i class="bi bi-calendar-event"></i> Confirm with office</span></div>
+                    <div class="event-meta"><span><i class="bi bi-images"></i> Photos and highlights</span><span><i class="bi bi-journal-text"></i> Event story</span></div>
                     <p class="event-description">${desc}</p>
-                    <a href="/event-details" class="btn-event-details">Learn more <i class="bi bi-arrow-right"></i></a>
+                    <a href="/event-details" class="btn-event-details">View details <i class="bi bi-arrow-right"></i></a>
                   </div>
                 </article>`).join('')}
             </div>
@@ -478,14 +509,13 @@ export function getEventsHtml() {
           <div class="col-lg-4">
             <aside class="events-sidebar kb-sticky-sidebar">
               <div class="sidebar-item categories" data-aos="fade-up">
-                <h4>Plan with us</h4>
-                <p class="small text-muted mb-3">Dates shift by term. Call or email and we will confirm the next open morning, parent evening, graduation, anniversary, trip, or showcase.</p>
-                <a href="tel:${s.phoneTel}" class="btn btn-outline-primary btn-sm w-100 mb-2">${s.phoneDisplay}</a>
-                <a href="mailto:${s.officeEmail}" class="btn btn-primary btn-sm w-100">Email the office</a>
+                <h4>Event archive</h4>
+                <p class="small text-muted mb-3">Browse highlights from school programmes, trips, celebrations, performances, and learning showcases that have already taken place.</p>
+                <a href="/resources/gallery" class="btn btn-primary btn-sm w-100">Open gallery</a>
               </div>
               <div class="sidebar-item upcoming-events" data-aos="fade-up" data-aos-delay="100">
-                <h4>Event albums</h4>
-                <div class="featured-event"><img src="/assets/images/extra-curricular/students-with-ghana-flags-at-monument.jpeg" alt="" class="img-fluid" loading="lazy"><div class="featured-event-details"><h5>Trips and national moments</h5><a href="/resources/gallery" class="btn-sm btn-register">Open gallery</a></div></div>
+                <h4>Featured album</h4>
+                <div class="featured-event"><img src="/assets/images/extra-curricular/students-with-ghana-flags-at-monument.jpeg" alt="" class="img-fluid" loading="lazy"><div class="featured-event-details"><h5>Trips and national moments</h5><a href="/resources/gallery" class="btn-sm btn-register">View photos</a></div></div>
               </div>
             </aside>
           </div>
@@ -497,10 +527,12 @@ export function getEventsHtml() {
 
 export function getNewsHtml() {
   const updates = [
-    ['Partnership with Global School Alliance', 'Partnerships', 'KBIS has benefited from GSA support and a sister-school partnership with Skidby Church of England Primary School in Yorkshire, England.', '/assets/images/others/global-school-alliance-certificate.png', '/news/partnerships'],
-    ['Bilingual curriculum focus', 'Academics', 'KBIS follows the Cambridge International Curriculum with English-French bilingual exposure and age-right classroom routines.', '/assets/images/learning/children-reading-together.jpeg', '/academics/languages'],
-    ['Health, allergy, and pick-up forms', 'Parents', 'Families can now access application, medical, and authorised pick-up forms from the parents and policies pages.', '/assets/images/learning/children-holding-green-apple.jpeg', '/parents/admission-form'],
-    ['Educational trips by term theme', 'Events', 'Trips are planned around term themes and lesson plans, with parent communication and safety planning before departure.', '/assets/images/extra-curricular/school-excursion-students-walking.jpeg', '/events'],
+    ['12', 'Jun', 'Partnership with Global School Alliance', 'School news', 'Events', 'KBIS has benefited from GSA support and a sister-school partnership with Skidby Church of England Primary School in Yorkshire, England.', '/assets/images/extra-curricular/students-group-at-independence-square.jpeg', '/news/partnerships', '214'],
+    ['06', 'May', 'Bilingual curriculum focus', 'Academics', 'Learning', 'KBIS follows the Cambridge International Curriculum with English-French bilingual exposure and age-right classroom routines.', '/assets/images/learning/children-reading-together.jpeg', '/academics/languages', '186'],
+    ['29', 'Apr', 'Health, allergy, and pick-up forms', 'Parents', 'Notices', 'Families can access application, medical, and authorised pick-up forms from the parents and policies pages.', '/assets/images/learning/children-holding-green-apple.jpeg', '/parents/admission-form', '152'],
+    ['18', 'Mar', 'Educational trips by term theme', 'Events', 'Campus', 'Trips are planned around term themes and lesson plans, with parent communication and safety planning before departure.', '/assets/images/extra-curricular/school-excursion-students-walking.jpeg', '/events', '128'],
+    ['14', 'Feb', 'Classroom routines that help children settle', 'School news', 'Wellbeing', 'Daily routines help children feel confident, understand expectations, and move calmly between learning, meals, rest, and play.', '/assets/images/students/children-seated-in-class.jpeg', '/parents/student-handbook', '119'],
+    ['24', 'Jan', 'Learning through play and discovery', 'Academics', 'Programmes', 'From early years to primary, children learn through guided practice, creative projects, outdoor movement, and classroom conversation.', '/assets/images/learning/children-handling-class-activity.jpeg', '/academics/programmes', '143'],
   ];
 
   return `
@@ -512,16 +544,25 @@ export function getNewsHtml() {
     </div>
     <section id="news-hero" class="news-hero section kb-news-page">
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <article class="kb-news-featured row g-0 align-items-stretch mb-5" data-href="/news/partnerships">
-          <div class="col-lg-7"><img src="/assets/images/extra-curricular/students-group-at-independence-square.jpeg" alt="" loading="lazy"></div>
-          <div class="col-lg-5"><div class="kb-news-featured-copy"><p class="kb-kicker">Latest update</p><h2>Global links, school changes, and events families should know.</h2><p>News now separates practical school updates from grand events, so families can quickly find changes, notices, partnerships, and learning highlights.</p><a href="/news/partnerships">Read partnerships <i class="bi bi-arrow-right"></i></a></div></div>
-        </article>
-        <div class="row g-4">
-          ${updates.map(([title, category, text, image, href], index) => `
-            <div class="col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="${100 + index * 80}">
-              <article class="kb-update-card h-100" data-href="${href}">
-                <img src="${image}" alt="" loading="lazy">
-                <div><span>${category}</span><h3>${title}</h3><p>${text}</p><a href="${href}">Details <i class="bi bi-arrow-right"></i></a></div>
+        <div class="kb-news-grid">
+          ${updates.map(([day, month, title, category, type, text, image, href, views], index) => `
+            <div data-aos="fade-up" data-aos-delay="${100 + index * 70}">
+              <article class="kb-news-card" data-href="${href}">
+                <a class="kb-news-card-image" href="${href}" aria-label="${title}">
+                  <img src="${image}" alt="" loading="lazy">
+                  <span class="kb-news-date"><strong>${day}</strong><small>${month}</small></span>
+                </a>
+                <div class="kb-news-card-body">
+                  <div class="kb-news-meta">
+                    <span>${category}</span>
+                    <b>${type}</b>
+                    <em><i class="bi bi-share"></i></em>
+                    <em><i class="bi bi-eye"></i>${views}</em>
+                  </div>
+                  <h2><a href="${href}">${title}</a></h2>
+                  <p>${text}</p>
+                  <a class="kb-news-read-more" href="${href}">Read more</a>
+                </div>
               </article>
             </div>`).join('')}
         </div>
@@ -823,52 +864,48 @@ export function getEventDetailsHtml() {
         <div class="row">
           <div class="col-lg-8">
             <div class="event-image mb-4" data-aos="fade-up">
-              <img src="/assets/images/facilities/blue-stairwell-kbis-10.jpeg" alt="" class="img-fluid rounded" loading="lazy">
+              <img src="/assets/images/extra-curricular/students-on-stage-at-event.jpeg" alt="" class="img-fluid rounded" loading="lazy">
             </div>
             <div class="event-meta mb-4" data-aos="fade-up" data-aos-delay="100">
               <div class="row g-3">
-                <div class="col-md-4"><div class="meta-item"><i class="bi bi-calendar-date"></i><span>Term-time Saturdays</span></div></div>
-                <div class="col-md-4"><div class="meta-item"><i class="bi bi-clock"></i><span>Mornings · by appointment</span></div></div>
+                <div class="col-md-4"><div class="meta-item"><i class="bi bi-calendar-date"></i><span>School programme</span></div></div>
+                <div class="col-md-4"><div class="meta-item"><i class="bi bi-camera"></i><span>Photos available</span></div></div>
                 <div class="col-md-4"><div class="meta-item"><i class="bi bi-geo-alt"></i><span>${s.addressLine2}</span></div></div>
               </div>
             </div>
             <div class="event-content" data-aos="fade-up" data-aos-delay="200">
-              <h2>Open campus morning</h2>
-              <p>Tour learning spaces, meet admissions, and see how bilingual exposure and Cambridge-inspired planning come together for your child’s age group.</p>
-              <p>For the latest dates or to RSVP, please <a href="/contact">contact the office</a> or call <a href="tel:${s.phoneTel}">${s.phoneDisplay}</a>.</p>
-              <h3 class="mt-4">What you’ll see</h3>
+              <h2>Anniversary celebration</h2>
+              <p>This event brought the KBIS community together for a joyful celebration of school growth, learner confidence, family support, and the culture that makes school life memorable. Children participated through performances, group presentations, music, movement, and shared moments that reflected their classroom learning and school spirit.</p>
+              <p>The programme was not just a date on the calendar. It became a record of how learners express confidence, how families support school life, and how staff guide children through preparation, performance, teamwork, and celebration.</p>
+              <h3 class="mt-4">How the event went</h3>
               <ul class="event-highlights">
-                <li><i class="bi bi-check-circle"></i><span>Classrooms and early-years suites</span></li>
-                <li><i class="bi bi-check-circle"></i><span>Indoor and outdoor play areas</span></li>
-                <li><i class="bi bi-check-circle"></i><span>Time for questions with admissions</span></li>
+                <li><i class="bi bi-check-circle"></i><span>Learners had opportunities to perform, present, and take part in group activities.</span></li>
+                <li><i class="bi bi-check-circle"></i><span>Families and staff shared in the celebration, creating a warm community atmosphere.</span></li>
+                <li><i class="bi bi-check-circle"></i><span>Photos and highlights from the day help preserve the story for parents and the wider school community.</span></li>
               </ul>
+              <h3 class="mt-4">Related images</h3>
+              <div class="kb-event-photo-links">
+                <a href="/resources/gallery"><img src="/assets/images/extra-curricular/students-on-stage-at-event.jpeg" alt="" loading="lazy"><span>Stage moments</span></a>
+                <a href="/resources/gallery"><img src="/assets/images/extra-curricular/parents-and-children-at-event.jpeg" alt="" loading="lazy"><span>Family participation</span></a>
+                <a href="/resources/gallery"><img src="/assets/images/extra-curricular/students-under-event-tent.jpeg" alt="" loading="lazy"><span>School community</span></a>
+              </div>
             </div>
           </div>
           <div class="col-lg-4">
             <div class="event-sidebar">
               <div class="sidebar-widget registration-form" data-aos="fade-left" data-aos-delay="200">
-                <h3>RSVP</h3>
-                <form action="#" class="php-email-form" data-form-type="event-rsvp">
-                  <div class="mb-3"><label for="ev-name" class="form-label">Full name</label><input type="text" name="name" class="form-control" id="ev-name" required=""></div>
-                  <div class="mb-3"><label for="ev-email" class="form-label">Email</label><input type="email" name="email" class="form-control" id="ev-email" required=""></div>
-                  <div class="mb-3"><label for="ev-phone" class="form-label">Phone</label><input type="tel" name="phone" class="form-control" id="ev-phone"></div>
-                  <input type="hidden" name="subject" value="Open campus morning RSVP">
-                  <textarea name="message" class="d-none">I would like to request a slot for the open campus morning.</textarea>
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your RSVP request has been sent. Thank you!</div>
-                  <div class="d-grid"><button type="submit" class="btn btn-register">Request a slot</button></div>
-                </form>
-                <p class="small text-muted mt-3 mb-0">Prefer a conversation first? Use our <a href="/contact">contact form</a> or call <a href="tel:${s.phoneTel}">${s.phoneDisplay}</a> — we will confirm your visit.</p>
+                <h3>Event archive</h3>
+                <p>This page records highlights from a completed KBIS event. Use the gallery to see more photos connected to school activities, trips, performances, and celebrations.</p>
+                <a href="/resources/gallery" class="btn btn-register w-100">Open gallery</a>
               </div>
               <div class="sidebar-widget organizer-info" data-aos="fade-left" data-aos-delay="300">
-                <h3>Organized by</h3>
+                <h3>Recorded by</h3>
                 <div class="organizer-details">
                   <div class="organizer-image"><img src="/assets/images/others/school-logo.png" class="img-fluid rounded" alt="KBIS" loading="lazy"></div>
                   <div class="organizer-content">
                     <h4>${s.shortName}</h4>
-                    <p class="organizer-position">Admissions</p>
-                    <p>For questions:</p>
+                    <p class="organizer-position">School community</p>
+                    <p>For event photo or information requests:</p>
                     <div class="organizer-contact">
                       <p><i class="bi bi-envelope"></i> <a href="mailto:${s.officeEmail}">${s.officeEmail}</a></p>
                       <p><i class="bi bi-telephone"></i> <a href="tel:${s.phoneTel}">${s.phoneDisplay}</a></p>
@@ -877,14 +914,14 @@ export function getEventDetailsHtml() {
                 </div>
               </div>
               <div class="sidebar-widget related-events" data-aos="fade-left" data-aos-delay="400">
-                <h3>More on campus</h3>
+                <h3>More event stories</h3>
                 <div class="related-event-item">
-                  <div class="related-event-date"><span class="day">·</span><span class="month">Eve</span></div>
-                  <div class="related-event-info"><h4><a href="/events">Parent evenings</a></h4><p><i class="bi bi-geo-alt"></i> On campus</p></div>
+                  <div class="related-event-date"><span class="day">01</span><span class="month">Trip</span></div>
+                  <div class="related-event-info"><h4><a href="/events">Educational trips</a></h4><p><i class="bi bi-images"></i> Photos and highlights</p></div>
                 </div>
                 <div class="related-event-item">
-                  <div class="related-event-date"><span class="day">·</span><span class="month">Term</span></div>
-                  <div class="related-event-info"><h4><a href="/events">Celebrations of learning</a></h4><p><i class="bi bi-geo-alt"></i> Classrooms</p></div>
+                  <div class="related-event-date"><span class="day">02</span><span class="month">Grad</span></div>
+                  <div class="related-event-info"><h4><a href="/events">Graduation ceremony</a></h4><p><i class="bi bi-images"></i> Ceremony moments</p></div>
                 </div>
               </div>
             </div>
@@ -894,3 +931,8 @@ export function getEventDetailsHtml() {
     </section>
   `;
 }
+
+
+
+
+

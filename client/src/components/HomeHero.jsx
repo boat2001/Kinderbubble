@@ -126,7 +126,7 @@ const HERO_TRANSITIONS = ['fade', 'zoom', 'slide-left', 'slide-up'];
 const HERO_TITLE_LH = 1.2;
 const HERO_TITLE_MAX_LINES = 3;
 const HERO_TITLE_MIN_PX = 12;
-const HERO_TITLE_MAX_PX = 64;
+const HERO_TITLE_MAX_PX = 44;
 
 function slideTotal(slide) {
   return slide.prefix.length + slide.highlight.length + slide.suffix.length;
@@ -412,9 +412,6 @@ export default function HomeHero() {
                   <h3>Programs by age</h3>
                   <p>
                     <strong>{schoolData.ages}</strong> — creche, nursery, kindergarten, reception, and primary.
-                    {/* <NavLink to="/admissions" className="kb-feature-more">
-                      View admissions
-                    </NavLink> */}
                   </p>
                 </div>
               </NavLink>

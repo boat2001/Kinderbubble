@@ -19,7 +19,9 @@ function NavDropdownItem({ item }) {
 
   return (
     <li>
-      <NavLink to={item.path}>{item.label}</NavLink>
+      <NavLink to={item.path} end>
+        {item.label}
+      </NavLink>
     </li>
   );
 }
