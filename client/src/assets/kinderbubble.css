@@ -1068,7 +1068,7 @@ body.scrolled .header.kb-header .header-container {
   font-weight: 600;
   letter-spacing: 0.11em;
   text-transform: uppercase;
-  color: var(--kb-coral);
+  color: rgba(10, 47, 56, 0.62);
   display: block;
   line-height: 1.2;
 }
