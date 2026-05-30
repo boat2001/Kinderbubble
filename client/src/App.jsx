@@ -63,12 +63,17 @@ function PageRenderer({ pageKey }) {
 const FOOTER_QUICK_LINKS = [
   { path: '/about', label: 'About Us' },
   { path: '/admissions', label: 'Admissions' },
-  { path: '/academics/programmes', label: 'Academic Programmes' },
+  { path: '/academics/programmes', label: 'Programmes' },
   { path: '/resources/gallery', label: 'Gallery' },
   { path: '/contact', label: 'Contact Us' },
 ];
 
 const FOOTER_LATEST_NEWS = [
+  {
+    title: 'Open enrolment for 2025–26 academic year',
+    path: '/admissions',
+    image: '/assets/images/students/formal-uniform-students-kbis-01.jpeg',
+  },
   {
     title: 'Global School Alliance partnership',
     path: '/news/partnerships',
@@ -147,22 +152,27 @@ function Layout({ children }) {
                 <li>
                   <i className="bi bi-geo-alt-fill" aria-hidden="true" />
                   <span>
-                    {schoolData.addressLine1}
-                    <br />
-                    {schoolData.addressLine2}
+                    <span className="kb-footer-contact-label">Address</span>
+                    Accra, Ghana
                   </span>
                 </li>
                 <li>
                   <i className="bi bi-send-fill" aria-hidden="true" />
-                  <a href={`mailto:${schoolData.officeEmail}`} className="kb-footer-link">
-                    {schoolData.officeEmail}
-                  </a>
+                  <span>
+                    <span className="kb-footer-contact-label">Email</span>
+                    <a href={`mailto:${schoolData.officeEmail}`} className="kb-footer-link">
+                      {schoolData.officeEmail}
+                    </a>
+                  </span>
                 </li>
                 <li>
                   <i className="bi bi-telephone-fill" aria-hidden="true" />
-                  <a href={`tel:${schoolData.phoneTel}`} className="kb-footer-link">
-                    {schoolData.phoneDisplay}
-                  </a>
+                  <span>
+                    <span className="kb-footer-contact-label">Phone</span>
+                    <a href={`tel:${schoolData.phoneTel}`} className="kb-footer-link">
+                      {schoolData.phoneDisplay}
+                    </a>
+                  </span>
                 </li>
               </ul>
             </section>

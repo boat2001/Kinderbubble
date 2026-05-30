@@ -379,7 +379,7 @@ export function getContactHtml() {
       </div>
     </div>
     <section id="contact" class="contact section">
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
+      <div class="container">
         <div class="kb-contact-hero row g-4 align-items-stretch mb-4">
           <div class="col-12">
             <div class="kb-contact-intro h-100">
@@ -394,37 +394,39 @@ export function getContactHtml() {
           </div>
         </div>
 
-        <div class="contact-main-wrapper">
-          <div class="contact-content">
-            <div class="contact-cards-container" data-aos="fade-up" data-aos-delay="300">
-              <div class="contact-card" data-href="${mapLink}"><div class="icon-box"><i class="bi bi-geo-alt"></i></div><div class="contact-text"><h4>Address</h4><p>${s.addressLine1}<br>${s.addressLine2}</p></div></div>
-              <div class="contact-card" data-href="mailto:${s.officeEmail}"><div class="icon-box"><i class="bi bi-envelope"></i></div><div class="contact-text"><h4>Email</h4><p><a href="mailto:${s.officeEmail}">${s.officeEmail}</a></p></div></div>
-              <div class="contact-card" data-href="tel:${s.phoneTel}"><div class="icon-box"><i class="bi bi-telephone"></i></div><div class="contact-text"><h4>Phone</h4><p><a href="tel:${s.phoneTel}">${s.phoneDisplay}</a></p></div></div>
-              <div class="contact-card"><div class="icon-box"><i class="bi bi-clock"></i></div><div class="contact-text"><h4>Hours</h4><p>${s.hours}</p></div></div>
+        <div class="contact-cards-container mb-4">
+          <div class="contact-card" data-href="${mapLink}"><div class="icon-box"><i class="bi bi-geo-alt"></i></div><div class="contact-text"><h4>Address</h4><p>Accra, Ghana</p></div></div>
+          <div class="contact-card" data-href="mailto:${s.officeEmail}"><div class="icon-box"><i class="bi bi-envelope"></i></div><div class="contact-text"><h4>Email</h4><p><a href="mailto:${s.officeEmail}">${s.officeEmail}</a></p></div></div>
+          <div class="contact-card" data-href="tel:${s.phoneTel}"><div class="icon-box"><i class="bi bi-telephone"></i></div><div class="contact-text"><h4>Phone</h4><p><a href="tel:${s.phoneTel}">${s.phoneDisplay}</a></p></div></div>
+          <div class="contact-card"><div class="icon-box"><i class="bi bi-clock"></i></div><div class="contact-text"><h4>Hours</h4><p>${s.hours.split(' · ')[0]}</p></div></div>
+        </div>
+
+        <div class="kb-contact-split">
+          <div class="kb-contact-map-col">
+            <div class="kb-contact-map-header">
+              <span class="kb-kicker">Location</span>
+              <h3>Find us on the map</h3>
+              <p>${s.addressLine1}, ${s.addressLine2}</p>
+              <a href="${mapLink}" class="kb-map-ext-link" target="_blank" rel="noopener">
+                <i class="bi bi-box-arrow-up-right"></i> Open in Google Maps
+              </a>
             </div>
-            <div class="kb-contact-map-panel" data-aos="fade-up" data-aos-delay="350">
-              <div class="kb-contact-map-copy">
-                <p class="kb-kicker">Location</p>
-                <h3>${s.addressLine1}</h3>
-                <p>${s.addressLine2}. Open the map for directions, route planning, and the exact school pointer.</p>
-                <a href="${mapLink}" class="btn btn-primary" target="_blank" rel="noopener">Open in Google Maps</a>
-              </div>
-              <div class="map-wrapper kb-live-map">
-                <iframe title="Kinder Bubble International School on Google Maps" src="${mapSrc}" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-              </div>
+            <div class="kb-contact-map-embed">
+              <iframe title="Kinder Bubble International School on Google Maps" src="${mapSrc}" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-            <div class="contact-form-container" data-aos="fade-up" data-aos-delay="400">
+          </div>
+          <div class="kb-contact-form-col">
+            <div class="kb-contact-form-inner">
+              <span class="kb-kicker">Get in touch</span>
               <h3>Feedback and enquiries</h3>
-              <p>Tell us exactly what you need. Choose a subject, include your child's age or class if relevant, and give enough detail for the right person to respond.</p>
+              <p class="kb-form-lead">Tell us exactly what you need — include your child's age or class if relevant.</p>
               <form action="#" method="post" class="php-email-form" data-form-type="contact-feedback">
-                <div class="row">
-                  <div class="col-md-6 form-group"><input type="text" name="name" class="form-control" id="name" placeholder="Your name" required=""></div>
-                  <div class="col-md-6 form-group mt-3 mt-md-0"><input type="email" class="form-control" name="email" id="email" placeholder="Your email" required=""></div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 form-group mt-3"><input type="tel" class="form-control" name="phone" id="phone" placeholder="Phone number"></div>
-                  <div class="col-md-6 form-group mt-3">
-                    <select class="form-select" name="subject" id="subject" required="">
+                <div class="row g-3">
+                  <div class="col-sm-6"><input type="text" name="name" class="form-control" placeholder="Your name" required=""></div>
+                  <div class="col-sm-6"><input type="email" class="form-control" name="email" placeholder="Your email" required=""></div>
+                  <div class="col-sm-6"><input type="tel" class="form-control" name="phone" placeholder="Phone number"></div>
+                  <div class="col-sm-6">
+                    <select class="form-select" name="subject" required="">
                       <option selected="" disabled="">What is this about?</option>
                       <option>Admissions and fees</option>
                       <option>Plan a visit</option>
@@ -433,28 +435,35 @@ export function getContactHtml() {
                       <option>Partnership or event enquiry</option>
                     </select>
                   </div>
+                  <div class="col-12"><textarea class="form-control" name="message" rows="5" placeholder="Please give as much detail as you can" required=""></textarea></div>
                 </div>
-                <div class="form-group mt-3"><textarea class="form-control" name="message" rows="7" placeholder="Please give as much detail as you can" required=""></textarea></div>
                 <div class="my-3"><div class="loading">Loading</div><div class="error-message"></div><div class="sent-message">Your message has been sent. Thank you!</div></div>
-                <div class="form-submit"><button type="submit">Send message</button></div>
-                <p class="small text-muted mt-3 mb-0">Prefer to reach out directly? <a href="mailto:${s.officeEmail}">${s.officeEmail}</a> &middot; <a href="tel:${s.phoneTel}">${s.phoneDisplay}</a></p>
+                <div class="kb-form-footer">
+                  <p class="small text-muted mb-0">Or email <a href="mailto:${s.officeEmail}">${s.officeEmail}</a> · <a href="tel:${s.phoneTel}">${s.phoneDisplay}</a></p>
+                  <button type="submit" class="kb-form-submit-btn">Send message <i class="bi bi-send"></i></button>
+                </div>
               </form>
             </div>
           </div>
         </div>
 
-        <div class="kb-contact-faq mt-5" data-aos="fade-up">
-          <div class="section-title"><h2>FAQs</h2><p>Questions families ask most often before visiting or enrolling.</p></div>
-          <div class="accordion kb-faq-accordion" id="contactFaq">
-            ${faqs.map(([q, a], index) => `
-              <div class="accordion-item">
-                <h3 class="accordion-header" id="faqHead${index}">
-                  <button class="accordion-button ${index === 0 ? '' : 'collapsed'}" type="button" data-bs-toggle="collapse" data-bs-target="#faqPanel${index}" aria-expanded="${index === 0 ? 'true' : 'false'}" aria-controls="faqPanel${index}">${q}</button>
-                </h3>
-                <div id="faqPanel${index}" class="accordion-collapse collapse ${index === 0 ? 'show' : ''}" aria-labelledby="faqHead${index}" data-bs-parent="#contactFaq">
-                  <div class="accordion-body">${a}</div>
-                </div>
-              </div>`).join('')}
+        <div class="kb-contact-faq" data-aos="fade-up">
+          <div class="kb-faq-inner">
+            <div class="kb-faq-header">
+              <h2>Frequently asked questions</h2>
+              <p>Questions families ask most often before visiting or enrolling.</p>
+            </div>
+            <div class="accordion kb-faq-accordion" id="contactFaq">
+              ${faqs.map(([q, a], index) => `
+                <div class="accordion-item">
+                  <h3 class="accordion-header" id="faqHead${index}">
+                    <button class="accordion-button ${index === 0 ? '' : 'collapsed'}" type="button" data-bs-toggle="collapse" data-bs-target="#faqPanel${index}" aria-expanded="${index === 0 ? 'true' : 'false'}" aria-controls="faqPanel${index}">${q}</button>
+                  </h3>
+                  <div id="faqPanel${index}" class="accordion-collapse collapse ${index === 0 ? 'show' : ''}" aria-labelledby="faqHead${index}" data-bs-parent="#contactFaq">
+                    <div class="accordion-body">${a}</div>
+                  </div>
+                </div>`).join('')}
+            </div>
           </div>
         </div>
       </div>

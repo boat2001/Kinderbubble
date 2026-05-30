@@ -288,9 +288,9 @@ body > .kb-gallery-viewer .kb-gallery-viewer-panel {
   width: 100%;
   min-height: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  padding: 0.65rem 4.25rem;
+  padding: 0.5rem 4.25rem 0;
   margin: 0;
   overflow: hidden;
 }
@@ -323,7 +323,7 @@ body > .kb-gallery-viewer .kb-gallery-viewer-panel {
   margin: 0;
   padding: 1.5rem 0.75rem 0.45rem;
   border: 0;
-  border-radius: 0 0 10px 10px;
+  border-radius: 0;
   background: linear-gradient(180deg, transparent 0%, rgba(2, 26, 32, 0.5) 38%, rgba(2, 26, 32, 0.92) 100%);
   text-align: left;
   pointer-events: none;

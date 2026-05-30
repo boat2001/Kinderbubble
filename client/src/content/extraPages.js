@@ -186,15 +186,15 @@ const galleryAlbums = [
   {
     title: 'Classroom Learning',
     topic: 'Daily academics',
-    description: 'Children reading, presenting, writing, using computers, and learning through guided classroom routines.',
+    description: 'Children reading, writing, using computers, and learning through guided classroom routines at KBIS.',
     cover: '/assets/images/learning/girl-presenting-in-class-gallery.jpeg',
     images: [
-      ['/assets/images/learning/girl-presenting-in-class-gallery.jpeg', 'Student presentation', 'A learner building confidence through class presentation.'],
-      ['/assets/images/learning/students-in-computer-lab.jpeg', 'Computer lab learning', 'Students exploring technology as part of everyday learning.'],
-      ['/assets/images/learning/student-writing-in-notebook.jpeg', 'Writing practice', 'Focused handwriting and classwork routines.'],
-      ['/assets/images/learning/children-reading-together.jpeg', 'Reading together', 'Group reading moments that support language and confidence.'],
-      ['/assets/images/learning/teacher-guided-table-activity.jpeg', 'Guided table activity', 'Teacher-led small group learning.'],
-      ['/assets/images/learning/child-presenting-poster.jpeg', 'Poster presentation', 'Practical work shared with classmates.'],
+      ['/assets/images/learning/girl-presenting-in-class-gallery.jpeg', 'Birthday in the classroom', 'A classmate\'s birthday celebrated with cake and joy at school.'],
+      ['/assets/images/learning/students-in-computer-lab.jpeg', 'Computer lab session', 'Learners exploring digital skills in the school\'s computer lab.'],
+      ['/assets/images/learning/student-writing-in-notebook.jpeg', 'Focused classwork', 'A smiling learner concentrating on written work at his desk.'],
+      ['/assets/images/learning/children-reading-together.jpeg', 'Reading together', 'KBIS learners from different year groups sharing a picture book.'],
+      ['/assets/images/learning/teacher-guided-table-activity.jpeg', 'Teacher-guided learning', 'A teacher working closely with young learners at the classroom table.'],
+      ['/assets/images/learning/child-presenting-poster.jpeg', 'Career day: future athletes', 'Learners dressed as their dream careers on school career day.'],
     ],
   },
   {
@@ -203,12 +203,12 @@ const galleryAlbums = [
     description: 'Smiles, uniforms, friendships, play, and everyday moments that show the children at the heart of KBIS.',
     cover: '/assets/images/students/three-children-smiling-uniforms.jpeg',
     images: [
-      ['/assets/images/students/three-children-smiling-uniforms.jpeg', 'Smiling learners', 'Children in uniform enjoying the school day.'],
-      ['/assets/images/students/formal-uniform-students-kbis-01.jpeg', 'Formal uniform students', 'Learners dressed neatly for school activities.'],
-      ['/assets/images/students/children-seated-in-class-gallery.jpeg', 'Classroom collaboration', 'Children seated together during a learning moment.'],
-      ['/assets/images/students/smiling-child-on-turf.jpeg', 'Outdoor smile', 'A joyful moment on the school turf.'],
-      ['/assets/images/students/girl-in-orange-uniform-portrait.jpeg', 'Student portrait', 'A warm portrait from daily school life.'],
-      ['/assets/images/students/boy-smiling-under-tent-closeup.jpeg', 'Smiling under tent', 'A close-up school event portrait.'],
+      ['/assets/images/students/three-children-smiling-uniforms.jpeg', 'Friends at school', 'Three KBIS learners sharing a cheerful moment in the school hall.'],
+      ['/assets/images/students/formal-uniform-students-kbis-01.jpeg', 'Formal school uniform', 'Learners dressed neatly in KBIS formal school attire.'],
+      ['/assets/images/students/children-seated-in-class-gallery.jpeg', 'Ready to learn', 'Young learners seated attentively during a class session.'],
+      ['/assets/images/students/smiling-child-on-turf.jpeg', 'Joy on the turf', 'A carefree smile from a learner enjoying outdoor time on campus.'],
+      ['/assets/images/students/girl-in-orange-uniform-portrait.jpeg', 'Confident learner', 'A girl in the KBIS orange uniform full of energy outdoors.'],
+      ['/assets/images/students/boy-smiling-under-tent-closeup.jpeg', 'Smiling at the ceremony', 'A learner at an outdoor national ceremony, Ghana flag in hand.'],
     ],
   },
   {
@@ -217,26 +217,26 @@ const galleryAlbums = [
     description: 'Educational trips, Independence Square visits, bus moments, and national learning experiences beyond campus.',
     cover: '/assets/images/extra-curricular/students-with-ghana-flags-at-monument.jpeg',
     images: [
-      ['/assets/images/extra-curricular/students-with-ghana-flags-at-monument.jpeg', 'Ghana flags at monument', 'Learners celebrating national identity during an excursion.'],
-      ['/assets/images/extra-curricular/students-group-at-independence-square.jpeg', 'Independence Square group', 'Students learning through a national landmark visit.'],
-      ['/assets/images/extra-curricular/students-line-at-independence-square.jpeg', 'Excursion lineup', 'Learners lined up during an educational trip.'],
-      ['/assets/images/extra-curricular/school-excursion-group-photo.jpeg', 'Excursion group photo', 'A group memory from a school trip.'],
-      ['/assets/images/extra-curricular/students-on-bus-smiling.jpeg', 'Bus smiles', 'Children enjoying the journey together.'],
-      ['/assets/images/extra-curricular/students-with-officer-on-excursion.jpeg', 'Learning from officers', 'Students meeting community helpers during a trip.'],
+      ['/assets/images/extra-curricular/students-with-ghana-flags-at-monument.jpeg', 'Ghana flags at the Square', 'Two KBIS girls proudly waving Ghana flags at Independence Square.'],
+      ['/assets/images/extra-curricular/students-group-at-independence-square.jpeg', 'Group photo at the Square', 'Students and teachers at Ghana\'s Independence Square on a national trip.'],
+      ['/assets/images/extra-curricular/students-line-at-independence-square.jpeg', 'Learners with gift bags', 'Students at Independence Square, gift bags from the national ceremony.'],
+      ['/assets/images/extra-curricular/school-excursion-group-photo.jpeg', 'Meeting national leaders', 'KBIS learners seated with national dignitaries at a state occasion.'],
+      ['/assets/images/extra-curricular/students-on-bus-smiling.jpeg', 'Smiles on the road', 'Boys making memories on the way to a school excursion.'],
+      ['/assets/images/extra-curricular/students-with-officer-on-excursion.jpeg', 'With the armed forces', 'Learners waving Ghana flags alongside military officers at a national event.'],
     ],
   },
   {
     title: 'Celebrations and Events',
     topic: 'School programmes',
-    description: 'Birthdays, performances, career day, family gatherings, and the celebrations that make school memorable.',
+    description: 'Birthdays, cooking day, costume performances, family events, and the celebrations that make school memorable.',
     cover: '/assets/images/extra-curricular/parents-and-children-at-event.jpeg',
     images: [
-      ['/assets/images/extra-curricular/parents-and-children-at-event.jpeg', 'Parents and children', 'Families joining school celebrations.'],
-      ['/assets/images/extra-curricular/students-on-stage-at-event.jpeg', 'Students on stage', 'Learners performing during a school programme.'],
-      ['/assets/images/extra-curricular/birthday-party-students.jpeg', 'Birthday party', 'Classroom celebration with friends.'],
-      ['/assets/images/extra-curricular/career-day-children-in-costumes.jpeg', 'Career day costumes', 'Children exploring future roles through dress-up and play.'],
-      ['/assets/images/extra-curricular/power-rangers-performance-kbis-05.jpeg', 'Costume performance', 'A lively performance moment during school events.'],
-      ['/assets/images/extra-curricular/career-day-costume-group-certificates.jpeg', 'Career day certificates', 'A group moment from career day activities.'],
+      ['/assets/images/extra-curricular/parents-and-children-at-event.jpeg', 'Chef costumes with family', 'A parent celebrating with young chefs at a school cooking event.'],
+      ['/assets/images/extra-curricular/students-on-stage-at-event.jpeg', 'On stage together', 'Two KBIS boys at a formal school programme venue.'],
+      ['/assets/images/extra-curricular/birthday-party-students.jpeg', 'Birthday party in class', 'Classmates celebrating a third birthday together at school.'],
+      ['/assets/images/extra-curricular/career-day-children-in-costumes.jpeg', 'Little chefs', 'Children in chef costumes enjoying a school cooking celebration.'],
+      ['/assets/images/extra-curricular/power-rangers-performance-kbis-05.jpeg', 'Costume performance', 'A lively costume performance by students during a school event.'],
+      ['/assets/images/extra-curricular/career-day-costume-group-certificates.jpeg', 'Cooking day display', 'Young chefs presenting their dish — Banku with Okro Stew.'],
     ],
   },
   {
@@ -245,12 +245,12 @@ const galleryAlbums = [
     description: 'Outdoor play, karate, bicycles, playground discovery, and energetic moments that support whole-child growth.',
     cover: '/assets/images/extra-curricular/children-playing-with-ball.jpeg',
     images: [
-      ['/assets/images/extra-curricular/children-playing-with-ball.jpeg', 'Ball play', 'Children enjoying outdoor movement and teamwork.'],
-      ['/assets/images/extra-curricular/karate-class-on-lawn.jpeg', 'Karate class', 'Discipline, movement, and focus through karate.'],
-      ['/assets/images/extra-curricular/children-with-bicycles-on-playground.jpeg', 'Bicycle play', 'Active play on the school playground.'],
-      ['/assets/images/extra-curricular/child-riding-bike-on-playground.jpeg', 'Riding on playground', 'A child enjoying supervised outdoor play.'],
-      ['/assets/images/extra-curricular/girl-in-karate-uniform.jpeg', 'Karate uniform', 'Confidence-building extra-curricular activity.'],
-      ['/assets/images/extra-curricular/playground-child-on-swing.jpg', 'Playground swing', 'Free play in a safe outdoor space.'],
+      ['/assets/images/extra-curricular/children-playing-with-ball.jpeg', 'Active outdoor play', 'Learners in their KBIS PE kit enjoying outdoor movement on campus.'],
+      ['/assets/images/extra-curricular/karate-class-on-lawn.jpeg', 'Karate on the lawn', 'Discipline and focus through outdoor karate practice.'],
+      ['/assets/images/extra-curricular/children-with-bicycles-on-playground.jpeg', 'Bicycle play', 'Active outdoor play with bicycles on the school playground.'],
+      ['/assets/images/extra-curricular/child-riding-bike-on-playground.jpeg', 'Riding on the playground', 'A child enjoying supervised outdoor cycling on campus.'],
+      ['/assets/images/extra-curricular/girl-in-karate-uniform.jpeg', 'Karate stance', 'A student focused and ready during the school\'s karate programme.'],
+      ['/assets/images/extra-curricular/playground-child-on-swing.jpg', 'Baby swing time', 'A carer helping a little one enjoy the playground swing at KBIS.'],
     ],
   },
   {
@@ -259,12 +259,12 @@ const galleryAlbums = [
     description: 'Classrooms, corridors, playrooms, computer spaces, and the colourful environment children use every day.',
     cover: '/assets/images/facilities/purple-classroom-panorama.jpg',
     images: [
-      ['/assets/images/facilities/purple-classroom-panorama.jpg', 'Purple classroom panorama', 'A broad view of one of the colourful classrooms.'],
+      ['/assets/images/facilities/purple-classroom-panorama.jpg', 'Purple classroom panorama', 'A broad view of one of the colourful classrooms at KBIS.'],
       ['/assets/images/facilities/purple-classroom.jpeg', 'Purple classroom', 'A bright classroom arranged for young learners.'],
-      ['/assets/images/facilities/empty-pink-classroom.jpeg', 'Pink classroom', 'A clean and welcoming classroom space.'],
+      ['/assets/images/facilities/empty-pink-classroom.jpeg', 'Pink classroom', 'A clean and welcoming classroom ready for the school day.'],
       ['/assets/images/facilities/computer-room-tables.jpg', 'Computer room', 'Technology space for guided digital learning.'],
-      ['/assets/images/facilities/colorful-school-corridor.jpg', 'Colourful corridor', 'A bright movement space within the school.'],
-      ['/assets/images/facilities/blue-stairwell.jpeg', 'Blue stairwell', 'Safe, colourful circulation around campus.'],
+      ['/assets/images/facilities/colorful-school-corridor.jpg', 'Colourful corridor', 'A bright, welcoming corridor inside the KBIS campus.'],
+      ['/assets/images/facilities/blue-stairwell.jpeg', 'Blue stairwell', 'Safe, colourful stairwell connecting the campus floors.'],
     ],
   },
 ];
@@ -386,7 +386,7 @@ export const extraPageBuilders = {
             .map(
               (member) => `
               <div class="col-12">
-                <article class="kb-profile-card h-100" data-href="/about/board-of-directors">
+                <article class="kb-profile-card h-100">
                   <img src="${member[2]}" alt="${member[0]}" loading="lazy">
                   <div><h3>${member[0]}</h3><p>${member[1]}</p></div>
                 </article>
@@ -409,7 +409,7 @@ export const extraPageBuilders = {
       heading: 'Management that keeps learning, safety, and communication moving.',
       lead: 'The school director, principal, administration, and classroom leads coordinate the everyday work families feel: safe arrival, strong routines, and steady feedback.',
       body: featureCards([
-        { kicker: 'Director', title: 'Raphael Asamoah Boadu', text: 'Since 2021, leadership has focused on a thriving learning environment, engaged community, and forward-looking teaching methods.', image: '/assets/images/students/two-students-in-formal-uniforms.jpeg', href: '/about/management' },
+        { kicker: 'Director', title: 'Raphael Asamoah Boadu', text: 'Since 2021, leadership has focused on a thriving learning environment, engaged community, and forward-looking teaching methods.', image: '/assets/images/students/two-students-in-formal-uniforms.jpeg', href: '/about/board-of-directors' },
         { kicker: 'Principal', title: s.principal, text: 'A child-centred educator supporting classroom practice, parent partnership, and learner confidence.', image: '/assets/images/others/staff-member-at-desk.jpg', href: '/about/principal' },
         { kicker: 'Office', title: 'Admissions and administration', text: 'The office helps families with visits, forms, fees, medical information, and authorised pick-up records.', image: '/assets/images/others/ms-yvonne-asamoah-boadu.jpeg', href: '/contact' },
       ]),
@@ -529,7 +529,7 @@ export const extraPageBuilders = {
         </section>
         ${featureCards([
           { kicker: 'Core', title: 'Literacy and numeracy', text: 'Children build phonics, handwriting, everyday maths, and confidence through multi-sensory strategies.', image: '/assets/images/learning/student-writing-in-notebook.jpeg', href: '/academics/programmes' },
-          { kicker: 'Inquiry', title: 'Science and discovery', text: 'Learning is practical, visual, and active so children can test ideas with their hands.', image: '/assets/images/learning/child-presenting-poster.jpeg', href: '/academics/programmes' },
+          { kicker: 'Languages', title: 'English and French', text: 'Bilingual exposure is built into daily lessons from early years through primary.', image: '/assets/images/learning/children-reading-together.jpeg', href: '/academics/languages' },
           { kicker: 'Character', title: 'Confidence and kindness', text: 'The timetable supports independence, turn-taking, communication, and self-control.', image: '/assets/images/students/smiling-boy-at-desk.jpeg', href: '/students-life' },
         ])}`,
     }),
@@ -562,8 +562,8 @@ export const extraPageBuilders = {
         </div>
         ${featureCards([
           { kicker: 'Youngest', title: 'Creche and nursery', text: 'Warm routines, sensory-rich play, early communication, and strong family partnership.', image: '/assets/images/students/smiling-girl-orange-uniform-kbis-02.jpeg', href: '/admissions' },
-          { kicker: 'Foundation', title: 'Kindergarten and reception', text: 'Structured play, social confidence, early literacy, numeracy, and independence.', image: '/assets/images/students/girl-in-orange-uniform-kbis-03.jpeg', href: '/admissions' },
-          { kicker: 'Primary', title: 'Primary years', text: 'Literacy depth, numeracy fluency, projects, bilingual confidence, and pastoral support.', image: '/assets/images/learning/students-in-computer-lab.jpeg', href: '/admissions' },
+          { kicker: 'Curriculum', title: 'What children learn', text: 'Cambridge-aligned teaching with bilingual English-French exposure from early years upwards.', image: '/assets/images/learning/teacher-guided-table-activity.jpeg', href: '/academics/curriculum' },
+          { kicker: 'Campus', title: 'Where they learn', text: 'Colourful classrooms, computer lab, outdoor play, and welcoming shared spaces.', image: '/assets/images/facilities/purple-classroom.jpeg', href: '/campus-facilities' },
         ])}`,
     }),
   }),
@@ -642,7 +642,7 @@ export const extraPageBuilders = {
         ${featureCards([
           { kicker: 'Admissions', title: 'Rolling entry', text: 'Families can ask about available places throughout the year.', image: '/assets/images/students/smiling-boy-in-class-hero.jpeg', href: '/admissions' },
           { kicker: 'Trips', title: 'Educational visits', text: 'Trips are organised around themes and lesson plans for each academic term.', image: '/assets/images/extra-curricular/school-excursion-students-walking.jpeg', href: '/events' },
-          { kicker: 'Events', title: 'Grand programmes', text: 'Annual celebrations, graduations, anniversaries, and showcases are planned with family communication.', image: '/assets/images/extra-curricular/students-on-stage-at-event.jpeg', href: '/events' },
+          { kicker: 'Student life', title: 'Beyond the classroom', text: 'Houses, SRC, extra-curricular clubs, and celebrations shape a full school experience.', image: '/assets/images/extra-curricular/children-with-balloons-on-turf.jpeg', href: '/students-life' },
         ])}`,
     }),
   }),

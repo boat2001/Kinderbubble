@@ -289,7 +289,7 @@ export function getIndexLayoutHtml(s) {
                 <div class="metric-value"><span>1</span></div>
               </div>
               <div class="metric-info">
-                <h4>One Spintex campus</h4>
+                <h4>Spintex campus</h4>
                 <p>${s.addressLine1}</p>
               </div>
             </div>
