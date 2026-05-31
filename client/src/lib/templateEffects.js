@@ -98,10 +98,11 @@ export function initTemplateEffects() {
   });
 
   document.querySelectorAll('.navmenu .toggle-dropdown').forEach((toggle) => {
-    toggle.onclick = (event) => {
+    const link = toggle.parentNode;
+    link.onclick = (event) => {
       event.preventDefault();
-      toggle.parentNode.classList.toggle('active');
-      toggle.parentNode.nextElementSibling.classList.toggle('dropdown-active');
+      link.classList.toggle('active');
+      link.nextElementSibling.classList.toggle('dropdown-active');
       event.stopImmediatePropagation();
     };
   });
