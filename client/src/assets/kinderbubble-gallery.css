@@ -402,7 +402,11 @@ body > .kb-gallery-viewer .kb-gallery-viewer-panel {
   }
 
   .kb-gallery-album-copy em {
-    display: none;
+    font-size: 0.72rem;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   body > .kb-gallery-viewer {
