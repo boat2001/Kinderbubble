@@ -1009,7 +1009,7 @@ body.scrolled .header.kb-header .header-container {
   }
 
   .kb-logo-text .sitename {
-    font-size: clamp(0.98rem, 4.1vw, 1.08rem);
+    font-size: clamp(1.2rem, 5.5vw, 1.35rem);
     letter-spacing: -0.01em;
     line-height: 1.05;
     white-space: normal;
@@ -1018,8 +1018,9 @@ body.scrolled .header.kb-header .header-container {
   .kb-logo-text small {
     display: block;
     font-size: 0.58rem;
-    letter-spacing: 0.08em;
+    letter-spacing: 0;
     line-height: 1.2;
+    text-align-last: justify;
   }
 
   .kb-logo-text small .kb-tagline-location {
@@ -6329,7 +6330,7 @@ video {
   }
 
   .kb-hero .hero-wrapper .hero-content .kb-hero-schoolname {
-    font-size: clamp(0.52rem, 1.5vw, 0.62rem);
+    font-size: clamp(0.72rem, 3vw, 0.82rem);
   }
 
   .kb-hero .hero-wrapper .hero-content .kb-hero-title {
@@ -6543,6 +6544,58 @@ video {
   }
 }
 
+/* ---- Mobile typography refinements ---- */
+@media (max-width: 767.98px) {
+  /* Inner-page hero headings — bump up from the 1.35rem floor */
+  .kb-page-hero-copy h2,
+  .kb-contact-intro h2,
+  .kb-news-featured-copy h2,
+  .kb-gallery-head h2 {
+    font-size: clamp(1.55rem, 5.5vw, 1.9rem);
+    line-height: 1.18;
+  }
+
+  /* Inner-page lead text */
+  .kb-page-hero-copy > p:not(.kb-kicker),
+  .kb-contact-intro > p:not(.kb-kicker),
+  .kb-news-featured-copy > p:not(.kb-kicker) {
+    font-size: 0.97rem;
+    line-height: 1.62;
+  }
+
+  /* Section kicker labels */
+  .kb-kicker {
+    font-size: 0.72rem;
+  }
+
+  /* Rich / feature card headings */
+  .kb-rich-card h3,
+  .kb-profile-card h3,
+  .kb-update-card h3,
+  .kb-statement-card h3 {
+    font-size: 1.05rem;
+    line-height: 1.3;
+  }
+
+  /* Feature card grid — less top margin */
+  .kb-feature-card-grid {
+    margin-top: 1.5rem;
+  }
+
+  /* Rich card body — tighter padding on small screens */
+  .kb-rich-card-body,
+  .kb-profile-card > div,
+  .kb-update-card > div {
+    padding: 1rem;
+  }
+
+  /* Page title h1 breadcrumb */
+  .page-title h1 {
+    font-size: clamp(1.45rem, 6.5vw, 2rem);
+    line-height: 1.2;
+  }
+}
+
 @media (max-width: 420px) {
   .header.kb-header .header-container {
     padding-left: 0.55rem !important;
@@ -6554,7 +6607,7 @@ video {
   }
 
   .kb-logo-text .sitename {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   .kb-logo-text small {
