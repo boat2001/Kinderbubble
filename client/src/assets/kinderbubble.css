@@ -6982,7 +6982,7 @@ video {
 /* ---- quick links ---- */
 .footer.kb-footer .kb-footer-nav-stack {
   display: grid !important;
-  gap: 0.3rem !important;
+  gap: 0.2rem !important;
   margin: 0 !important;
   padding: 0 !important;
 }
@@ -7007,13 +7007,13 @@ video {
 
 .footer.kb-footer .kb-footer-nav-link::before {
   content: '›' !important;
-  display: inline-block !important;
+  display: block !important;
   color: var(--kb-coral) !important;
   font-size: 1.1rem !important;
   font-weight: 700 !important;
-  line-height: 1.4 !important;
-  transform: translateY(1px) !important;
+  line-height: 1 !important;
   flex-shrink: 0 !important;
+  align-self: center !important;
 }
 
 .footer.kb-footer .kb-footer-nav-link::after {
