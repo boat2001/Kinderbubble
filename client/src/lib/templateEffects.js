@@ -89,23 +89,41 @@ export function initTemplateEffects() {
     mobileNavToggleBtn.onclick = mobileNavToggle;
   }
 
+  // Close mobile nav when a real page link is clicked
   document.querySelectorAll('#navmenu a').forEach((link) => {
-    link.onclick = () => {
+    link.addEventListener('click', () => {
       const href = link.getAttribute('href');
       if (!href || href === '#') return;
       if (body.classList.contains('mobile-nav-active')) mobileNavToggle();
-    };
+    });
   });
 
-  document.querySelectorAll('.navmenu .toggle-dropdown').forEach((toggle) => {
-    const link = toggle.parentNode;
-    link.onclick = (event) => {
+  // Dropdown toggle: whole row is the tap target; collapse siblings on open
+  const navMenu = document.querySelector('.navmenu');
+  if (navMenu) {
+    navMenu.addEventListener('click', (event) => {
+      const link = event.target.closest('.dropdown > a');
+      if (!link || !link.querySelector('.toggle-dropdown')) return;
+
       event.preventDefault();
-      link.classList.toggle('active');
-      link.nextElementSibling.classList.toggle('dropdown-active');
-      event.stopImmediatePropagation();
-    };
-  });
+      event.stopPropagation();
+
+      const isOpen = link.classList.contains('active');
+      const siblingUl = link.parentElement?.parentElement;
+
+      // Collapse all open siblings at the same level
+      siblingUl?.querySelectorAll(':scope > li.dropdown > a.active').forEach((openLink) => {
+        if (openLink !== link) {
+          openLink.classList.remove('active');
+          openLink.nextElementSibling?.classList.remove('dropdown-active');
+        }
+      });
+
+      // Toggle this dropdown
+      link.classList.toggle('active', !isOpen);
+      link.nextElementSibling?.classList.toggle('dropdown-active', !isOpen);
+    });
+  }
 
   if (scrollTop) {
     scrollTop.onclick = (event) => {
