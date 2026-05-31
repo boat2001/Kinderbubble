@@ -1018,9 +1018,8 @@ body.scrolled .header.kb-header .header-container {
   .kb-logo-text small {
     display: block;
     font-size: 0.58rem;
-    letter-spacing: 0;
+    letter-spacing: 0.08em;
     line-height: 1.2;
-    text-align-last: justify;
   }
 
   .kb-logo-text small .kb-tagline-location {
