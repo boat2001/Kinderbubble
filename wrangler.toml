@@ -3,3 +3,6 @@
 name = "kinderbubble"
 pages_build_output_dir = "client/dist"
 compatibility_date = "2025-05-01"
+
+[build]
+command = "npm run frontend:build"

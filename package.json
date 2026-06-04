@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
+    "build": "npm run frontend:build",
     "frontend:dev": "vite --config client/vite.config.js",
     "frontend:build": "vite build --config client/vite.config.js",
     "frontend:preview": "vite preview --config client/vite.config.js",
