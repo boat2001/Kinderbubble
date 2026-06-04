@@ -454,7 +454,7 @@ export default function HomeHero() {
               </p>
               <div className="action-buttons">
                 <NavLink to="/admissions" className="btn-primary">
-                  Plan a visit
+                  Admit your child
                 </NavLink>
                 <NavLink to="/contact" className="btn-secondary">
                   Talk to admissions
