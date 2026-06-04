@@ -4,6 +4,7 @@ function safeCall(check, callback) {
 
 const PDF_HREF = /\.pdf(\?|#|$)/i;
 const GALLERY_EFFECTS_CONTROLLER_KEY = '__kbGalleryEffectsController__';
+const NAV_OUTSIDE_CLICK_CONTROLLER_KEY = '__kbNavOutsideClickController__';
 
 function wirePdfLinks(root = document) {
   root.querySelectorAll('a[href]').forEach((link) => {
@@ -22,6 +23,9 @@ function clearGalleryOpenState() {
 export function initTemplateEffects() {
   const body = document.body;
   const header = document.querySelector('#header');
+
+  // Always clear any leftover scroll lock from a previous nav session
+  body.classList.remove('mobile-nav-active');
   const scrollTop = document.querySelector('.scroll-top');
   const preloader = document.querySelector('#preloader');
   const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
@@ -47,10 +51,41 @@ export function initTemplateEffects() {
     document.documentElement.style.setProperty('--kb-header-stack', `${height}px`);
   };
 
+  const preventBgScroll = (e) => {
+    if (!e.target.closest('.navmenu > ul')) e.preventDefault();
+  };
+
+  const preventWheelScroll = (e) => {
+    if (!e.target.closest('.navmenu > ul')) e.preventDefault();
+  };
+
+  const lockScroll = () => {
+    document.addEventListener('touchmove', preventBgScroll, { passive: false });
+    document.addEventListener('wheel', preventWheelScroll, { passive: false });
+  };
+
+  const unlockScroll = () => {
+    document.removeEventListener('touchmove', preventBgScroll);
+    document.removeEventListener('wheel', preventWheelScroll);
+  };
+
+  const closeMobileNav = () => {
+    if (!body.classList.contains('mobile-nav-active')) return;
+    unlockScroll();
+    body.classList.remove('mobile-nav-active');
+    if (mobileNavToggleBtn) {
+      mobileNavToggleBtn.classList.add('bi-list');
+      mobileNavToggleBtn.classList.remove('bi-x');
+    }
+  };
+
   const mobileNavToggle = () => {
     const headerBottom = header ? Math.round(header.getBoundingClientRect().bottom) : 64;
     const safeTop = Math.min(headerBottom + 8, Math.max(72, window.innerHeight - 220));
     document.documentElement.style.setProperty('--kb-mobile-nav-top', `${safeTop}px`);
+
+    const isOpening = !body.classList.contains('mobile-nav-active');
+    if (isOpening) lockScroll(); else unlockScroll();
 
     body.classList.toggle('mobile-nav-active');
     if (mobileNavToggleBtn) {
@@ -89,41 +124,51 @@ export function initTemplateEffects() {
     mobileNavToggleBtn.onclick = mobileNavToggle;
   }
 
-  // Close mobile nav when a real page link is clicked
+  if (window[NAV_OUTSIDE_CLICK_CONTROLLER_KEY]) {
+    window[NAV_OUTSIDE_CLICK_CONTROLLER_KEY].abort();
+  }
+  window[NAV_OUTSIDE_CLICK_CONTROLLER_KEY] = new AbortController();
+  document.addEventListener('click', (event) => {
+    if (!body.classList.contains('mobile-nav-active')) return;
+    if (event.target.closest('.navmenu > ul, .mobile-nav-toggle')) return;
+    closeMobileNav();
+  }, { signal: window[NAV_OUTSIDE_CLICK_CONTROLLER_KEY].signal });
+
+  // Close mobile nav when a real (non-#) link is clicked
   document.querySelectorAll('#navmenu a').forEach((link) => {
-    link.addEventListener('click', () => {
+    link.onclick = () => {
       const href = link.getAttribute('href');
       if (!href || href === '#') return;
-      if (body.classList.contains('mobile-nav-active')) mobileNavToggle();
-    });
+      closeMobileNav();
+    };
   });
 
-  // Dropdown toggle: whole row is the tap target; collapse siblings on open
-  const navMenu = document.querySelector('.navmenu');
-  if (navMenu) {
-    navMenu.addEventListener('click', (event) => {
-      const link = event.target.closest('.dropdown > a');
-      if (!link || !link.querySelector('.toggle-dropdown')) return;
+  // Dropdown toggle — set onclick directly on each dropdown <a> so the whole
+  // row is the tap target. Runs after the loop above so it overrides for
+  // dropdown links (which have href="#" and need toggle behaviour).
+  document.querySelectorAll('.navmenu .dropdown > a').forEach((dropdownLink) => {
+    if (!dropdownLink.querySelector('.toggle-dropdown')) return;
 
+    dropdownLink.onclick = (event) => {
       event.preventDefault();
-      event.stopPropagation();
+      event.stopImmediatePropagation();
 
-      const isOpen = link.classList.contains('active');
-      const siblingUl = link.parentElement?.parentElement;
+      const isOpen = dropdownLink.classList.contains('active');
+      const parentList = dropdownLink.parentElement?.parentElement;
 
-      // Collapse all open siblings at the same level
-      siblingUl?.querySelectorAll(':scope > li.dropdown > a.active').forEach((openLink) => {
-        if (openLink !== link) {
-          openLink.classList.remove('active');
-          openLink.nextElementSibling?.classList.remove('dropdown-active');
+      // Collapse any open sibling dropdowns at the same level
+      parentList?.querySelectorAll(':scope > li.dropdown > a.active').forEach((sibling) => {
+        if (sibling !== dropdownLink) {
+          sibling.classList.remove('active');
+          sibling.nextElementSibling?.classList.remove('dropdown-active');
         }
       });
 
       // Toggle this dropdown
-      link.classList.toggle('active', !isOpen);
-      link.nextElementSibling?.classList.toggle('dropdown-active', !isOpen);
-    });
-  }
+      dropdownLink.classList.toggle('active', !isOpen);
+      dropdownLink.nextElementSibling?.classList.toggle('dropdown-active', !isOpen);
+    };
+  });
 
   if (scrollTop) {
     scrollTop.onclick = (event) => {
@@ -165,6 +210,22 @@ export function initTemplateEffects() {
       }
     };
   });
+
+  // Scroll-reveal overlay on the featured activity image (touch/mobile only)
+  if (window.matchMedia('(pointer: coarse)').matches) {
+    const featuredActivities = document.querySelectorAll('.featured-activity');
+    if (featuredActivities.length && 'IntersectionObserver' in window) {
+      const overlayObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            entry.target.classList.toggle('kb-overlay-visible', entry.isIntersecting);
+          });
+        },
+        { threshold: 0.45 }
+      );
+      featuredActivities.forEach((el) => overlayObserver.observe(el));
+    }
+  }
 
   clearGalleryOpenState();
   if (window[GALLERY_EFFECTS_CONTROLLER_KEY]) {

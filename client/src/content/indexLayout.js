@@ -105,7 +105,7 @@ export function getIndexLayoutHtml(s) {
                   </div>
                   <div class="detail-item">
                     <i class="bi bi-telephone"></i>
-                    <span>${s.phoneDisplay}</span>
+                    <span><a href="tel:${s.phoneTel}">${s.phoneDisplay}</a></span>
                   </div>
                 </div>
                 <a href="/academics" class="discover-btn">Explore academics</a>
@@ -236,15 +236,11 @@ export function getIndexLayoutHtml(s) {
     </section>
 
     <section id="stats" class="stats section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Numbers that reflect our focus</h2>
+        <p>One campus, bilingual learning, and a full day for working families.</p>
+      </div>
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <div class="row justify-content-center">
-          <div class="col-lg-8 text-center">
-            <div class="intro-content" data-aos="fade-up" data-aos-delay="200">
-              <h2 class="section-heading">Numbers that reflect our focus</h2>
-              <p class="section-description">One campus, bilingual learning, and a full day for working families.</p>
-            </div>
-          </div>
-        </div>
         <div class="row g-4 mt-4">
           <div class="col-xl-3 col-lg-6 col-md-6">
             <div class="metric-card" data-href="/academics/programmes" data-aos="flip-left" data-aos-delay="300">

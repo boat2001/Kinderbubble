@@ -123,10 +123,13 @@ const TYPE_CHAR_MS = 76;
 const HOLD_MS = 3100;
 const HERO_TRANSITIONS = ['fade', 'zoom', 'slide-left', 'slide-up'];
 
-const HERO_TITLE_LH = 1.2;
+const HERO_TITLE_LH = 1.18;
 const HERO_TITLE_MAX_LINES = 3;
-const HERO_TITLE_MIN_PX = 12;
+const HERO_TITLE_MIN_PX = 11;
 const HERO_TITLE_MAX_PX = 44;
+
+const HERO_EYEBROW_MIN_PX = 9;
+const HERO_EYEBROW_MAX_PX = 14;
 
 function slideTotal(slide) {
   return slide.prefix.length + slide.highlight.length + slide.suffix.length;
@@ -153,7 +156,16 @@ function visibleParts(typed, slide) {
  * Largest font-size (px) so `text` wraps within `maxLines` at `widthPx`, using
  * typography copied from `sampleTitleEl`.
  */
-function maxFontPxForLines(measureEl, sampleTitleEl, text, widthPx, maxLines, lineHeightUnitless) {
+function maxFontPxForLines(
+  measureEl,
+  sampleTitleEl,
+  text,
+  widthPx,
+  maxLines,
+  lineHeightUnitless,
+  minPx = HERO_TITLE_MIN_PX,
+  maxPx = HERO_TITLE_MAX_PX
+) {
   const cs = getComputedStyle(sampleTitleEl);
   measureEl.style.boxSizing = 'border-box';
   measureEl.style.width = `${widthPx}px`;
@@ -161,6 +173,7 @@ function maxFontPxForLines(measureEl, sampleTitleEl, text, widthPx, maxLines, li
   measureEl.style.fontWeight = cs.fontWeight;
   measureEl.style.fontStyle = cs.fontStyle;
   measureEl.style.letterSpacing = cs.letterSpacing;
+  measureEl.style.textTransform = cs.textTransform;
   measureEl.style.lineHeight = String(lineHeightUnitless);
   measureEl.style.wordBreak = 'break-word';
   measureEl.style.overflowWrap = 'anywhere';
@@ -179,17 +192,64 @@ function maxFontPxForLines(measureEl, sampleTitleEl, text, widthPx, maxLines, li
     return fitsHeight && fitsWidth;
   };
 
-  if (!fits(HERO_TITLE_MIN_PX)) return HERO_TITLE_MIN_PX;
-  if (fits(HERO_TITLE_MAX_PX)) return HERO_TITLE_MAX_PX;
+  if (!fits(minPx)) return minPx;
+  if (fits(maxPx)) return maxPx;
 
-  let lo = HERO_TITLE_MIN_PX;
-  let hi = HERO_TITLE_MAX_PX;
+  let lo = minPx;
+  let hi = maxPx;
   for (let i = 0; i < 30; i++) {
     const mid = (lo + hi) / 2;
     if (fits(mid)) lo = mid;
     else hi = mid;
   }
   return lo;
+}
+
+function useHeroEyebrowOneLineFit(eyebrowRef, measureRef, text) {
+  useLayoutEffect(() => {
+    const el = eyebrowRef.current;
+    const measureEl = measureRef.current;
+    if (!el || !measureEl) return;
+
+    let cancelled = false;
+
+    const run = () => {
+      if (cancelled) return;
+      const cs = getComputedStyle(el);
+      const padX = (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
+      const w = Math.max(0, el.clientWidth - padX);
+      if (w < 32) return;
+
+      const fs = maxFontPxForLines(
+        measureEl,
+        el,
+        text,
+        w,
+        1,
+        1.2,
+        HERO_EYEBROW_MIN_PX,
+        HERO_EYEBROW_MAX_PX
+      );
+      el.style.setProperty('--kb-hero-eyebrow-fs', `${fs}px`);
+    };
+
+    const schedule = () => requestAnimationFrame(() => !cancelled && run());
+
+    schedule();
+    const fontsP = typeof document !== 'undefined' && document.fonts?.ready ? document.fonts.ready : null;
+    if (fontsP && typeof fontsP.then === 'function') {
+      void fontsP.then(() => !cancelled && schedule());
+    }
+
+    const ro = new ResizeObserver(() => schedule());
+    ro.observe(el);
+    window.addEventListener('resize', schedule);
+    return () => {
+      cancelled = true;
+      ro.disconnect();
+      window.removeEventListener('resize', schedule);
+    };
+  }, [text]);
 }
 
 function useHeroTitleThreeLineFit(titleRef, measureRef) {
@@ -248,11 +308,15 @@ function useHeroTitleThreeLineFit(titleRef, measureRef) {
 export default function HomeHero() {
   const titleRef = useRef(null);
   const titleMeasureRef = useRef(null);
+  const eyebrowRef = useRef(null);
+  const eyebrowMeasureRef = useRef(null);
+  const eyebrowText = `${schoolData.legalName} (KBIS)`;
   const [index, setIndex] = useState(0);
   const [typed, setTyped] = useState(0);
   const [transition, setTransition] = useState(HERO_TRANSITIONS[0]);
 
   useHeroTitleThreeLineFit(titleRef, titleMeasureRef);
+  useHeroEyebrowOneLineFit(eyebrowRef, eyebrowMeasureRef, eyebrowText);
 
   const slide = SLIDES[index];
   const total = slideTotal(slide);
@@ -365,7 +429,14 @@ export default function HomeHero() {
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6 hero-content position-relative" data-aos="fade-right" data-aos-delay="100">
-              <p className="kb-hero-schoolname">{`${schoolData.legalName} (KBIS)`}</p>
+              <p ref={eyebrowRef} className="kb-hero-schoolname">
+                {eyebrowText}
+              </p>
+              <span
+                ref={eyebrowMeasureRef}
+                className="kb-hero-eyebrow-measure"
+                aria-hidden="true"
+              />
               <div ref={titleMeasureRef} className="kb-hero-title-measure" aria-hidden="true" />
               <h1 ref={titleRef} className="kb-hero-title" aria-label={fullLine}>
                 <span className="kb-hero-title-static">{p}</span>
@@ -452,10 +523,10 @@ export default function HomeHero() {
               <span className="month">NOW</span>
             </div>
             <div className="event-info">
-              <h3>Rolling admissions &amp; campus tours</h3>
+              <h3>Rolling admissions</h3>
               <p>
-                {schoolData.highlights[1]}. Reach us at {schoolData.phoneDisplay} — we would love to meet your
-                family.
+                {schoolData.highlights[1]}. Reach us at{' '}
+                <a href={`tel:${schoolData.phoneTel}`}>{schoolData.phoneDisplay}</a> — we would love to meet your family.
               </p>
             </div>
             <div className="event-action">
