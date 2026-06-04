@@ -8428,3 +8428,28 @@ video {
     border-radius: 8px !important;
   }
 }
+
+/* Scrolled header: stronger surface over page content */
+body.scrolled .header.kb-header .header-container,
+body.index-page.scrolled .header.kb-header .header-container,
+body:not(.index-page).scrolled .header.kb-header .header-container {
+  background: rgba(255, 255, 255, 0.97) !important;
+  background-color: rgba(255, 255, 255, 0.97) !important;
+  border-color: rgba(15, 107, 122, 0.16) !important;
+  backdrop-filter: blur(22px) saturate(1.28) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(1.28) !important;
+  box-shadow:
+    0 14px 38px rgba(9, 72, 84, 0.14),
+    0 1px 0 rgba(255, 255, 255, 0.72) inset !important;
+}
+
+@media (max-width: 1199.98px) {
+  body.scrolled .header.kb-header .header-container,
+  body.index-page.scrolled .header.kb-header .header-container,
+  body:not(.index-page).scrolled .header.kb-header .header-container {
+    background: rgba(255, 255, 255, 0.98) !important;
+    background-color: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(18px) saturate(1.22) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(1.22) !important;
+  }
+}
