@@ -4,7 +4,7 @@ export const extraRoutes = [
   { path: '/about/board-of-directors', key: 'about-board-of-directors', label: 'Board of directors' },
   { path: '/about/management', key: 'about-management', label: 'Management' },
   { path: '/about/principal', key: 'about-principal', label: 'Principal' },
-  { path: '/about/staff/teaching', key: 'about-staff-teaching', label: 'Teaching staff' },
+  { path: '/about/staff/teaching', key: 'about-staff-teaching', label: 'Teaching Staff' },
   { path: '/about/staff/support', key: 'about-staff-support', label: 'Support staff' },
   { path: '/academics/curriculum', key: 'academics-curriculum', label: 'Curriculum' },
   { path: '/academics/programmes', key: 'academics-programmes', label: 'Programmes' },

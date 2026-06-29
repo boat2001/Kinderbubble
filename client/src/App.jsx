@@ -1,6 +1,7 @@
-import { NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import { NavLink, Route, Routes, useLocation, useParams } from 'react-router-dom';
 import { useEffect, useMemo } from 'react';
 import { pageContent } from './content/pageContent';
+import { buildEventDetail, buildNewsDetail } from './content/slimSiteHtml';
 import { schoolData } from './content/schoolData';
 import { initFormHandlers, initTemplateEffects } from './lib/templateEffects';
 import AmbientDecor, { getAmbientVariant } from './components/AmbientDecor';
@@ -34,8 +35,8 @@ function stripIndexHero(html) {
   return html.replace(/\s*<!-- Hero Section -->[\s\S]*?<!-- \/Hero Section -->\s*/, '\n');
 }
 
-function PageRenderer({ pageKey }) {
-  const page = contentByKey[pageKey] || contentByKey['404'];
+function PageRenderer({ pageKey, page: pageOverride }) {
+  const page = pageOverride || contentByKey[pageKey] || contentByKey['404'];
 
   const mainHtml = useMemo(() => {
     let html = page?.mainHtml || '';
@@ -58,6 +59,22 @@ function PageRenderer({ pageKey }) {
       </div>
     </main>
   );
+}
+
+/** Renders an individual event detail page from its slug, falling back to 404. */
+function EventDetailRenderer() {
+  const { slug } = useParams();
+  const page = useMemo(() => buildEventDetail(slug), [slug]);
+  if (!page) return <PageRenderer pageKey="404" />;
+  return <PageRenderer pageKey="event-details" page={page} />;
+}
+
+/** Renders an individual news article from its slug, falling back to 404. */
+function NewsDetailRenderer() {
+  const { slug } = useParams();
+  const page = useMemo(() => buildNewsDetail(slug), [slug]);
+  if (!page) return <PageRenderer pageKey="404" />;
+  return <PageRenderer pageKey="news-details" page={page} />;
 }
 
 const FOOTER_QUICK_LINKS = [
@@ -246,6 +263,8 @@ export default function App() {
         {routeMap.map((route) => (
           <Route key={route.path} path={route.path} element={<PageRenderer pageKey={route.key} />} />
         ))}
+        <Route path="/event-details/:slug" element={<EventDetailRenderer />} />
+        <Route path="/news-details/:slug" element={<NewsDetailRenderer />} />
         <Route path="*" element={<PageRenderer pageKey="404" />} />
       </Routes>
     </Layout>

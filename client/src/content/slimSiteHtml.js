@@ -1,6 +1,8 @@
 import { schoolData as s } from './schoolData.js';
 import { kbIcon } from './kbIcons.js';
 import { getIndexLayoutHtml } from './indexLayout.js';
+import { eventsData } from './data/events.js';
+import { newsData } from './data/news.js';
 
 export function getIndexHtml() {
   return getIndexLayoutHtml(s);
@@ -471,14 +473,14 @@ export function getContactHtml() {
   `;
 }
 
+/** Date-badge parts for an event label, matching the events list styling. */
+function eventBadge(label) {
+  const parts = label.split(' ');
+  return { day: parts[0], month: parts.slice(1).join(' ') || 'KBIS' };
+}
+
 export function getEventsHtml() {
-  const events = [
-    ['Anniversary celebration', 'Annual', 'A grand school programme celebrating KBIS growth, culture, performances, family participation, and the school community.', '/assets/images/extra-curricular/students-on-stage-at-event.jpeg'],
-    ['Graduation and moving-up ceremony', 'End term', 'A milestone celebration where learners were recognised for growth, confidence, and readiness for the next stage.', '/assets/images/extra-curricular/career-day-costume-group-certificates.jpeg'],
-    ['Educational trips', 'Trips', 'Theme-based outings connected classroom learning to real places, with learners exploring, asking questions, and returning with stories to share.', '/assets/images/extra-curricular/school-excursion-group-photo.jpeg'],
-    ['Career and culture day', 'School life', 'Children dressed, presented, and explored real-world roles through guided play, family support, and joyful classroom activities.', '/assets/images/extra-curricular/career-day-children-in-costumes.jpeg'],
-    ['Independence and national moments', 'Culture', 'Learners celebrated Ghanaian identity through flags, presentations, group moments, and guided conversations about citizenship.', '/assets/images/extra-curricular/students-with-ghana-flags-under-tent.jpeg'],
-  ];
+  const events = eventsData;
 
   return `
     <div class="page-title light-background">
@@ -502,17 +504,20 @@ export function getEventsHtml() {
         <div class="row g-4">
           <div class="col-lg-8">
             <div class="events-list kb-event-list">
-              ${events.map(([title, label, desc, image], index) => `
-                <article class="event-item" data-aos="fade-up" data-aos-delay="${index * 80}" data-href="/event-details">
+              ${events.map(({ title, label, excerpt, image, slug }, index) => {
+                const badge = eventBadge(label);
+                return `
+                <article class="event-item" data-aos="fade-up" data-aos-delay="${index * 80}" data-href="/event-details/${slug}">
                   <div class="kb-event-thumb"><img src="${image}" alt="" loading="lazy"></div>
-                  <div class="event-date"><span class="day">${label.split(' ')[0]}</span><span class="month">${label.split(' ').slice(1).join(' ') || 'KBIS'}</span></div>
+                  <div class="event-date"><span class="day">${badge.day}</span><span class="month">${badge.month}</span></div>
                   <div class="event-content">
                     <h3 class="event-title">${title}</h3>
                     <div class="event-meta"><span><i class="bi bi-images"></i> Photos and highlights</span><span><i class="bi bi-journal-text"></i> Event story</span></div>
-                    <p class="event-description">${desc}</p>
-                    <a href="/event-details" class="btn-event-details">View details <i class="bi bi-arrow-right"></i></a>
+                    <p class="event-description">${excerpt}</p>
+                    <a href="/event-details/${slug}" class="btn-event-details">View details <i class="bi bi-arrow-right"></i></a>
                   </div>
-                </article>`).join('')}
+                </article>`;
+              }).join('')}
             </div>
           </div>
           <div class="col-lg-4">
@@ -535,14 +540,7 @@ export function getEventsHtml() {
 }
 
 export function getNewsHtml() {
-  const updates = [
-    ['12', 'Jun', 'Partnership with Global School Alliance', 'School news', 'Events', 'KBIS has benefited from GSA support and a sister-school partnership with Skidby Church of England Primary School in Yorkshire, England.', '/assets/images/extra-curricular/students-group-at-independence-square.jpeg', '/news/partnerships', '214'],
-    ['06', 'May', 'Bilingual curriculum focus', 'Academics', 'Learning', 'KBIS follows the Cambridge International Curriculum with English-French bilingual exposure and age-right classroom routines.', '/assets/images/learning/children-reading-together.jpeg', '/academics/languages', '186'],
-    ['29', 'Apr', 'Health, allergy, and pick-up forms', 'Parents', 'Notices', 'Families can access application, medical, and authorised pick-up forms from the parents and policies pages.', '/assets/images/learning/children-holding-green-apple.jpeg', '/parents/admission-form', '152'],
-    ['18', 'Mar', 'Educational trips by term theme', 'Events', 'Campus', 'Trips are planned around term themes and lesson plans, with parent communication and safety planning before departure.', '/assets/images/extra-curricular/school-excursion-students-walking.jpeg', '/events', '128'],
-    ['14', 'Feb', 'Classroom routines that help children settle', 'School news', 'Wellbeing', 'Daily routines help children feel confident, understand expectations, and move calmly between learning, meals, rest, and play.', '/assets/images/students/children-seated-in-class.jpeg', '/parents/student-handbook', '119'],
-    ['24', 'Jan', 'Learning through play and discovery', 'Academics', 'Programmes', 'From early years to primary, children learn through guided practice, creative projects, outdoor movement, and classroom conversation.', '/assets/images/learning/children-handling-class-activity.jpeg', '/academics/programmes', '143'],
-  ];
+  const updates = newsData;
 
   return `
     <div class="page-title light-background">
@@ -554,7 +552,9 @@ export function getNewsHtml() {
     <section id="news-hero" class="news-hero section kb-news-page">
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="kb-news-grid">
-          ${updates.map(([day, month, title, category, type, text, image, href, views], index) => `
+          ${updates.map(({ day, month, title, category, type, excerpt, image, views, slug }, index) => {
+            const href = `/news-details/${slug}`;
+            return `
             <div data-aos="fade-up" data-aos-delay="${100 + index * 70}">
               <article class="kb-news-card" data-href="${href}">
                 <a class="kb-news-card-image" href="${href}" aria-label="${title}">
@@ -569,11 +569,12 @@ export function getNewsHtml() {
                     <em><i class="bi bi-eye"></i>${views}</em>
                   </div>
                   <h2><a href="${href}">${title}</a></h2>
-                  <p>${text}</p>
+                  <p>${excerpt}</p>
                   <a class="kb-news-read-more" href="${href}">Read more</a>
                 </div>
               </article>
-            </div>`).join('')}
+            </div>`;
+          }).join('')}
         </div>
         <div class="kb-news-note mt-5" data-aos="fade-up">
           <div><h3>What belongs in news?</h3><p>Operational updates, curriculum notes, partnerships, policy reminders, new forms, changes in school routines, and family notices.</p></div>
@@ -796,12 +797,18 @@ export function getStudentsLifeHtml() {
 }
 
 
-export function getNewsDetailsHtml() {
+function findNews(slug) {
+  return newsData.find((n) => n.slug === slug) || newsData[0];
+}
+
+export function getNewsDetailsHtml(slug) {
+  const item = findNews(slug);
+
   return `
     <div class="page-title light-background">
       <div class="container d-lg-flex justify-content-between align-items-center">
         <h1 class="mb-2 mb-lg-0">News article</h1>
-        <nav class="breadcrumbs"><ol><li><a href="/">Home</a></li><li><a href="/news">News</a></li><li class="current">Article</li></ol></nav>
+        <nav class="breadcrumbs"><ol><li><a href="/">Home</a></li><li><a href="/news">News</a></li><li class="current">${item.title}</li></ol></nav>
       </div>
     </div>
     <section id="blog-details" class="blog-details section">
@@ -809,49 +816,40 @@ export function getNewsDetailsHtml() {
         <article class="article">
           <div class="article-header">
             <div class="meta-categories" data-aos="fade-up">
-              <a href="/news" class="category">Campus</a>
-              <a href="/admissions" class="category">Admissions</a>
+              <a href="/news" class="category">${item.category}</a>
+              <a href="/news" class="category">${item.type}</a>
             </div>
-            <h1 class="title" data-aos="fade-up" data-aos-delay="100">Rolling admissions &amp; what to expect on a visit</h1>
+            <h1 class="title" data-aos="fade-up" data-aos-delay="100">${item.title}</h1>
             <div class="article-meta" data-aos="fade-up" data-aos-delay="200">
               <div class="author">
                 <img src="/assets/images/others/school-logo.png" alt="" class="author-img" loading="lazy">
-                <div class="author-info"><h4>KBIS office</h4><span>Admissions</span></div>
+                <div class="author-info"><h4>KBIS office</h4><span>${item.category}</span></div>
               </div>
               <div class="post-info">
-                <span><i class="bi bi-calendar4-week"></i> Accra</span>
-                <span><i class="bi bi-clock"></i> ${s.hours}</span>
+                <span><i class="bi bi-calendar4-week"></i> ${item.day} ${item.month}</span>
+                <span><i class="bi bi-eye"></i> ${item.views} views</span>
                 <span><i class="bi bi-geo-alt"></i> ${s.addressLine2}</span>
               </div>
             </div>
           </div>
           <div class="article-featured-image" data-aos="zoom-in">
-            <img src="/assets/images/students/girl-in-orange-uniform-kbis-03.jpeg" alt="" class="img-fluid" loading="lazy">
+            <img src="${item.image}" alt="" class="img-fluid" loading="lazy">
           </div>
           <div class="article-wrapper">
             <aside class="table-of-contents" data-aos="fade-left">
               <h3>On this page</h3>
               <nav>
                 <ul>
-                  <li><a href="#intro" class="active">Overview</a></li>
-                  <li><a href="#visit">Visiting</a></li>
-                  <li><a href="#next">Next steps</a></li>
+                  ${item.sections.map((sec, i) => `<li><a href="#${sec.id}"${i === 0 ? ' class="active"' : ''}>${sec.navLabel}</a></li>`).join('')}
                 </ul>
               </nav>
             </aside>
             <div class="article-content">
-              <div class="content-section" id="intro" data-aos="fade-up">
-                <p class="lead">${s.highlights[1]} Families often begin with a phone call or email, then schedule a walk-through that fits the school week.</p>
-                <p>${s.legalName} serves children ${s.ages} with ${s.curriculum.toLowerCase()}. ${s.highlights[0]}</p>
-              </div>
-              <div class="content-section" id="visit" data-aos="fade-up">
-                <h2>Your campus visit</h2>
-                <p>Meet admissions, see indoor and outdoor spaces, and ask about placement for your child’s age band. There is no high-pressure assessment — we focus on readiness and fit.</p>
-              </div>
-              <div class="content-section" id="next" data-aos="fade-up">
-                <h2>Next steps</h2>
-                <p>When you are ready, we share the application pack and timeline. <a href="/contact">Contact the office</a> or call <a href="tel:${s.phoneTel}">${s.phoneDisplay}</a>.</p>
-              </div>
+              ${item.sections.map((sec, i) => `
+              <div class="content-section" id="${sec.id}" data-aos="fade-up">
+                ${sec.heading ? `<h2>${sec.heading}</h2>` : ''}
+                ${sec.paragraphs.map((p, pi) => `<p${i === 0 && pi === 0 ? ' class="lead"' : ''}>${p}</p>`).join('')}
+              </div>`).join('')}
             </div>
           </div>
         </article>
@@ -860,12 +858,30 @@ export function getNewsDetailsHtml() {
   `;
 }
 
-export function getEventDetailsHtml() {
+/** Full page descriptor for a news detail route, or null if the slug is unknown. */
+export function buildNewsDetail(slug) {
+  const item = newsData.find((n) => n.slug === slug);
+  if (!item) return null;
+  return {
+    title: `${item.title} · Kinder Bubble International School`,
+    bodyClass: 'news-details-page',
+    mainHtml: getNewsDetailsHtml(slug),
+  };
+}
+
+function findEvent(slug) {
+  return eventsData.find((e) => e.slug === slug) || eventsData[0];
+}
+
+export function getEventDetailsHtml(slug) {
+  const event = findEvent(slug);
+  const related = eventsData.filter((e) => e.slug !== event.slug).slice(0, 2);
+
   return `
     <div class="page-title light-background">
       <div class="container d-lg-flex justify-content-between align-items-center">
         <h1 class="mb-2 mb-lg-0">Event details</h1>
-        <nav class="breadcrumbs"><ol><li><a href="/">Home</a></li><li><a href="/events">Events</a></li><li class="current">Details</li></ol></nav>
+        <nav class="breadcrumbs"><ol><li><a href="/">Home</a></li><li><a href="/events">Events</a></li><li class="current">${event.title}</li></ol></nav>
       </div>
     </div>
     <section id="event" class="event section">
@@ -873,30 +889,25 @@ export function getEventDetailsHtml() {
         <div class="row">
           <div class="col-lg-8">
             <div class="event-image mb-4" data-aos="fade-up">
-              <img src="/assets/images/extra-curricular/students-on-stage-at-event.jpeg" alt="" class="img-fluid rounded" loading="lazy">
+              <img src="${event.image}" alt="" class="img-fluid rounded" loading="lazy">
             </div>
             <div class="event-meta mb-4" data-aos="fade-up" data-aos-delay="100">
               <div class="row g-3">
-                <div class="col-md-4"><div class="meta-item"><i class="bi bi-calendar-date"></i><span>School programme</span></div></div>
+                <div class="col-md-4"><div class="meta-item"><i class="bi bi-calendar-date"></i><span>${event.label}</span></div></div>
                 <div class="col-md-4"><div class="meta-item"><i class="bi bi-camera"></i><span>Photos available</span></div></div>
                 <div class="col-md-4"><div class="meta-item"><i class="bi bi-geo-alt"></i><span>${s.addressLine2}</span></div></div>
               </div>
             </div>
             <div class="event-content" data-aos="fade-up" data-aos-delay="200">
-              <h2>Anniversary celebration</h2>
-              <p>This event brought the KBIS community together for a joyful celebration of school growth, learner confidence, family support, and the culture that makes school life memorable. Children participated through performances, group presentations, music, movement, and shared moments that reflected their classroom learning and school spirit.</p>
-              <p>The programme was not just a date on the calendar. It became a record of how learners express confidence, how families support school life, and how staff guide children through preparation, performance, teamwork, and celebration.</p>
+              <h2>${event.title}</h2>
+              ${event.body.map((p) => `<p>${p}</p>`).join('')}
               <h3 class="mt-4">How the event went</h3>
               <ul class="event-highlights">
-                <li><i class="bi bi-check-circle"></i><span>Learners had opportunities to perform, present, and take part in group activities.</span></li>
-                <li><i class="bi bi-check-circle"></i><span>Families and staff shared in the celebration, creating a warm community atmosphere.</span></li>
-                <li><i class="bi bi-check-circle"></i><span>Photos and highlights from the day help preserve the story for parents and the wider school community.</span></li>
+                ${event.highlights.map((h) => `<li><i class="bi bi-check-circle"></i><span>${h}</span></li>`).join('')}
               </ul>
               <h3 class="mt-4">Related images</h3>
               <div class="kb-event-photo-links">
-                <a href="/resources/gallery"><img src="/assets/images/extra-curricular/students-on-stage-at-event.jpeg" alt="" loading="lazy"><span>Stage moments</span></a>
-                <a href="/resources/gallery"><img src="/assets/images/extra-curricular/parents-and-children-at-event.jpeg" alt="" loading="lazy"><span>Family participation</span></a>
-                <a href="/resources/gallery"><img src="/assets/images/extra-curricular/students-under-event-tent.jpeg" alt="" loading="lazy"><span>School community</span></a>
+                ${event.gallery.map(([image, caption]) => `<a href="/resources/gallery"><img src="${image}" alt="" loading="lazy"><span>${caption}</span></a>`).join('')}
               </div>
             </div>
           </div>
@@ -924,14 +935,14 @@ export function getEventDetailsHtml() {
               </div>
               <div class="sidebar-widget related-events" data-aos="fade-left" data-aos-delay="400">
                 <h3>More event stories</h3>
-                <div class="related-event-item">
-                  <div class="related-event-date"><span class="day">01</span><span class="month">Trip</span></div>
-                  <div class="related-event-info"><h4><a href="/events">Educational trips</a></h4><p><i class="bi bi-images"></i> Photos and highlights</p></div>
-                </div>
-                <div class="related-event-item">
-                  <div class="related-event-date"><span class="day">02</span><span class="month">Grad</span></div>
-                  <div class="related-event-info"><h4><a href="/events">Graduation ceremony</a></h4><p><i class="bi bi-images"></i> Ceremony moments</p></div>
-                </div>
+                ${related.map((r) => {
+                  const badge = eventBadge(r.label);
+                  return `
+                <div class="related-event-item" data-href="/event-details/${r.slug}">
+                  <div class="related-event-date"><span class="day">${badge.day}</span><span class="month">${badge.month}</span></div>
+                  <div class="related-event-info"><h4><a href="/event-details/${r.slug}">${r.title}</a></h4><p><i class="bi bi-images"></i> Photos and highlights</p></div>
+                </div>`;
+                }).join('')}
               </div>
             </div>
           </div>
@@ -939,6 +950,17 @@ export function getEventDetailsHtml() {
       </div>
     </section>
   `;
+}
+
+/** Full page descriptor for an event detail route, or null if the slug is unknown. */
+export function buildEventDetail(slug) {
+  const event = eventsData.find((e) => e.slug === slug);
+  if (!event) return null;
+  return {
+    title: `${event.title} · Kinder Bubble International School`,
+    bodyClass: 'event-details-page',
+    mainHtml: getEventDetailsHtml(slug),
+  };
 }
 
 

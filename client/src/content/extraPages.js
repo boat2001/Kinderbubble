@@ -78,17 +78,60 @@ const boardMembers = [
 ];
 
 const teachers = [
-  ['Mr. Lamine', 'Classroom lead', '/assets/images/learning/teacher-with-small-class.jpeg'],
-  ['Ms. Clemence', 'Early years teacher', '/assets/images/learning/teacher-guided-table-activity.jpeg'],
-  ['Ms. Sheila', 'Foundation support', '/assets/images/learning/teacher-helping-children-at-table.jpg'],
-  ['Mr. Enoch', 'Primary support', '/assets/images/extra-curricular/school-excursion-students-with-teacher.jpeg'],
-  ['Ms. Hannah', 'Nursery teacher', '/assets/images/extra-curricular/teacher-assisting-playground-children.jpeg'],
-  ['Ms. Lizzy', 'Learning assistant', '/assets/images/others/staff-member-at-desk.jpg'],
-  ['Ms. Mabel', 'Classroom support', '/assets/images/extra-curricular/teacher-with-costumed-child.jpeg'],
-  ['Ms. Yvette', 'Bilingual learning', '/assets/images/learning/teacher-guided-table-activity.jpeg'],
-  ['Ms. Priscilla', 'Early years support', '/assets/images/learning/teacher-helping-children-at-table.jpg'],
-  ['Ms. Mercy', 'Care and routines', '/assets/images/extra-curricular/teacher-serving-career-day-food.jpeg'],
-  ['Ms. Beatrice', 'Classroom assistant', '/assets/images/learning/teacher-with-small-class.jpeg'],
+  ['Mr. Lamine', 'Classroom lead', '/assets/images/learning/teacher-with-small-class.jpeg',
+    'Leads primary class delivery and lesson structure, bringing high expectations and warm discipline to every school day. Mentors classroom staff and ensures each child progresses with confidence and purpose.',
+    ['Literacy', 'Cambridge curriculum', 'Leadership']],
+  ['Ms. Clemence', 'Early years teacher', '/assets/images/learning/teacher-guided-table-activity.jpeg',
+    'Builds early literacy and bilingual foundations through play, story, and guided discovery. Helps young children settle into structured learning while enjoying every part of their school day.',
+    ['Early years', 'Play-based learning', 'Bilingual']],
+  ['Ms. Sheila', 'Foundation support', '/assets/images/learning/teacher-helping-children-at-table.jpg',
+    'Works directly with foundation-stage children to develop phonics, number sense, and classroom confidence. Known for her patient, encouraging presence that helps children feel safe to try new things.',
+    ['Foundation stage', 'Phonics', 'Numeracy']],
+  ['Mr. Enoch', 'Primary support', '/assets/images/extra-curricular/school-excursion-students-with-teacher.jpeg',
+    'Supports primary learners through small group work, focused coaching, and gentle accountability. Helps children who need extra pace or encouragement feel capable and ready to grow.',
+    ['Primary years', 'Group coaching', 'Sciences']],
+  ['Ms. Hannah', 'Nursery teacher', '/assets/images/extra-curricular/teacher-assisting-playground-children.jpeg',
+    'Cares for nursery children through song, movement, story, and careful routine. Builds the social and emotional foundations children carry with them through every stage of school.',
+    ['Nursery', 'Social skills', 'Creative arts']],
+  ['Ms. Lizzy', 'Learning assistant', '/assets/images/others/staff-member-at-desk.jpg',
+    'Assists across classrooms to keep learning moving — supporting individual children, managing materials, and ensuring every learner gets the attention they need throughout the day.',
+    ['Learning support', 'Differentiation', 'Classroom']],
+  ['Ms. Mabel', 'Classroom support', '/assets/images/extra-curricular/teacher-with-costumed-child.jpeg',
+    'Provides calm, consistent support across year groups, helping children with transitions, activities, and daily routines. Her warmth makes the classroom a comfortable space for every child.',
+    ['Transitions', 'Wellbeing', 'Routines']],
+  ['Ms. Yvette', 'Bilingual learning', '/assets/images/learning/teacher-guided-table-activity.jpeg',
+    'Leads French language exposure across stages, weaving bilingual vocabulary and expression into daily lessons. Helps children become confident communicators in both English and French.',
+    ['French', 'Bilingual', 'Communication']],
+  ['Ms. Priscilla', 'Early years support', '/assets/images/learning/teacher-helping-children-at-table.jpg',
+    'Works alongside early years teachers to give each child focused attention during activities, meals, and transitions. Supports the steady, caring rhythm that young learners depend on.',
+    ['Early years', 'Pastoral care', 'Transitions']],
+  ['Ms. Mercy', 'Care and routines', '/assets/images/extra-curricular/teacher-serving-career-day-food.jpeg',
+    'Oversees the care routines that keep children settled and healthy throughout the day — from breakfast to rest time — with a warm and attentive approach to each child\'s individual needs.',
+    ['Care routines', 'Nutrition', 'Pastoral']],
+  ['Ms. Beatrice', 'Classroom assistant', '/assets/images/learning/teacher-with-small-class.jpeg',
+    'Helps teachers run smooth, productive lessons by supporting children with activities, resources, and transitions. A reliable presence who knows and responds to each child\'s needs.',
+    ['Classroom', 'Resources', 'Activities']],
+];
+
+const supportStaff = [
+  ['Ms. Dorothy', 'Receptionist', '/assets/images/others/staff-member-at-desk.jpg',
+    'Manages the front desk and daily school operations with efficiency and a welcoming manner. The first point of contact for families, visitors, and new enquiries every morning.',
+    ['Administration', 'Family liaison', 'Records']],
+  ['Mr. Kofi', 'Security officer', '/assets/images/extra-curricular/students-lined-up-outdoors.jpeg',
+    'Oversees the school gate, manages authorised pick-up procedures, and ensures only verified persons enter the premises. Keeps children and staff safe from arrival to dismissal.',
+    ['Gate security', 'Pick-up', 'Safety']],
+  ['Ms. Abena', 'Kitchen supervisor', '/assets/images/extra-curricular/staff-serving-food-at-event.jpeg',
+    'Leads meal preparation, manages kitchen hygiene standards, and accommodates individual dietary needs. Ensures every child receives a nutritious, well-prepared meal each school day.',
+    ['Nutrition', 'Hygiene', 'Meal planning']],
+  ['Ms. Gloria', 'Health & welfare', '/assets/images/learning/children-holding-green-apple.jpeg',
+    'Maintains health records, administers first aid, and monitors the daily wellbeing of children. Communicates promptly with families about health incidents and individual care plans.',
+    ['First aid', 'Health records', 'Welfare']],
+  ['Mr. Samuel', 'Facilities officer', '/assets/images/extra-curricular/school-excursion-students-with-teacher.jpeg',
+    'Keeps the school environment clean, safe, and functional. Coordinates maintenance tasks, inspects equipment, and ensures every space is ready and safe for daily use.',
+    ['Maintenance', 'Safety checks', 'Facilities']],
+  ['Ms. Afia', 'Admin assistant', '/assets/images/extra-curricular/teacher-serving-career-day-food.jpeg',
+    'Supports the admin team with correspondence, scheduling, documentation, and family communication. Helps keep the school\'s daily operations running smoothly behind the scenes.',
+    ['Administration', 'Scheduling', 'Communication']],
 ];
 
 const academicTerms = [
@@ -408,11 +451,25 @@ export const extraPageBuilders = {
       kicker: 'Leadership',
       heading: 'Management that keeps learning, safety, and communication moving.',
       lead: 'The school director, principal, administration, and classroom leads coordinate the everyday work families feel: safe arrival, strong routines, and steady feedback.',
-      body: featureCards([
-        { kicker: 'Director', title: 'Raphael Asamoah Boadu', text: 'Since 2021, leadership has focused on a thriving learning environment, engaged community, and forward-looking teaching methods.', image: '/assets/images/students/two-students-in-formal-uniforms.jpeg', href: '/about/board-of-directors' },
-        { kicker: 'Principal', title: s.principal, text: 'A child-centred educator supporting classroom practice, parent partnership, and learner confidence.', image: '/assets/images/others/staff-member-at-desk.jpg', href: '/about/principal' },
-        { kicker: 'Office', title: 'Admissions and administration', text: 'The office helps families with visits, forms, fees, medical information, and authorised pick-up records.', image: '/assets/images/others/ms-yvonne-asamoah-boadu.jpeg', href: '/contact' },
-      ]),
+      body: `
+        <div class="kb-mgmt-list mt-4">
+          ${[
+            { kicker: 'Director', title: 'Raphael Asamoah Boadu', text: 'Since 2021, leadership has focused on building a thriving learning environment, an engaged community, and forward-looking teaching methods that serve every child well.', image: '/assets/images/students/two-students-in-formal-uniforms.jpeg', href: '/about/board-of-directors' },
+            { kicker: 'Principal', title: s.principal, text: 'A child-centred educator with over 26 years of experience, supporting classroom practice, parent partnership, learner confidence, and special educational needs across all year groups.', image: '/assets/images/others/staff-member-at-desk.jpg', href: '/about/principal' },
+            { kicker: 'Office', title: 'Admissions and administration', text: 'The office team helps families with school visits, enrolment forms, fee payments, medical information, pick-up authorisation, and day-to-day communication with parents and guardians.', image: '/assets/images/others/ms-yvonne-asamoah-boadu.jpeg', href: '/contact' },
+          ].map(({ kicker, title, text, image, href }, index) => `
+            <article class="kb-mgmt-card" data-aos="fade-up" data-aos-delay="${80 + index * 80}">
+              <div class="kb-mgmt-card-photo">
+                <img src="${image}" alt="${title}" loading="lazy">
+              </div>
+              <div class="kb-mgmt-card-body">
+                <span>${kicker}</span>
+                <h3>${title}</h3>
+                <p>${text}</p>
+                <a href="${href}">Learn more <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </article>`).join('')}
+        </div>`,
     }),
   }),
 
@@ -450,10 +507,10 @@ export const extraPageBuilders = {
   }),
 
   'about-staff-teaching': () => ({
-    title: 'Teaching staff - Kinder Bubble International School',
+    title: 'Teaching Staff - Kinder Bubble International School',
     bodyClass: 'about-staff-teaching-page',
     mainHtml: shell({
-      title: 'Teaching staff',
+      title: 'Teaching Staff',
       parent: 'About',
       parentHref: '/about',
       heroImage: img.teaching,
@@ -464,13 +521,20 @@ export const extraPageBuilders = {
         <div class="kb-teacher-grid mt-4">
           ${teachers
             .map(
-              ([name, role, image], index) => `
+              ([name, role, image, bio, tags], index) => `
               <article class="kb-teacher-card" data-aos="fade-up" data-aos-delay="${80 + index * 35}">
-                <img src="${image}" alt="${name}" loading="lazy">
-                <div>
-                  <span>${role}</span>
-                  <h3>${name}</h3>
-                  <p>Part of the KBIS classroom team supporting steady routines, active learning, and warm care for children each day.</p>
+                <div class="kb-teacher-card-photo">
+                  <img src="${image}" alt="${name}" loading="lazy">
+                  <div class="kb-teacher-card-overlay">
+                    <span>${role}</span>
+                    <h3>${name}</h3>
+                  </div>
+                </div>
+                <div class="kb-teacher-card-bio">
+                  <p>${bio}</p>
+                  <div class="kb-teacher-card-tags">
+                    ${tags.map(t => `<span>${t}</span>`).join('')}
+                  </div>
                 </div>
               </article>`
             )
@@ -495,11 +559,34 @@ export const extraPageBuilders = {
       kicker: 'Care and operations',
       heading: 'The practical team behind safe, smooth school days.',
       lead: 'Support staff help with reception, health routines, meals, cleaning, authorised pick-up, and family communication.',
-      body: featureCards([
-        { kicker: 'Health', title: 'Medical awareness', text: 'Allergies, dietary restrictions, and emergency plans are documented and shared with relevant staff.', image: '/assets/images/learning/children-holding-green-apple.jpeg', href: '/parents/admission-form' },
-        { kicker: 'Pick-up', title: 'Authorised collection', text: 'Families can complete pick-up authorisation so the school knows exactly who may collect a child.', image: '/assets/images/extra-curricular/students-lined-up-outdoors.jpeg', href: '/parents/student-handbook' },
-        { kicker: 'Meals', title: 'Feeding routines', text: 'Breakfast, lunch, snacks, and family restrictions are handled with careful hygiene routines.', image: '/assets/images/extra-curricular/staff-serving-food-at-event.jpeg', href: '/resources/policies' },
-      ]),
+      body: `
+        <div class="kb-teacher-grid mt-4">
+          ${supportStaff
+            .map(
+              ([name, role, image, bio, tags], index) => `
+              <article class="kb-teacher-card" data-aos="fade-up" data-aos-delay="${80 + index * 35}">
+                <div class="kb-teacher-card-photo">
+                  <img src="${image}" alt="${name}" loading="lazy">
+                  <div class="kb-teacher-card-overlay">
+                    <span>${role}</span>
+                    <h3>${name}</h3>
+                  </div>
+                </div>
+                <div class="kb-teacher-card-bio">
+                  <p>${bio}</p>
+                  <div class="kb-teacher-card-tags">
+                    ${tags.map(t => `<span>${t}</span>`).join('')}
+                  </div>
+                </div>
+              </article>`
+            )
+            .join('')}
+        </div>
+        ${featureCards([
+          { kicker: 'Health', title: 'Medical awareness', text: 'Allergies, dietary restrictions, and emergency plans are documented and shared with relevant staff.', image: '/assets/images/learning/children-holding-green-apple.jpeg', href: '/parents/admission-form' },
+          { kicker: 'Pick-up', title: 'Authorised collection', text: 'Families can complete pick-up authorisation so the school knows exactly who may collect a child.', image: '/assets/images/extra-curricular/students-lined-up-outdoors.jpeg', href: '/parents/student-handbook' },
+          { kicker: 'Meals', title: 'Feeding routines', text: 'Breakfast, lunch, snacks, and family restrictions are handled with careful hygiene routines.', image: '/assets/images/extra-curricular/staff-serving-food-at-event.jpeg', href: '/resources/policies' },
+        ])}`,
     }),
   }),
 

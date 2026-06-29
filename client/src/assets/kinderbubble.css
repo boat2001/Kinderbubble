@@ -3640,6 +3640,65 @@ body {
 
 .kb-statement-card {
   background: linear-gradient(135deg, rgba(15, 107, 122, 0.06), rgba(255, 255, 255, 0.98));
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.kb-statement-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 52px rgba(10, 47, 56, 0.13);
+}
+
+.kb-statement-card i {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 0.9rem;
+}
+
+.kb-statement-card--teal {
+  background: linear-gradient(135deg, #0c5d6b 0%, #1a98b4 100%);
+  border-color: transparent;
+}
+
+.kb-statement-card--coral {
+  background: linear-gradient(135deg, #c94415 0%, #f07535 100%);
+  border-color: transparent;
+}
+
+.kb-statement-card--green {
+  background: linear-gradient(135deg, #1e7048 0%, #34b374 100%);
+  border-color: transparent;
+}
+
+.kb-statement-card--teal i,
+.kb-statement-card--coral i,
+.kb-statement-card--green i {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.kb-statement-card--teal h3,
+.kb-statement-card--coral h3,
+.kb-statement-card--green h3 {
+  color: #fff;
+}
+
+.kb-statement-card--teal p,
+.kb-statement-card--coral p,
+.kb-statement-card--green p {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.kb-statement-card--teal a,
+.kb-statement-card--coral a,
+.kb-statement-card--green a {
+  color: #fff;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+.kb-statement-card--teal a:hover,
+.kb-statement-card--coral a:hover,
+.kb-statement-card--green a:hover {
+  opacity: 1;
 }
 
 /* Mission & vision — focused statement cards */
@@ -4220,60 +4279,224 @@ body {
   margin: 0;
 }
 
+.kb-mgmt-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.kb-mgmt-card {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(15, 107, 122, 0.11);
+  box-shadow: 0 4px 20px rgba(10, 47, 56, 0.07);
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.kb-mgmt-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 44px rgba(10, 47, 56, 0.12);
+}
+
+.kb-mgmt-card-photo {
+  position: relative;
+  overflow: hidden;
+}
+
+.kb-mgmt-card-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.kb-mgmt-card:hover .kb-mgmt-card-photo img {
+  transform: scale(1.04);
+}
+
+.kb-mgmt-card-body {
+  padding: 2rem 2.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 4px solid var(--kb-teal);
+}
+
+.kb-mgmt-card-body span {
+  display: inline-block;
+  color: var(--kb-coral);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.kb-mgmt-card-body h3 {
+  color: var(--kb-teal-dark);
+  font-size: 1.45rem;
+  margin-bottom: 0.65rem;
+  line-height: 1.2;
+}
+
+.kb-mgmt-card-body p {
+  color: color-mix(in srgb, var(--kb-ink), transparent 25%);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+  flex-grow: 1;
+}
+
+.kb-mgmt-card-body a {
+  color: var(--kb-teal);
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  align-self: flex-start;
+}
+
+.kb-mgmt-card-body a:hover {
+  color: var(--kb-teal-dark);
+}
+
+@media (max-width: 767px) {
+  .kb-mgmt-card {
+    grid-template-columns: 1fr;
+  }
+
+  .kb-mgmt-card-photo img {
+    aspect-ratio: 16 / 9;
+    height: auto;
+  }
+
+  .kb-mgmt-card-body {
+    border-left: none;
+    border-top: 4px solid var(--kb-teal);
+    padding: 1.5rem;
+  }
+}
+
 .kb-teacher-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  gap: 1rem;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
   margin-bottom: 2rem;
+}
+
+@media (min-width: 560px) {
+  .kb-teacher-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .kb-teacher-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+  }
 }
 
 .kb-teacher-card {
   overflow: hidden;
-  border: 1px solid rgba(15, 107, 122, 0.12);
-  border-radius: 8px;
+  border-radius: 16px;
   background: #fff;
-  box-shadow: 0 14px 38px rgba(10, 47, 56, 0.06);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  border: 1px solid rgba(15, 107, 122, 0.1);
+  box-shadow: 0 4px 20px rgba(10, 47, 56, 0.07);
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
 }
 
 .kb-teacher-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(15, 107, 122, 0.24);
-  box-shadow: 0 20px 48px rgba(10, 47, 56, 0.11);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 52px rgba(10, 47, 56, 0.14);
 }
 
-.kb-teacher-card img {
+.kb-teacher-card-photo {
+  position: relative;
+  height: 280px;
+  overflow: hidden;
+}
+
+.kb-teacher-card-photo img {
   width: 100%;
-  aspect-ratio: 4 / 5;
+  height: 100%;
   object-fit: cover;
   object-position: center top;
   display: block;
+  transition: transform 0.45s ease;
 }
 
-.kb-teacher-card > div {
-  padding: 1rem;
+.kb-teacher-card:hover .kb-teacher-card-photo img {
+  transform: scale(1.05);
 }
 
-.kb-teacher-card span {
-  display: block;
-  color: var(--kb-coral);
-  font-size: 0.72rem;
-  font-weight: 850;
-  margin-bottom: 0.35rem;
+.kb-teacher-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 3rem 1.25rem 1.2rem;
+  background: linear-gradient(to top, rgba(8, 38, 46, 0.88) 0%, transparent 100%);
+}
+
+.kb-teacher-card-overlay span {
+  display: inline-block;
+  background: var(--kb-coral);
+  color: #fff;
+  font-size: 0.61rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
+  padding: 0.22rem 0.75rem;
+  border-radius: 100px;
+  margin-bottom: 0.5rem;
 }
 
-.kb-teacher-card h3 {
-  color: var(--kb-teal-dark);
-  font-size: 1.08rem;
-  margin-bottom: 0.45rem;
-}
-
-.kb-teacher-card p {
-  color: color-mix(in srgb, var(--kb-ink), transparent 24%);
-  font-size: 0.9rem;
-  line-height: 1.5;
+.kb-teacher-card-overlay h3 {
+  color: #fff;
+  font-size: 1.18rem;
   margin: 0;
+  line-height: 1.25;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+.kb-teacher-card-bio {
+  padding: 1.1rem 1.25rem 1.3rem;
+  border-top: 1px solid rgba(15, 107, 122, 0.09);
+}
+
+.kb-teacher-card-bio p {
+  color: color-mix(in srgb, var(--kb-ink), transparent 28%);
+  font-size: 0.875rem;
+  line-height: 1.65;
+  margin: 0 0 0.9rem;
+}
+
+.kb-teacher-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.kb-teacher-card-tags span {
+  display: inline-block;
+  background: rgba(15, 107, 122, 0.08);
+  color: var(--kb-teal-dark);
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  padding: 0.2rem 0.65rem;
+  border-radius: 100px;
+  border: 1px solid rgba(15, 107, 122, 0.15);
 }
 
 .kb-src-executives {
