@@ -4,7 +4,7 @@ export const schoolData = {
   logoSrc: '/assets/images/others/school-logo.png',
   shortName: 'KinderBubble',
   legalName: 'Kinder Bubble International School',
-  tagline: 'International School · Accra, Ghana',
+  tagline: 'International School',
   addressLine1: '21 Quince Street, Community 18',
   addressLine2: 'Spintex Road, Accra, Ghana',
   phoneDisplay: '+233 24 493 8605',

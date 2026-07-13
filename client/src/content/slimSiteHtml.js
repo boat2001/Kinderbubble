@@ -491,16 +491,6 @@ export function getEventsHtml() {
     </div>
     <section id="events-extended" class="events-extended section kb-events-page">
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <div class="kb-events-hero row g-4 align-items-stretch mb-5">
-          <div class="col-lg-7">
-            <div class="kb-page-hero-copy h-100">
-              <p class="kb-kicker">Grand programmes</p>
-              <h2>Events we have lived, captured, and remembered as a school.</h2>
-              <p>Events at KBIS are records of grand activities the school community has gone through: anniversaries, graduations, educational trips, culture days, career days, and celebrations of learning.</p>
-            </div>
-          </div>
-          <div class="col-lg-5"><div class="kb-page-hero-image"><img src="/assets/images/extra-curricular/parents-and-children-at-event.jpeg" alt="" loading="lazy"></div></div>
-        </div>
         <div class="row g-4">
           <div class="col-lg-8">
             <div class="events-list kb-event-list">

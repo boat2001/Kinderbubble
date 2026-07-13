@@ -134,35 +134,61 @@ const supportStaff = [
     ['Administration', 'Scheduling', 'Communication']],
 ];
 
+// Day-of-month for each holiday shown on the academic calendar page. Update the
+// number here whenever a date changes — the text below picks it up automatically.
+// Fixed national holidays keep the same day every year. Farmers' Day (first Friday
+// of December) and Easter (Good Friday / Easter Monday) move every year — the
+// values below are this year's dates and should be swapped for next year's once known.
+const calendarDates = {
+  kwameNkrumahDay: 21,
+  farmersDay: 4,
+  christmas: 25,
+  boxingDay: 26,
+  newYear: 1,
+  constitutionDay: 7,
+  independenceDay: 6,
+  goodFriday: 26,
+  easterMonday: 29,
+  workersDay: 1,
+  foundersDay: 4,
+};
+
+const nth = (day) => {
+  if (typeof day !== 'number') return day;
+  const suffixes = ['th', 'st', 'nd', 'rd'];
+  const remainder = day % 100;
+  return `${day}${suffixes[(remainder - 20) % 10] || suffixes[remainder] || suffixes[0]}`;
+};
+
 const academicTerms = [
   {
     title: 'Term one',
-    period: 'September - December',
+    period: 'September - December 2026',
     items: [
-      ['September', 'Opening routines, settling-in, baseline learning checks, and Kwame Nkrumah Memorial Day.'],
-      ['October', 'Class routines, family communication, project work, and early term progress reviews.'],
-      ['November', 'Core learning consolidation, themed activities, and preparation for end-of-term sharing.'],
-      ['December', 'Farmers Day, end-of-term activities, Christmas break, and Boxing Day.'],
+      ['September', `Opening routines, settling-in, baseline learning checks, and Kwame Nkrumah Memorial Day (${nth(calendarDates.kwameNkrumahDay)}).`],
+      ['October', 'Class routines, family communication, project work, and early term progress reviews (1st - 31st).'],
+      ['November', 'Core learning consolidation, themed activities, and preparation for end-of-term sharing (1st - 30th).'],
+      ['December', `Farmers Day (${nth(calendarDates.farmersDay)}), end-of-term activities, Christmas break (${nth(calendarDates.christmas)}), and Boxing Day (${nth(calendarDates.boxingDay)}).`],
     ],
   },
   {
     title: 'Term two',
-    period: 'January - April',
+    period: 'January - April 2027',
     items: [
-      ['January', 'New Year, Constitution Day, term restart, and refreshed learning targets.'],
-      ['February', 'Class projects, bilingual learning rhythm, and parent check-ins where needed.'],
-      ['March', 'Independence Day, cultural learning moments, and mid-term assessment routines.'],
-      ['April', 'Easter break, end-of-term review, and family updates before the next term.'],
+      ['January', `New Year (${nth(calendarDates.newYear)}), Constitution Day (${nth(calendarDates.constitutionDay)}), term restart, and refreshed learning targets.`],
+      ['February', 'Class projects, bilingual learning rhythm, and parent check-ins where needed (1st - 28th).'],
+      ['March', `Independence Day (${nth(calendarDates.independenceDay)}), cultural learning moments, and mid-term assessment routines.`],
+      ['April', `Easter break (Good Friday ${nth(calendarDates.goodFriday)} to Easter Monday ${nth(calendarDates.easterMonday)}), end-of-term review, and family updates before the next term.`],
     ],
   },
   {
     title: 'Term three',
-    period: 'May - August',
+    period: 'May - August 2027',
     items: [
-      ['May', 'Workers Day, final term planning, educational trips, and practical learning themes.'],
-      ['June', 'Portfolio work, classroom showcases, sports and creative activities.'],
-      ['July', 'Graduation preparation, moving-up conversations, and end-of-year celebrations.'],
-      ['August', 'Founders Day, school break, admissions conversations, and preparation for September.'],
+      ['May', `Workers Day (${nth(calendarDates.workersDay)}), final term planning, educational trips, and practical learning themes.`],
+      ['June', 'Portfolio work, classroom showcases, sports and creative activities (1st - 30th).'],
+      ['July', 'Graduation preparation, moving-up conversations, and end-of-year celebrations (1st - 31st).'],
+      ['August', `Founders Day (${nth(calendarDates.foundersDay)}), school break, admissions conversations, and preparation for September.`],
     ],
   },
 ];
@@ -358,10 +384,11 @@ const featureCards = (items) => `
       .join('')}
   </div>`;
 
-const shell = ({ title, parent, parentHref, heroImage, kicker, heading, lead, body, heroClass = '' }) => `
+const shell = ({ title, parent, parentHref, heroImage, kicker, heading, lead, body, heroClass = '', hideHero = false }) => `
   ${pageTitle(title, parent, parentHref)}
   <section class="section kb-designed-page">
     <div class="container" data-aos="fade-up">
+      ${hideHero ? '' : `
       <div class="kb-page-hero ${heroClass} row g-4 align-items-stretch">
         <div class="col-lg-7">
           <div class="kb-page-hero-copy">
@@ -375,7 +402,7 @@ const shell = ({ title, parent, parentHref, heroImage, kicker, heading, lead, bo
             <img src="${heroImage}" alt="" loading="lazy">
           </div>
         </div>
-      </div>
+      </div>`}
       ${body}
     </div>
   </section>`;
@@ -418,11 +445,7 @@ export const extraPageBuilders = {
       title: 'Board of directors',
       parent: 'About',
       parentHref: '/about',
-      heroImage: img.board,
-      kicker: 'Governance',
-      heading: 'Experienced leaders supporting the school mission.',
-      lead: 'The board provides oversight, enterprise experience, and community leadership so KBIS can grow with discipline and care.',
-      heroClass: 'kb-board-hero',
+      hideHero: true,
       body: `
         <div class="row g-4 mt-4 kb-board-grid">
           ${boardMembers
@@ -447,10 +470,7 @@ export const extraPageBuilders = {
       title: 'Management',
       parent: 'About',
       parentHref: '/about',
-      heroImage: img.director,
-      kicker: 'Leadership',
-      heading: 'Management that keeps learning, safety, and communication moving.',
-      lead: 'The school director, principal, administration, and classroom leads coordinate the everyday work families feel: safe arrival, strong routines, and steady feedback.',
+      hideHero: true,
       body: `
         <div class="kb-mgmt-list mt-4">
           ${[
@@ -490,9 +510,9 @@ export const extraPageBuilders = {
               <h2 id="principal-profile-heading">Ms. Delphina Naa Lomoley <span>Lomotey</span></h2>
               <p class="kb-principal-intro">A visionary educator with more than 26 years of experience in education, home management, personal development, counselling, and support for children with special educational needs.</p>
               <div class="kb-principal-credentials">
-                <p><i class="bi bi-check-lg"></i><strong>Child-centred school leadership</strong></p>
-                <p><i class="bi bi-check-lg"></i><strong>Parent partnership and learner confidence</strong></p>
-                <p><i class="bi bi-check-lg"></i><strong>Special educational needs support</strong></p>
+                <p><i class="bi bi-check-lg"></i><strong>M.Ed. Educational Psychology, Cape Coast</strong></p>
+                <p><i class="bi bi-check-lg"></i><strong>B.Ed. Special Education &amp; Home Economics, UEW</strong></p>
+                <p><i class="bi bi-check-lg"></i><strong>Founder &amp; Consultant, Delphins Ghana</strong></p>
               </div>
               <p class="kb-principal-signature">Ms. Delphina Naa Lomoley Lomotey</p>
             </article>
@@ -513,10 +533,7 @@ export const extraPageBuilders = {
       title: 'Teaching Staff',
       parent: 'About',
       parentHref: '/about',
-      heroImage: img.teaching,
-      kicker: 'Teachers',
-      heading: 'Professional teachers who love teaching children daily.',
-      lead: 'Our classroom team supports bilingual learning, early literacy, numeracy, inquiry, creativity, and calm transitions through the day.',
+      hideHero: true,
       body: `
         <div class="kb-teacher-grid mt-4">
           ${teachers
@@ -555,10 +572,7 @@ export const extraPageBuilders = {
       title: 'Support staff',
       parent: 'About',
       parentHref: '/about',
-      heroImage: img.support,
-      kicker: 'Care and operations',
-      heading: 'The practical team behind safe, smooth school days.',
-      lead: 'Support staff help with reception, health routines, meals, cleaning, authorised pick-up, and family communication.',
+      hideHero: true,
       body: `
         <div class="kb-teacher-grid mt-4">
           ${supportStaff
@@ -597,10 +611,7 @@ export const extraPageBuilders = {
       title: 'Curriculum',
       parent: 'Academics',
       parentHref: '/academics',
-      heroImage: img.curriculum,
-      kicker: 'Cambridge + bilingual',
-      heading: 'Structured learning with equal respect for language, character, and creativity.',
-      lead: 'KBIS follows the Cambridge International Curriculum and bilingual English-French studies, with teaching planned for children from early years through primary.',
+      hideHero: true,
       body: `
         <section class="kb-learning-detail kb-learning-detail--curriculum" data-aos="fade-up" data-aos-delay="120">
           <div>
@@ -694,10 +705,7 @@ export const extraPageBuilders = {
       title: 'Academic calendar',
       parent: 'Academics',
       parentHref: '/academics',
-      heroImage: img.calendar,
-      kicker: 'Planning',
-      heading: 'Term rhythm, public holidays, school events, and family updates.',
-      lead: 'The school calendar includes term work, public holidays, educational trips, parent meetings, celebrations of learning, and open campus moments.',
+      hideHero: true,
       body: `
         <div class="kb-term-timeline mt-4">
           ${academicTerms
@@ -741,10 +749,7 @@ export const extraPageBuilders = {
       title: 'SRC',
       parent: 'Student life',
       parentHref: '/students-life',
-      heroImage: img.src,
-      kicker: 'Student voice',
-      heading: 'Age-appropriate leadership, responsibility, and confidence.',
-      lead: 'For young learners, leadership starts with small habits: helping, listening, speaking kindly, and taking turns.',
+      hideHero: true,
       body: `
         <section class="kb-src-executives mt-4" aria-label="SRC executive profiles">
           ${srcExecutives
