@@ -314,6 +314,7 @@ export default function HomeHero() {
   const [index, setIndex] = useState(0);
   const [typed, setTyped] = useState(0);
   const [transition, setTransition] = useState(HERO_TRANSITIONS[0]);
+  const [mountedSlides, setMountedSlides] = useState(() => new Set([0, 1 % SLIDES.length]));
 
   useHeroTitleThreeLineFit(titleRef, titleMeasureRef);
   useHeroEyebrowOneLineFit(eyebrowRef, eyebrowMeasureRef, eyebrowText);
@@ -327,6 +328,16 @@ export default function HomeHero() {
       if (typeof window.AOS.refreshHard === 'function') window.AOS.refreshHard();
       else window.AOS.refresh();
     }
+  }, [index]);
+
+  /** Keep the current slide + the next one mounted so transitions have a preloaded image */
+  useEffect(() => {
+    setMountedSlides((prev) => {
+      const next = new Set(prev);
+      next.add(index);
+      next.add((index + 1) % SLIDES.length);
+      return next;
+    });
   }, [index]);
 
   /** Typewriter + advance slide after hold */
@@ -401,18 +412,21 @@ export default function HomeHero() {
 
   const heroMedia = (
     <div className={`kb-hero-media-frame kb-hero-img-stack kb-transition-${transition}`}>
-      {SLIDES.map((s, i) => (
-        <img
-          key={s.id}
-          src={s.imageSrc}
-          alt={s.imageAlt}
-          className={`img-fluid main-image kb-hero-stack-img${i === index ? ' is-active' : ''}`}
-          width={900}
-          height={720}
-          loading={i === 0 ? 'eager' : 'lazy'}
-          decoding="async"
-        />
-      ))}
+      {SLIDES.map((s, i) =>
+        mountedSlides.has(i) ? (
+          <img
+            key={s.id}
+            src={s.imageSrc}
+            alt={s.imageAlt}
+            className={`img-fluid main-image kb-hero-stack-img${i === index ? ' is-active' : ''}`}
+            width={900}
+            height={720}
+            loading={i === 0 ? 'eager' : 'lazy'}
+            fetchpriority={i === 0 ? 'high' : 'low'}
+            decoding="async"
+          />
+        ) : null
+      )}
       <div className="kb-hero-badge-wrap" aria-live="polite">
         <div className="badge-accredited">
           <i className={`bi ${kbIcon.accredited}`} aria-hidden="true"></i>

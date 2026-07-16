@@ -8688,3 +8688,25 @@ body:not(.index-page).scrolled .header.kb-header .header-container {
     -webkit-backdrop-filter: blur(18px) saturate(1.22) !important;
   }
 }
+
+/* =============================================================
+   Perf: skip rendering off-screen home sections until scrolled.
+   content-visibility saves layout/paint on initial load;
+   contain-intrinsic-size reserves height so scrollbar is stable.
+   ============================================================= */
+body.index-page #featured-programs,
+body.index-page #students-life-block,
+body.index-page #stats,
+body.index-page #recent-news {
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
+}
+
+@media (max-width: 767.98px) {
+  body.index-page #featured-programs,
+  body.index-page #students-life-block,
+  body.index-page #stats,
+  body.index-page #recent-news {
+    contain-intrinsic-size: 700px;
+  }
+}
