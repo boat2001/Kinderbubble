@@ -128,8 +128,10 @@ const HERO_TITLE_MAX_LINES = 3;
 const HERO_TITLE_MIN_PX = 11;
 const HERO_TITLE_MAX_PX = 44;
 
-const HERO_EYEBROW_MIN_PX = 9;
+const HERO_EYEBROW_MIN_PX = 8;
 const HERO_EYEBROW_MAX_PX = 14;
+const HERO_EYEBROW_MAX_PX_MOBILE = 11;
+const HERO_EYEBROW_MOBILE_BP = 768;
 
 function slideTotal(slide) {
   return slide.prefix.length + slide.highlight.length + slide.suffix.length;
@@ -220,16 +222,9 @@ function useHeroEyebrowOneLineFit(eyebrowRef, measureRef, text) {
       const w = Math.max(0, el.clientWidth - padX);
       if (w < 32) return;
 
-      const fs = maxFontPxForLines(
-        measureEl,
-        el,
-        text,
-        w,
-        1,
-        1.2,
-        HERO_EYEBROW_MIN_PX,
-        HERO_EYEBROW_MAX_PX
-      );
+      const maxPx =
+        window.innerWidth < HERO_EYEBROW_MOBILE_BP ? HERO_EYEBROW_MAX_PX_MOBILE : HERO_EYEBROW_MAX_PX;
+      const fs = maxFontPxForLines(measureEl, el, text, w, 1, 1.2, HERO_EYEBROW_MIN_PX, maxPx);
       el.style.setProperty('--kb-hero-eyebrow-fs', `${fs}px`);
     };
 
@@ -485,10 +480,10 @@ export default function HomeHero() {
         </div>
       </div>
 
-      <div className="feature-cards-wrapper" data-aos="fade-up" data-aos-delay="300">
+      <div className="feature-cards-wrapper">
         <div className="container">
           <div className="row gy-4">
-            <div className="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div className="col-lg-4">
               <NavLink to="/academics/programmes" className="feature-card d-flex text-decoration-none">
                 <div className="feature-icon">
                   <i className={`bi ${kbIcon.programsByAge}`} aria-hidden="true"></i>
@@ -502,7 +497,7 @@ export default function HomeHero() {
               </NavLink>
             </div>
 
-            <div className="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div className="col-lg-4">
               <NavLink to="/student-life/extra-curricular" className="feature-card d-flex text-decoration-none">
                 <div className="feature-icon">
                   <i className={`bi ${kbIcon.indoorOutdoorPlay}`} aria-hidden="true"></i>
@@ -514,7 +509,7 @@ export default function HomeHero() {
               </NavLink>
             </div>
 
-            <div className="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+            <div className="col-lg-4">
               <NavLink to="/resources/policies" className="feature-card d-flex text-decoration-none">
                 <div className="feature-icon">
                   <i className={`bi ${kbIcon.safety}`} aria-hidden="true"></i>
@@ -529,7 +524,7 @@ export default function HomeHero() {
         </div>
       </div>
 
-      <div className="upcoming-event" data-aos="fade-up" data-aos-delay="400">
+      <div className="upcoming-event">
         <div className="container">
           <div className="event-content">
             <div className="event-date">
