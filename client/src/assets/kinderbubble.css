@@ -8694,7 +8694,6 @@ body:not(.index-page).scrolled .header.kb-header .header-container {
    content-visibility saves layout/paint on initial load;
    contain-intrinsic-size reserves height so scrollbar is stable.
    ============================================================= */
-body.index-page #featured-programs,
 body.index-page #students-life-block,
 body.index-page #stats,
 body.index-page #recent-news {
@@ -8703,10 +8702,79 @@ body.index-page #recent-news {
 }
 
 @media (max-width: 767.98px) {
-  body.index-page #featured-programs,
   body.index-page #students-life-block,
   body.index-page #stats,
   body.index-page #recent-news {
     contain-intrinsic-size: 700px;
+  }
+}
+
+/* =============================================================
+   Home hero — tight bottom rhythm so the next section peeks into
+   view on tall mobile screens instead of leaving a big empty gap.
+   ============================================================= */
+@media (max-width: 767.98px) {
+  /* Slightly smaller hero image so more of the page fits above fold */
+  .kb-hero .kb-hero-img-stack {
+    height: 200px !important;
+    max-height: 200px !important;
+  }
+
+  /* Shorten the wrapper + tighten space between dots and feature cards */
+  .kb-hero.hero .hero-wrapper {
+    padding-bottom: 0.35rem !important;
+  }
+
+  .kb-hero-dots {
+    margin-top: 0.55rem !important;
+  }
+
+  .kb-hero .feature-cards-wrapper {
+    margin-top: 0.35rem !important;
+    padding-top: 0.35rem !important;
+    padding-bottom: 0.9rem !important;
+  }
+
+  /* Feature card body: keep compact so all 3 don't push the page too far */
+  .kb-hero .feature-cards-wrapper .feature-card {
+    padding: 0.75rem 0.85rem;
+  }
+
+  .kb-hero .feature-cards-wrapper .feature-content h3 {
+    font-size: 0.98rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .kb-hero .feature-cards-wrapper .feature-content p {
+    font-size: 0.86rem;
+    line-height: 1.35;
+    margin-bottom: 0;
+  }
+
+  /* Upcoming-event bar tighter */
+  .kb-hero .upcoming-event {
+    padding-top: 0.5rem;
+  }
+
+  .kb-hero .upcoming-event .event-content {
+    padding: 0.85rem 0.95rem !important;
+    gap: 0.6rem !important;
+  }
+
+  /* Trim the first below-hero section so it sits closer to the hero */
+  body.index-page .main .featured-programs.section {
+    padding-top: 1.4rem !important;
+  }
+
+  body.index-page .featured-programs .section-title {
+    padding-bottom: 0.85rem !important;
+  }
+
+  body.index-page .featured-programs .section-title h2 {
+    margin-bottom: 0.2rem;
+  }
+
+  body.index-page .featured-programs .section-title p {
+    margin-bottom: 0;
   }
 }
